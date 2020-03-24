@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'hug-at-home-admin';
+  isLoggedIn = true;
+  navigated = true;
+
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,){
+    iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
+    iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));
+    iconRegistry.addSvgIcon('chat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-open.svg'));
+    iconRegistry.addSvgIcon('history', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-history.svg'));
+    iconRegistry.addSvgIcon('next', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-next.svg'));
+    iconRegistry.addSvgIcon('back', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/arrow-back.svg'));
+    iconRegistry.addSvgIcon('stat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-user.svg'));
+    iconRegistry.addSvgIcon('info', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/Icon-info.svg'));
+    iconRegistry.addSvgIcon('phone', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/phone-solid.svg'));
+    iconRegistry.addSvgIcon('camera', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-cameraOn.svg'));
+    iconRegistry.addSvgIcon('mic', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-speak.svg'));
+    iconRegistry.addSvgIcon('hangup', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-hangup.svg'));
+    iconRegistry.addSvgIcon('incoming', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-audio.svg'));
+    iconRegistry.addSvgIcon('cameraOff', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-cameraOff.svg'));
+    iconRegistry.addSvgIcon('logout', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-logout.svg'));
+    iconRegistry.addSvgIcon('attach', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-attachment.svg'));
+    iconRegistry.addSvgIcon('pdf', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/file-pdf-solid.svg'));
+    iconRegistry.addSvgIcon('send', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/paper-plane-solid.svg'));
+    iconRegistry.addSvgIcon('question', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/question-circle-solid.svg'));
+    iconRegistry.addSvgIcon('invite', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-invite.svg'));
+
+  }
 }

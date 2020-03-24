@@ -1,0 +1,102 @@
+<ng-container>
+  <div class="wrap">
+    <div class="container">
+      <div class="at">@ <span>HOME</span></div>
+
+      <p id="saml-login" *ngIf="showSamlLogin">
+        <a [href]="samlLoginUrl" class="redirect-btn" mat-button
+          >Connexion institutionnelle</a
+        >
+      </p>
+
+      <form
+        *ngIf="!localLoginToken && showPasswordLogin"
+        (submit)="loginLocal()"
+        class="example-form"
+        [class.separated]="showSamlLogin"
+      >
+        <h4>Connexion avec un compte local :</h4>
+        <mat-form-field class="example-full-width">
+          <input
+            [(ngModel)]="email"
+            matInput
+            placeholder="Adresse email"
+            [formControl]="emailFormControl"
+            [errorStateMatcher]="matcher"
+          />
+
+          <mat-error
+            *ngIf="
+              emailFormControl.hasError('email') &&
+              !emailFormControl.hasError('required')
+            "
+          >
+            Merci de saisir une adresse e-mail valide
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email <strong>requis</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            [(ngModel)]="password"
+            matInput
+            placeholder="Mot de passe"
+            type="password"
+            [formControl]="passwordFormControl"
+            [errorStateMatcher]="matcher"
+          />
+
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Mot de passe <strong>requis</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <button class="submit-btn" mat-button type="submit">
+          Se connecter
+        </button>
+      </form>
+      <form *ngIf="localLoginToken" (submit)="loginSms()" class="example-form">
+        <h4>Veuillez renseigner le code de vérification reçu par SMS :</h4>
+        <div class="code-input-wrapper">
+          <mat-form-field>
+            <input
+              [(ngModel)]="smsVerificationCode"
+              matInput
+              placeholder="Code de vérification"
+              [formControl]="codeFormControl"
+              [errorStateMatcher]="matcher"
+              name="verificationCode"
+            />
+
+            <mat-error *ngIf="codeFormControl.hasError('required')">
+              Code de vérification <strong>requis</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <button class="submit-btn" mat-button type="submit">
+          Envoyer
+        </button>
+      </form>
+
+      <button
+        *ngIf="localLoginToken"
+        (click)="loginLocal()"
+        class="resend-btn"
+        mat-button
+      >
+        Renvoyer le code
+      </button>
+      <div class="error--loading">
+        <div *ngIf="loading" class="loading">
+          <mat-spinner [diameter]="35"></mat-spinner>
+        </div>
+
+        <div *ngIf="error" class="error">
+          {{ error }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
