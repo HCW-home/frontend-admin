@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   smsVerificationCode;
   user;
 
-  showPasswordLogin: boolean = false;
-  showSamlLogin: boolean = false;
+  showPasswordLogin = false;
+  showSamlLogin = false;
 
   constructor(
     private authService: AuthService,
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('login component ')
 
     // If the user is already logged in, redirect him
     if (this.authService.currentUser) {

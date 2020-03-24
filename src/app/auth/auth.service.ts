@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { SocketEventsService } from '../socket-events.service';
-import { ConsultationService } from '../consultation.service';
+
 import { Router } from '@angular/router';
 import { User } from '../user';
 
@@ -16,7 +15,7 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient,
-    private router: Router) {
+              private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }

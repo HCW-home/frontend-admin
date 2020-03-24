@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { User } from './user';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  isLoggedIn = true;
+export class AppComponent implements OnInit {
+  isLoggedIn = false;
   navigated = true;
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,){
+  currentUser: User;
+
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private authService: AuthService) {
     iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
     iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));
     iconRegistry.addSvgIcon('chat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-open.svg'));
@@ -33,5 +37,11 @@ export class AppComponent {
     iconRegistry.addSvgIcon('question', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/question-circle-solid.svg'));
     iconRegistry.addSvgIcon('invite', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-invite.svg'));
 
+  }
+
+  ngOnInit() {
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 }
