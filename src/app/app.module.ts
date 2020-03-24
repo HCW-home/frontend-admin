@@ -1,3 +1,4 @@
+import { TopNavComponent } from './top-nav/top-nav.component';
 import { ErrorInterceptor } from './auth/error.interceptor';
 import { AuthService } from './auth/auth.service';
 import { JwtInterceptor } from './auth/jwt.interceptor';
@@ -27,7 +28,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, UsersComponent],
+  declarations: [AppComponent,
+     LoginComponent,
+     DashboardComponent,
+     UsersComponent,
+    TopNavComponent,
+    ],
   imports: [
     BrowserModule,
     FormsModule,

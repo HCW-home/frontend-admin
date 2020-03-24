@@ -50,23 +50,7 @@
     ></mat-icon>
   </div>
 
-  <div
-    *ngIf="!showCloseConsBtn"
-    (click)="acceptNextConsultation()"
-    class="next-c-btn"
-    style="flex:4"
-  >
-    Démarrer la consultation suivante
-  </div>
 
-  <div
-    *ngIf="showCloseConsBtn"
-    (click)="showCloseModal()"
-    class="next-c-btn"
-    style="flex:4; background-color: #E3393A;"
-  >
-    Terminer la consultation
-  </div>
 </div>
 
 <div
