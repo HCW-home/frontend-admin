@@ -13,17 +13,16 @@ export class UserService {
     private http: HttpClient
   ) {
 
-    this.find({email: 'aa@bb.cc'}).subscribe(users => {
-      console.log('users ', users);
-    });
 
-   }
+
+  }
 
   findOne(id): Observable<User> {
     return this.http.get<User>(environment.api + `/user/${id}`);
   }
 
   find(criteria = {}): Observable<User[]> {
+    console.log('find users ');
     return this.http.get<User[]>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
   }
 

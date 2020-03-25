@@ -1,4 +1,5 @@
 <ng-container *ngIf="currentUser">
+
   <mat-sidenav-container class="container">
 
 
@@ -17,10 +18,23 @@
           </button>
         </mat-list-item>
 
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/user"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+          <mat-icon svgIcon="dashboard"></mat-icon>
+            <span class="btn-text">Users</span>
+          </button>
+        </mat-list-item>
+
       </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
+      <app-top-nav></app-top-nav>
       <div class="content">
         <router-outlet *ngIf="navigated"></router-outlet>
       </div>

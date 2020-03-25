@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -29,11 +31,11 @@ import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [AppComponent,
-     LoginComponent,
-     DashboardComponent,
-     UsersComponent,
+    LoginComponent,
+    DashboardComponent,
+    UsersComponent,
     TopNavComponent,
-    ],
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -49,6 +51,8 @@ import { UsersComponent } from './users/users.component';
     MatButtonModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule
     // MatFormFieldModule,
     // MatCheckboxModule,
     // MatToolbarModule,
