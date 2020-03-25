@@ -49,7 +49,15 @@ export class AuthService {
       opts = { withCredentials: true };
     }
 
-    return this.http.post<any>(`${environment.api}/login-local`, { email, password }, opts);
+    return this.http.post<any>(`${environment.api}/login-local`, { email, password }, opts).pipe(map(res => {
+      if (res.user && res.user.token) {
+        sessionStorage.setItem('currentUser', JSON.stringify(res.user));
+        this.currentUserSubject.next(res.user);
+        return res.user;
+      } else {
+        return res;
+      }
+    }));
   }
 
   loginSms(smsVerificationCode: string, user: string) {

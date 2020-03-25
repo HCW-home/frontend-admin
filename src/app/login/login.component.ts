@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('login component ')
+    console.log('login component ');
 
     // If the user is already logged in, redirect him
     if (this.authService.currentUser) {
@@ -112,7 +112,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.subscriptions.push(this.authService.loginLocal(this.email, this.password).subscribe(res => {
       this.localLoginToken = res.localLoginToken;
-      this.user = res.user;
+      if (!res.localLoginToken && res.user.token) {
+        this.user = res.user;
+        this.loading = false;
+        return this.router.navigate(['dashboard']);
+      }
       this.loading = false;
 
     }, err => {
