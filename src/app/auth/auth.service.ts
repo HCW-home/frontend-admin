@@ -46,7 +46,7 @@ export class AuthService {
 
     let opts = {};
     if (!environment.production) {
-      opts = { withCredentials: true };
+      opts = { withCredentials: false };
     }
 
     return this.http.post<any>(`${environment.api}/login-local`, { email, password }, opts).pipe(map(res => {
