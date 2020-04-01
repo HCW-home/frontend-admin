@@ -31,10 +31,9 @@
   </table>
 
   <mat-paginator
-    pageSize="5"
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"    
     (page)="pageChange($event)"
-    length="count"
+    [length]="count"
   ></mat-paginator>
 </div>

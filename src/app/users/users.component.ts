@@ -19,29 +19,28 @@ export class UsersComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
+  pageIndex = 0;
+  pageSize = '10';
+  pageSizeOptions = ['5', '10', '20'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getUsers();
-    this.countUsers();
-    this.dataSource.paginator = this.paginator;
+    // this.getUsers();
+    this.getUsersByPage(this.pageSize, this.pageIndex)
+    // this.countUsers();    
   }
 
   getUsers() {
-
     this.loading = true;
     this.subscriptions.push(
       this.userService.find().subscribe(
         (res) => {
           this.users = res.results;
           this.dataSource.data = this.users;
-          // this.dataSource = new MatTableDataSource<User>(this.users);
-
           this.loading = false;
-
         },
         (err) => {
           this.loading = false;
@@ -52,11 +51,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   countUsers() {
-    this.loading = true;
+    // this.loading = true;
     this.subscriptions.push(
       this.userService.find().subscribe(
         (res) => {
           this.count = res.totalCount;
+          console.log('total length', this.count)
           this.loading = false;
 
         },
@@ -74,9 +74,33 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
   }
 
-  pageChange(event: Event) {
+  pageChange(event) {
+    console.log('page changed length', event);
+    console.log('page changed limit', event.pageSize);
+    console.log('page changed skip', event.pageIndex);
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getUsersByPage(this.pageSize, this.pageIndex)
+    
+  }
+  getUsersByPage(limit, skip) {
+    // this.loading = true;
+    this.subscriptions.push(
+      this.userService.getUsersbyPage(limit, skip).subscribe(
+        (res) => {
+          this.count = res.totalCount;
+          this.users = res.results;
+          this.dataSource.data = this.users;          
 
-    console.log('page changed ');
+          this.loading = false;
+
+        },
+        (err) => {
+          this.loading = false;
+          this.error = err;
+        }
+      )
+    );
   }
 }
 
