@@ -15,9 +15,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   loading = false;
   error;
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'role'];
+  displayedColumns: string[] = ['name', 'email', 'role'];
   dataSource = new MatTableDataSource<User>(this.users);
 
+  count = 0;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
@@ -25,6 +26,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getUsers();
+    this.countUsers();
+    this.dataSource.paginator = this.paginator;
   }
 
   getUsers() {
@@ -34,7 +37,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userService.find().subscribe(
         (users) => {
           this.users = users;
-          this.dataSource = new MatTableDataSource<User>(this.users);
+          this.dataSource.data = this.users;
+          // this.dataSource = new MatTableDataSource<User>(this.users);
           console.log('got users ', users);
           this.loading = false;
 
@@ -47,11 +51,32 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
+  countUsers() {
+    this.loading = true;
+    this.subscriptions.push(
+      this.userService.count().subscribe(
+        (res) => {
+          this.count = res.count;
+          this.loading = false;
+
+        },
+        (err) => {
+          this.loading = false;
+          this.error = err;
+        }
+      )
+    );
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
+  }
+
+  pageChange(event: Event) {
+
+    console.log('page changed ');
   }
 }
 

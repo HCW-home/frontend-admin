@@ -26,6 +26,12 @@ export class UserService {
     return this.http.get<User[]>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
   }
 
+
+  count(criteria = {}): Observable<any> {
+
+    return this.http.get(environment.api + `/user/count?where=${JSON.stringify(criteria)}`);
+  }
+
   create(user: User): Observable<User> {
     return this.http.post<User>(environment.api + '/user', user);
   }

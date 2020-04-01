@@ -1,5 +1,4 @@
-<p>users works!</p>
-
+<h2>Users</h2>
 <mat-spinner *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
@@ -10,15 +9,15 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef>first name</th>
-      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email || 'Unknown' }}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef>last name</th>
-      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName + ' ' + element.lastName }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -31,5 +30,11 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator
+    pageSize="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    (page)="pageChange($event)"
+    length="count"
+  ></mat-paginator>
 </div>
