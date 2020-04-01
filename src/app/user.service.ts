@@ -1,3 +1,4 @@
+import { ResourcesResponse } from './types/resourcesResponse';
 import { environment } from './../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from './types/user';
@@ -21,16 +22,12 @@ export class UserService {
     return this.http.get<User>(environment.api + `/user/${id}`);
   }
 
-  find(criteria = {}): Observable<User[]> {
+  find(criteria = {}): Observable<ResourcesResponse<User>> {
     console.log('find users ');
-    return this.http.get<User[]>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
+    return this.http.get<ResourcesResponse<User>>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
   }
 
 
-  count(criteria = {}): Observable<any> {
-
-    return this.http.get(environment.api + `/user/count?where=${JSON.stringify(criteria)}`);
-  }
 
   create(user: User): Observable<User> {
     return this.http.post<User>(environment.api + '/user', user);

@@ -1,3 +1,4 @@
+import { WithCredentialsInterceptor } from './auth/with-credentials.interceptor';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { ErrorInterceptor } from './auth/error.interceptor';
 import { AuthService } from './auth/auth.service';
@@ -72,6 +73,11 @@ import { UsersComponent } from './users/users.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
       multi: true
     },
   ],

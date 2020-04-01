@@ -35,11 +35,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.subscriptions.push(
       this.userService.find().subscribe(
-        (users) => {
-          this.users = users;
+        (res) => {
+          this.users = res.results;
           this.dataSource.data = this.users;
           // this.dataSource = new MatTableDataSource<User>(this.users);
-          console.log('got users ', users);
+
           this.loading = false;
 
         },
@@ -54,9 +54,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   countUsers() {
     this.loading = true;
     this.subscriptions.push(
-      this.userService.count().subscribe(
+      this.userService.find().subscribe(
         (res) => {
-          this.count = res.count;
+          this.count = res.totalCount;
           this.loading = false;
 
         },

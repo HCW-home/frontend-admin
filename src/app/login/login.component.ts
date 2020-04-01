@@ -108,12 +108,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // When the user submits the local form
   loginLocal() {
-    console.log('submit', this.email, this.password);
     this.loading = true;
     this.subscriptions.push(this.authService.loginLocal(this.email, this.password).subscribe(res => {
       this.localLoginToken = res.localLoginToken;
-      if (!res.localLoginToken && res.user.token) {
-        this.user = res.user;
+      if (!res.localLoginToken && (res.user || res.token)) {
+        this.user = res.user || res;
         this.loading = false;
         return this.router.navigate(['dashboard']);
       }

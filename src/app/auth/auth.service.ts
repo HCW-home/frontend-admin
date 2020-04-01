@@ -44,12 +44,7 @@ export class AuthService {
 
   loginLocal(email, password) {
 
-    let opts = {};
-    if (!environment.production) {
-      opts = { withCredentials: false };
-    }
-
-    return this.http.post<any>(`${environment.api}/login-local`, { email, password }, opts).pipe(map(res => {
+    return this.http.post<any>(`${environment.api}/login-local`, { email, password }).pipe(map(res => {
       if (res.user && res.user.token) {
         sessionStorage.setItem('currentUser', JSON.stringify(res.user));
         this.currentUserSubject.next(res.user);
