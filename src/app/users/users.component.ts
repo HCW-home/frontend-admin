@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { UserService } from './../user.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { User } from '../user';
+import { User } from '../types/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 @Component({

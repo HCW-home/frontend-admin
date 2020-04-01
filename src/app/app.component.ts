@@ -2,7 +2,7 @@ import { AuthService } from './auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { User } from './user';
+import { User } from './types/user';
 
 @Component({
   selector: 'app-root',

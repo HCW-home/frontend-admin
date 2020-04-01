@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 import { Router } from '@angular/router';
-import { User } from '../user';
+import { User } from '../types/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient,
-              private router: Router) {
+    private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
