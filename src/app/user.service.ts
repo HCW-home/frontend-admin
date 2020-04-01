@@ -1,6 +1,6 @@
 import { environment } from './../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { User } from './user';
+import { User } from './shared/user';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
