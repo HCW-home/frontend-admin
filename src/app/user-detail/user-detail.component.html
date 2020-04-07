@@ -1,0 +1,6 @@
+<h2>Editer utilisateur</h2>
+
+<div *ngIf="user">
+    <app-user-form [user]="user" (change)="updateUser()" ></app-user-form>
+</div>
+

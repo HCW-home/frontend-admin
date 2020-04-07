@@ -1,5 +1,24 @@
-<h2>Users</h2>
+<h2>
+  Users <button mat-raised-button color="primary" [routerLink]="['/new-user']">Ajouter un nouvel utilisateur</button>
+</h2>
+
 <mat-spinner *ngIf="loading"></mat-spinner>
+
+<div class="field-container">
+  <mat-form-field>
+    <mat-label>Filtrer par role</mat-label>
+    <select matNativeControl (change)="filterByRole($event.target.value)">
+      <option value="">None</option>
+      <option value="doctor">Doctor</option>
+      <option value="admin">Admin</option>
+      <option value="patient">Patient</option>
+    </select>
+  </mat-form-field>
+  <mat-form-field style="margin-left: 10px;">
+    <mat-label>Chercher</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nom, Prénom, email..." />
+  </mat-form-field>
+</div>
 <div *ngIf="!loading" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
@@ -27,13 +46,19 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="['/user', row.id]"
+      (click)="selectUser(row)"
+    ></tr>
   </table>
 
   <mat-paginator
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"    
+    pageSize="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
     (page)="pageChange($event)"
-    [length]="count"
+    length="count"
   ></mat-paginator>
 </div>
