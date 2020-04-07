@@ -12,5 +12,6 @@ export interface User {
   authPhoneNumber?: string;
   phoneNumber?: string;
   token?: string;
+  gender?: string;
 }
 

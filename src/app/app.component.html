@@ -25,11 +25,22 @@
             class="menu-btn"
             mat-button
           >
-          <mat-icon svgIcon="dashboard"></mat-icon>
+          <mat-icon >supervised_user_circle</mat-icon>
             <span class="btn-text">Users</span>
           </button>
         </mat-list-item>
 
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/queue"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+          <mat-icon svgIcon="queue"></mat-icon>
+            <span class="btn-text">Files d'attente</span>
+          </button>
+        </mat-list-item>
       </mat-list>
     </mat-sidenav>
 

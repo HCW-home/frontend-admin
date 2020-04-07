@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { User } from '../types/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -22,9 +23,11 @@ export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private router: Router) { }
 
   ngOnInit(): void {
+
     this.getUsers();
     this.countUsers();
     this.dataSource.paginator = this.paginator;
@@ -49,6 +52,26 @@ export class UsersComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  filterByRole(role){
+    console.log(role)
+    if(role){
+      this.dataSource.data = this.users.filter(user=>user.role==role);
+
+    }
+    else{
+      this.dataSource.data = this.users;
+    }
+  }
+
+  selectUser(user) {
+    console.log(user);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   countUsers() {

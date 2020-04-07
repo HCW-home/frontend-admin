@@ -1,0 +1,46 @@
+<h2>Files d'attente <mat-form-field  style="margin-left: 10px; font-size: 15px; width: 250px;">
+        <mat-label>Nouvelle file d'attente</mat-label>
+        <input matInput placeholder="Nom de la file d'attente" [(ngModel)]="newQueueName">
+    </mat-form-field>
+    <button (click)="createQueue()" mat-button>
+        <mat-icon style="color: green;">add_box</mat-icon>
+    </button>
+</h2>
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div class="field-container">
+
+    <mat-form-field style="margin-left: 10px;">
+        <mat-label>Chercher</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Chercher par nom">
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+
+    <table mat-table [dataSource]="dataSource">
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-row *matHeaderCellDef></th> 
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <button (click)="openDialog('Update',element)" mat-button>
+                    <mat-icon style="color:#2871BD">edit</mat-icon>
+                </button>
+                <button (click)="deleteQueue(element)" mat-button>
+                    <mat-icon style="color: red;">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-row *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectQueue(row)"></tr>
+    </table>
+
+    <mat-paginator #scheduledOrdersPaginator pageSize="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"
+        length="count"></mat-paginator>
+</div>

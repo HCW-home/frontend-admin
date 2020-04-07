@@ -1,0 +1,23 @@
+<p>user-form works!</p>
+
+<div>
+    <div class="field-container">
+        <mat-form-field style="margin-left: 10px;">
+            <mat-label>Prénom</mat-label>
+            <input matInput [(ngModel)]="user.firstName" placeholder="Prénom de l'utilisateur">
+        </mat-form-field>
+        <mat-form-field style="margin-left: 10px;">
+            <mat-label>Nom</mat-label>
+            <input required [(ngModel)]="user.lastName" matInput placeholder="Nom de l'utilisateur">
+        </mat-form-field>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()" type="button">
+        Annuler
+    </button>
+    <button [disabled]="loading"  color="primary" (click)="updateUser()" mat-button>
+        Enregistrer
+    </button>
+</div>
