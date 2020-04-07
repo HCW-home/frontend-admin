@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 
 import { Router } from '@angular/router';
 import { User } from '../types/user';
+import { version } from '../../../package.json';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
 
   loginLocal(email, password) {
 
-    return this.http.post<any>(`${environment.api}/login-local`, { email, password }).pipe(map(res => {
+    return this.http.post<any>(`${environment.api}/login-local`, { email, password, _version: version }).pipe(map(res => {
       if (res.user && res.user.token) {
         sessionStorage.setItem('currentUser', JSON.stringify(res.user));
         this.currentUserSubject.next(res.user);
