@@ -13,5 +13,7 @@ export interface User {
   phoneNumber?: string;
   token?: string;
   gender?: string;
+  department?: string;
+  _function?: string;
 }
 

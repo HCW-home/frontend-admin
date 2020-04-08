@@ -19,7 +19,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Nom, Prénom, email..." />
   </mat-form-field>
 </div>
-<div *ngIf="!loading" class="mat-elevation-z8">
+<div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
     <ng-container matColumnDef="position">

@@ -1,23 +1,116 @@
-<p>user-form works!</p>
+<form *ngIf="myForm" class="invite-form" [formGroup]="myForm"   (submit)="onSubmit()">
 
-<div>
     <div class="field-container">
-        <mat-form-field style="margin-left: 10px;">
-            <mat-label>Prénom</mat-label>
-            <input matInput [(ngModel)]="user.firstName" placeholder="Prénom de l'utilisateur">
+        <mat-form-field>
+            <mat-label class="label">Role</mat-label>
+            <mat-select formControlName="roleFormControl" required [(ngModel)]="user.role"
+                [errorStateMatcher]="matcher">
+                <mat-option>--</mat-option>
+                <mat-option value="doctor">Docteur</mat-option>
+                <mat-option value="nurse">Infirmière</mat-option>
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="patient">Patient</mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="myForm.controls.roleFormControl.hasError('required')">Veuillez choisir un role
+            </mat-error>
         </mat-form-field>
-        <mat-form-field style="margin-left: 10px;">
-            <mat-label>Nom</mat-label>
-            <input required [(ngModel)]="user.lastName" matInput placeholder="Nom de l'utilisateur">
+        <mat-form-field *ngIf="user.role == 'patient'">
+            <mat-label class="label">Sexe</mat-label>
+            <mat-select
+              formControlName="genderFormControl"
+              required
+              [(ngModel)]="user.gender"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option>--</mat-option>
+              <mat-option value="male">Masculin</mat-option>
+              <mat-option value="female">Féminin</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="myForm.controls.genderFormControl.hasError('required')"
+              >Veuillez choisir le sexe</mat-error
+            >
+          </mat-form-field>
+    </div>
+
+    <div class="field-container">
+        <mat-form-field>
+            <mat-label class="label">Prénom</mat-label>
+            <input [(ngModel)]="user.firstName" matInput placeholder="Enter patient first name"
+                formControlName="firstNameFormControl" [errorStateMatcher]="matcher" required />
+
+            <mat-error *ngIf="myForm.controls.firstNameFormControl.hasError('required')">
+                Le prénom est <strong>Requis</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label class="label">Nom de famille</mat-label>
+            <input [(ngModel)]="user.lastName" matInput placeholder="Enter patient last name"
+                formControlName="lastNameFormControl" [errorStateMatcher]="matcher" required />
+
+            <mat-error *ngIf="myForm.controls.lastNameFormControl.hasError('required')">
+                Le nom de famille est <strong>Requis</strong>
+            </mat-error>
         </mat-form-field>
     </div>
-</div>
+    <div class="field-container">
+        <mat-form-field>
+            <mat-label class="label">Email</mat-label>
+            <input [(ngModel)]="user.email" matInput placeholder="Email" formControlName="emailFormControl"
+                [errorStateMatcher]="matcher" />
 
-<div mat-dialog-actions>
-    <button mat-button (click)="cancel()" type="button">
-        Annuler
-    </button>
-    <button [disabled]="loading"  color="primary" (click)="updateUser()" mat-button>
-        Enregistrer
-    </button>
-</div>
+            <mat-error *ngIf="myForm.controls.emailFormControl.hasError('email')">
+                Merci de saisir une adresse e-mail valide
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label class="label">Numéro de mobile</mat-label>
+            <input [(ngModel)]="user.phoneNumber" matInput placeholder="+4179..."
+                formControlName="phoneNumberFormControl" [errorStateMatcher]="matcher" name="phoneNumber" />
+
+            <mat-error *ngIf="myForm.controls.phoneNumberFormControl.hasError('pattern')">
+                Veuillez saisir le numéro de téléphone au format +41XX...
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div *ngIf="user.role=='doctor'">
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label class="label">Département</mat-label>
+                <input [(ngModel)]="user.department" matInput placeholder="Département"
+                    formControlName="departmentFormControl" [errorStateMatcher]="matcher" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label class="label">Fonction</mat-label>
+                <input [(ngModel)]="user._function" matInput placeholder="Fonction" formControlName="functionFormControl"
+                    [errorStateMatcher]="matcher" name="_function" />
+            </mat-form-field>
+        </div>
+        <div class="field-container">
+            <mat-checkbox formControlName="viewAllQueuesFormControl" [(ngModel)]="user.viewAllQueues"> Peut-il voir
+                toutes les files d'attente ?</mat-checkbox>
+        </div>
+    </div>
+    <div *ngIf="user.role=='doctor' || user.role=='admin'">
+        <div class="field-container" style="margin-top: 10px;">
+            <mat-form-field>
+                <mat-label class="label">Numéro de tel pour auth</mat-label>
+                <input [(ngModel)]="user.authPhoneNumber" matInput placeholder="+4179..."
+                    formControlName="authPhoneNumberFormControl" [errorStateMatcher]="matcher" />
+                    <mat-error *ngIf="myForm.controls.authPhoneNumberFormControl.hasError('pattern')">
+                        Veuillez saisir le numéro de téléphone au format +41XX...
+                    </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancel()" type="button">
+            Annuler
+        </button>
+        <button class="btn__send" [disabled]="loading" type="submit" mat-button>
+            Envoyer
+        </button>
+    </div>
+</form>

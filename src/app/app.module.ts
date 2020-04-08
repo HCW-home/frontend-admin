@@ -37,6 +37,7 @@ import { UserNewComponent } from './user-new/user-new.component';
 import { QueuesComponent } from './queues/queues.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [AppComponent,
@@ -69,8 +70,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginatorModule,
     MatSelectModule,
     MatDialogModule,
+    MatCheckboxModule,
+
     // MatFormFieldModule,
-    // MatCheckboxModule,
     // MatToolbarModule,
     // ReactiveFormsModule,
     // MatGridListModule,

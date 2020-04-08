@@ -41,7 +41,10 @@ export class UserDetailComponent implements OnInit {
   updateUser() {
     console.log("userDetail", this.user)
     this.userService.update(this.userId, this.user).subscribe(
-      (res) => console.log(res),
+      (res) => {
+        console.log(res);
+        this.location.back();
+      },
       (err) => console.log(err));
   }
 }
