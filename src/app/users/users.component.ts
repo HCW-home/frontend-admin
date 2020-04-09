@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   loading = false;
   error;
 
-  displayedColumns: string[] = ['name', 'email', 'role'];
+  displayedColumns: string[] = ['name', 'email', 'role','action'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
@@ -64,7 +64,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   selectUser(user) {
-    console.log(user);
+    this.router.navigate(["/user",user.id]);
   }
 
   applyFilter(event: Event) {
@@ -103,6 +103,17 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getUsersByPage(this.pageSize, this.pageIndex);
+
+  }
+  deleteUser(user) {
+    if (confirm("Etes-vous sûr de vouloir supprimer cet utilisateur?")) {
+      this.userService.delete(user).subscribe(res => {
+        this.getUsers();
+      },
+        err => {
+          this.error = err;
+        });
+    }
 
   }
   getUsersByPage(limit, skip) {
