@@ -1,0 +1,65 @@
+@import "../../variables.scss";
+
+.phone-num {
+    display: flex;
+  }
+  .country-code {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+  }
+  .phone-num-field {
+    padding-top: 4px;
+  }
+  
+  .label {
+    color: black !important;
+  }
+  
+  .field-container {
+    mat-form-field {
+      margin-right: 10px;
+    }
+  
+    // ::ng-deep .mat-input-wrapper {
+    //   width: 180px !important;
+    // }
+    // ::ng-deep .mat-form-field-infix {
+    //   width: 180px !important;
+    // }
+  
+    ::ng-deep .mat-form-field-label {
+      left: 0 !important;
+    }
+  }
+  .invite-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* flex-grow: 1; */
+    height: 100%;
+    div:last-child {
+      margin-top: auto;
+    }
+  }
+  .dialog-title {
+    display: block !important;
+  }
+  .error {
+    margin-top: 28px;
+    color: rgb(255, 45, 45);
+    text-align: center;
+  }
+  .dialog-content {
+    height: 100%;
+    // display: flex;
+    // flex-direction: column;
+  }
+  .btn__send {
+    margin-left: 10px;
+    background-color: $primary-color;
+    color: #ffffff;
+  }
+  .mat-form-field-disabled .label {
+    color: #bbb !important;
+  }

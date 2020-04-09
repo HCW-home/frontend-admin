@@ -19,7 +19,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Nom, Prénom, email..." />
   </mat-form-field>
 </div>
-<div *ngIf="!loading" class="mat-elevation-z8">
+<div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
@@ -45,12 +45,21 @@
       <td mat-cell *matCellDef="let element">{{ element.role }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef style="width:130px;">Action</th> 
+      <td mat-cell *matCellDef="let element">
+          <button (click)="selectUser(element)" mat-button>
+              <mat-icon style="color:#2871BD">edit</mat-icon>
+          </button>
+          <button (click)="deleteUser(element)" mat-button>
+              <mat-icon style="color: red;">delete</mat-icon>
+          </button>
+      </td>
+  </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      [routerLink]="['/user', row.id]"
-      (click)="selectUser(row)"
     ></tr>
   </table>
 

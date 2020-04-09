@@ -40,7 +40,9 @@ export class UserService {
   update(id, newFields) {
     return this.http.patch(environment.api + `/user/${id}`, newFields);
   }
-
+  delete(user : User){
+    return this.http.delete(environment.api + `/user/${user.id}`);
+  }
   addDoctorToQueue(id, queues: []) {
 
   }

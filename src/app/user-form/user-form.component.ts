@@ -53,11 +53,18 @@ export class UserFormComponent implements OnInit {
   createFormGroup() {
 
     this.myForm = this.formBuilder.group({
-      emailFormControl: new FormControl('', [Validators.email]),
-      phoneNumberFormControl: new FormControl('', [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
-      firstNameFormControl: new FormControl('', [Validators.required]),
-      lastNameFormControl: new FormControl('', [Validators.required]),
-      genderFormControl: new FormControl(false),
+      emailFormControl: new FormControl(this.user.email, [Validators.email]),
+      phoneNumberFormControl: new FormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      firstNameFormControl: new FormControl(this.user.firstName, [Validators.required]),
+      lastNameFormControl: new FormControl(this.user.lastName, [Validators.required]),
+      roleFormControl: new FormControl(this.user.role, [Validators.required]),
+      functionFormControl: new FormControl(this.user._function),
+      departmentFormControl: new FormControl(this.user.department),
+      viewAllQueuesFormControl: new FormControl(this.user.viewAllQueues),
+      authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber,[Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      genderFormControl: new FormControl(this.user.gender),
+
+     // genderFormControl: new FormControl(false),
 
       // our custom validator
     }, {});
@@ -68,7 +75,7 @@ export class UserFormComponent implements OnInit {
     this.location.back();
   }
 
-  updateUser(){
+  onSubmit(){
     this.change.emit(this.user);
   }
 }

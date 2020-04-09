@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-new',
@@ -7,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserNewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
     console.log("init new user")
   }
+
+  createUser(user) {
+    console.log("userDetail", user);
+    this.userService.create(user).subscribe(
+      (res) => {
+        console.log(res);
+        this.location.back();
+      },
+      (err) => console.log(err));
+  }
+
 
 }
