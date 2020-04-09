@@ -27,8 +27,8 @@ export class UserService {
     return this.http.get<ResourcesResponse<User>>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
   }
 
-  getUsersbyPage(limit, skip): Observable<ResourcesResponse<User>> {
-    return this.http.get<ResourcesResponse<User>>(environment.api + `/user?limit=${limit}&` + `skip=${skip}` );
+  getUsersByPage(limit, skip): Observable<ResourcesResponse<User>> {
+    return this.http.get<ResourcesResponse<User>>(environment.api + `/user?limit=${limit}&` + `skip=${skip}`);
   }
 
 

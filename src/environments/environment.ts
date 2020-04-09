@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://dev-medecin-hug-at-home.oniabsis.com/api/v1'
+  api: 'http://localhost:1337/api/v1'
 };
 
 /*

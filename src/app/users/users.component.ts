@@ -108,7 +108,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   getUsersByPage(limit, skip) {
     // this.loading = true;
     this.subscriptions.push(
-      this.userService.getUsersbyPage(limit, skip).subscribe(
+      this.userService.getUsersByPage(limit, skip).subscribe(
         (res) => {
           this.count = res.totalCount;
           this.users = res.results;
