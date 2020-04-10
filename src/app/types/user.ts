@@ -2,7 +2,9 @@ import { Role } from './role';
 
 enum LoginType {
   'saml' = 'saml',
-  'local' = 'local'
+  'local' = 'local',
+  'sslcert' = 'sslcert',
+  'invite' = 'invite'
 }
 
 export interface User {
