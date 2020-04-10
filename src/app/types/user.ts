@@ -1,4 +1,10 @@
 import { Role } from './role';
+
+enum LoginType {
+  'saml' = 'saml',
+  'local' = 'local'
+}
+
 export interface User {
   id?: string;
   role: Role;
@@ -15,5 +21,5 @@ export interface User {
   gender?: string;
   department?: string;
   _function?: string;
+  lastLoginType: LoginType;
 }
-
