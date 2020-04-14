@@ -1,0 +1,25 @@
+.flex-table {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: flex-start;
+    align-content: center;
+    h3{
+        font-weight: bold;
+    }
+    .flex-row{
+        width: 40%;
+        mat-list-item{
+            padding-left: 10px;
+        }
+        border: grey 1px;
+        border-style: solid;
+        padding: 20px;
+    }
+    .small{
+        border-style: none;
+        text-align: center;
+        width: 10% !important;
+    }
+}

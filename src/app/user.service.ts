@@ -40,11 +40,20 @@ export class UserService {
   update(id, newFields) {
     return this.http.patch(environment.api + `/user/${id}`, newFields);
   }
-  delete(user : User){
+  delete(user: User) {
     return this.http.delete(environment.api + `/user/${user.id}`);
   }
-  addDoctorToQueue(id, queues: []) {
+
+  addDoctorToQueue(id, queues: any[]) {
+    let body = {queue:queues};
+    return this.http.post(environment.api +  `/user/${id}/allowed-queues `, body);
 
   }
-
+  removeDoctorToQueue(id, queues: any[]) {
+    return this.http.request('delete',environment.api + `/user/${id}/allowed-queues`, { body: { queue:queues} });
+  }
+  //retrive queues by userId
+  getUserQueuesById(userId) {
+    return this.http.get(environment.api + `/user/${userId}/allowed-queues`);
+  }
 }
