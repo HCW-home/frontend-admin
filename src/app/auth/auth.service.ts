@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -47,6 +47,9 @@ export class AuthService {
 
     return this.http.post<any>(`${environment.api}/login-local`, { email, password, _version: version }).pipe(map(res => {
       if (res.user && res.user.token) {
+        if (res.user.role && res.user.role != 'admin') {
+          return res.user;
+        }
         sessionStorage.setItem('currentUser', JSON.stringify(res.user));
         this.currentUserSubject.next(res.user);
         return res.user;

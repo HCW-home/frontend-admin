@@ -110,16 +110,24 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginLocal() {
     this.loading = true;
     this.subscriptions.push(this.authService.loginLocal(this.email, this.password).subscribe(res => {
-      this.localLoginToken = res.localLoginToken;
-      if (!res.localLoginToken && (res.user || res.token)) {
-        this.user = res.user || res;
-        this.loading = false;
-        return this.router.navigate(['dashboard']);
-      }
+      console.log(res);
       this.loading = false;
 
+      if (res.role && res.role != 'admin') {
+        this.error = "Vous devez être admin pour vous connecter";
+        return;
+      }
+
+      this.localLoginToken = res.localLoginToken;
+
+      if (!res.localLoginToken && (res.user || res.token)) {
+        this.user = res.user || res;
+        return this.router.navigate(['dashboard']);
+      }
+
     }, err => {
-      this.loading = false;
+      console.log("err", err),
+        this.loading = false;
       this.error = err;
     }));
   }
