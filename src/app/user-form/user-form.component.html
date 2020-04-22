@@ -1,7 +1,7 @@
-<form *ngIf="myForm" class="invite-form" [formGroup]="myForm"   (submit)="onSubmit()">
+<form *ngIf="myForm" class="invite-form" [formGroup]="myForm" (submit)="onSubmit()">
 
     <div class="field-container">
-        <mat-form-field>
+        <!-- useful if manage multiple role mat-form-field>
             <mat-label class="label">Role</mat-label>
             <mat-select formControlName="roleFormControl" required [(ngModel)]="user.role"
                 [errorStateMatcher]="matcher">
@@ -14,24 +14,18 @@
             </mat-select>
             <mat-error *ngIf="myForm.controls.roleFormControl.hasError('required')">Veuillez choisir un role
             </mat-error>
-        </mat-form-field>
+        </mat-form-field-->
         <mat-form-field *ngIf="user.role == 'patient'">
             <mat-label class="label">Sexe</mat-label>
-            <mat-select
-              formControlName="genderFormControl"
-              required
-              [(ngModel)]="user.gender"
-              [errorStateMatcher]="matcher"
-            >
-              <mat-option>--</mat-option>
-              <mat-option value="male">Masculin</mat-option>
-              <mat-option value="female">Féminin</mat-option>
+            <mat-select formControlName="genderFormControl" required [(ngModel)]="user.gender"
+                [errorStateMatcher]="matcher">
+                <mat-option>--</mat-option>
+                <mat-option value="male">Masculin</mat-option>
+                <mat-option value="female">Féminin</mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="myForm.controls.genderFormControl.hasError('required')"
-              >Veuillez choisir le sexe</mat-error
-            >
-          </mat-form-field>
+            <mat-error *ngIf="myForm.controls.genderFormControl.hasError('required')">Veuillez choisir le sexe
+            </mat-error>
+        </mat-form-field>
     </div>
 
     <div class="field-container">
@@ -84,8 +78,8 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label class="label">Fonction</mat-label>
-                <input [(ngModel)]="user._function" matInput placeholder="Fonction" formControlName="functionFormControl"
-                    [errorStateMatcher]="matcher" name="_function" />
+                <input [(ngModel)]="user._function" matInput placeholder="Fonction"
+                    formControlName="functionFormControl" [errorStateMatcher]="matcher" name="_function" />
             </mat-form-field>
         </div>
         <div class="field-container">
@@ -99,9 +93,9 @@
                 <mat-label class="label">Numéro de tel pour auth</mat-label>
                 <input [(ngModel)]="user.authPhoneNumber" matInput placeholder="+4179..."
                     formControlName="authPhoneNumberFormControl" [errorStateMatcher]="matcher" />
-                    <mat-error *ngIf="myForm.controls.authPhoneNumberFormControl.hasError('pattern')">
-                        Veuillez saisir le numéro de téléphone au format +41XX...
-                    </mat-error>
+                <mat-error *ngIf="myForm.controls.authPhoneNumberFormControl.hasError('pattern')">
+                    Veuillez saisir le numéro de téléphone au format +41XX...
+                </mat-error>
             </mat-form-field>
         </div>
     </div>

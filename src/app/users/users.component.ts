@@ -16,32 +16,34 @@ export class UsersComponent implements OnInit, OnDestroy {
   loading = false;
   error;
 
-  displayedColumns: string[] = ['name', 'email', 'role','action'];
+  displayedColumns: string[] = ['name', 'email', 'role', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
   pageIndex = 0;
-  pageSize = '10';
-  pageSizeOptions = ['5', '10', '20'];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  pageSize = "10";
+  pageSizeOptions = ['10', '50', '100'];
+  @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
 
 
   constructor(private userService: UserService,
     private router: Router) { }
 
   ngOnInit(): void {
-
-    this.getUsers();
-    this.countUsers();
+    this.getDoctors();
+    /* this.countUsers();*/
     this.dataSource.paginator = this.paginator;
+    //this.getUsersByPage(this.pageSize, this.pageIndex);
+
   }
 
-  getUsers() {
+  getDoctors() {
     this.loading = true;
     this.subscriptions.push(
-      this.userService.find().subscribe(
+      this.userService.find({ role: "doctor" }).subscribe(
         (res) => {
           this.users = res.results;
+          this.count = res.totalCount;
           this.dataSource.data = this.users;
           this.loading = false;
         },
@@ -53,7 +55,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
-  filterByRole(role) {
+  /* useful if multiple role managed filterByRole(role) {
     console.log(role);
     if (role) {
       this.dataSource.data = this.users.filter(user => user.role == role);
@@ -61,10 +63,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     } else {
       this.dataSource.data = this.users;
     }
-  }
+  }*/
 
   selectUser(user) {
-    this.router.navigate(["/user",user.id]);
+    this.router.navigate(["/user", user.id]);
   }
 
   applyFilter(event: Event) {
@@ -97,18 +99,18 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   pageChange(event) {
-    console.log('page changed length', event);
-    console.log('page changed limit', event.pageSize);
-    console.log('page changed skip', event.pageIndex);
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
-    this.getUsersByPage(this.pageSize, this.pageIndex);
+    /* useful for dynamic pagination console.log('page changed length', event);
+     console.log('page changed limit', event.pageSize);
+     console.log('page changed skip', event.pageIndex);
+     this.pageSize = event.pageSize;
+     this.pageIndex = event.pageIndex;
+     this.getUsersByPage(this.pageSize, this.pageIndex);*/
 
   }
   deleteUser(user) {
     if (confirm("Etes-vous sûr de vouloir supprimer cet utilisateur?")) {
       this.userService.delete(user).subscribe(res => {
-        this.getUsers();
+        this.getDoctors();
       },
         err => {
           this.error = err;
@@ -116,24 +118,25 @@ export class UsersComponent implements OnInit, OnDestroy {
     }
 
   }
-  getUsersByPage(limit, skip) {
-    // this.loading = true;
-    this.subscriptions.push(
-      this.userService.getUsersByPage(limit, skip).subscribe(
-        (res) => {
-          this.count = res.totalCount;
-          this.users = res.results;
-          this.dataSource.data = this.users;
+  /* useful for dynamic pagination getUsersByPage(limit, skip) {
+// this.loading = true;
+this.subscriptions.push(
+  this.userService.getUsersByPage(limit, skip).subscribe(
+    (res) => {
+      console.log("getUsersByPage totalcount", res.totalCount)
+      this.count = res.totalCount;
+      this.users = res.results;
+      this.dataSource.data = this.users;
 
-          this.loading = false;
+      this.loading = false;
 
-        },
-        (err) => {
-          this.loading = false;
-          this.error = err;
-        }
-      )
-    );
-  }
+    },
+    (err) => {
+      this.loading = false;
+      this.error = err;
+    }
+  )
+);
+}*/
 }
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Role } from '../types/role';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -19,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserFormComponent implements OnInit {
   @Input() user: User;
-  @Output() change : EventEmitter<User> = new EventEmitter<User>();;
+  @Output() change: EventEmitter<User> = new EventEmitter<User>();;
 
   myForm;
   matcher = new MyErrorStateMatcher();
@@ -27,9 +28,9 @@ export class UserFormComponent implements OnInit {
   error = '';
   constructor(private formBuilder: FormBuilder,
     private location: Location,
-    private router:Router
+    private router: Router
 
-  ) { 
+  ) {
 
   }
 
@@ -51,20 +52,20 @@ export class UserFormComponent implements OnInit {
   }
 
   createFormGroup() {
-
+    this.user.role = Role.doctor;
     this.myForm = this.formBuilder.group({
       emailFormControl: new FormControl(this.user.email, [Validators.email]),
       phoneNumberFormControl: new FormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       firstNameFormControl: new FormControl(this.user.firstName, [Validators.required]),
       lastNameFormControl: new FormControl(this.user.lastName, [Validators.required]),
-      roleFormControl: new FormControl(this.user.role, [Validators.required]),
+      //roleFormControl: new FormControl(this.user.role, [Validators.required]),
       functionFormControl: new FormControl(this.user._function),
       departmentFormControl: new FormControl(this.user.department),
       viewAllQueuesFormControl: new FormControl(this.user.viewAllQueues),
-      authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber,[Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       genderFormControl: new FormControl(this.user.gender),
 
-     // genderFormControl: new FormControl(false),
+      // genderFormControl: new FormControl(false),
 
       // our custom validator
     }, {});
@@ -75,7 +76,7 @@ export class UserFormComponent implements OnInit {
     this.location.back();
   }
 
-  onSubmit(){
+  onSubmit() {
     this.change.emit(this.user);
   }
 }
