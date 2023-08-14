@@ -6,32 +6,27 @@ import { environment } from './../environments/environment';
 import { ResourcesResponse } from './types/resourcesResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QueueService {
-
-  constructor(
-    private http: HttpClient
-  ) { }
-
+  constructor(private http: HttpClient) {}
 
   findOne(id): Observable<Queue> {
     return this.http.get<Queue>(environment.api + `/queue/${id}`);
   }
 
-  find(): Observable<ResourcesResponse<Queue>> {
-    return this.http.get<ResourcesResponse<Queue>>(environment.api + `/queue`);
+  find(): Observable<Queue[]> {
+    return this.http.get<Queue[]>(environment.api + `/queue`);
   }
-
 
   create(queue: Queue): Observable<Queue> {
     return this.http.post<Queue>(environment.api + '/queue', queue);
   }
 
   updateQueue(id, name) {
-    return this.http.patch(environment.api + `/queue/${id}`, {name:name});
+    return this.http.patch(environment.api + `/queue/${id}`, { name: name });
   }
-  delete(queue : Queue){
+  delete(queue: Queue) {
     return this.http.delete(environment.api + `/queue/${queue.id}`);
   }
 }

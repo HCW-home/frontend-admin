@@ -6,32 +6,23 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(
-    private http: HttpClient
-  ) {
-
-
-
-  }
+  constructor(private http: HttpClient) {}
 
   findOne(id): Observable<User> {
     return this.http.get<User>(environment.api + `/user/${id}`);
   }
 
-  find(criteria = {}): Observable<ResourcesResponse<User>> {
+  find(criteria = {}): Observable<User[]> {
     console.log('find users ');
-    return this.http.get<ResourcesResponse<User>>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
+    return this.http.get<User[]>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
   }
 
   getUsersByPage(limit, skip): Observable<ResourcesResponse<User>> {
     return this.http.get<ResourcesResponse<User>>(environment.api + `/user?limit=${limit}&` + `skip=${skip}`);
   }
-
-
 
   create(user: User): Observable<User> {
     return this.http.post<User>(environment.api + '/user', user);
@@ -45,12 +36,11 @@ export class UserService {
   }
 
   addDoctorToQueue(id, queues: any[]) {
-    let body = {queue:queues};
-    return this.http.post(environment.api +  `/user/${id}/allowed-queues `, body);
-
+    let body = { queue: queues };
+    return this.http.post(environment.api + `/user/${id}/allowed-queues `, body);
   }
   removeDoctorToQueue(id, queues: any[]) {
-    return this.http.request('delete',environment.api + `/user/${id}/allowed-queues`, { body: { queue:queues} });
+    return this.http.request('delete', environment.api + `/user/${id}/allowed-queues`, { body: { queue: queues } });
   }
   //retrive queues by userId
   getUserQueuesById(userId) {

@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-queues',
   templateUrl: './queues.component.html',
-  styleUrls: ['./queues.component.scss']
+  styleUrls: ['./queues.component.scss'],
 })
 export class QueuesComponent implements OnInit {
   // subscriptions: Subscription[] = [];
@@ -24,28 +24,24 @@ export class QueuesComponent implements OnInit {
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private queueService: QueueService,
-    public dialog: MatDialog
-  ) { }
+  constructor(private queueService: QueueService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getQueues();
   }
 
   ngAfterViewInit() {
-
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator
+    this.dataSource.paginator = this.paginator;
   }
   getQueues() {
     this.loading = true;
     this.queueService.find().subscribe(
       (res) => {
-        this.queues = res.results;
+        this.queues = res;
         this.dataSource.data = this.queues;
-        this.count = res.totalCount;
+        // this.count = res.totalCount;
         this.loading = false;
-
       },
       (err) => {
         this.loading = false;
@@ -65,15 +61,16 @@ export class QueuesComponent implements OnInit {
   }
 
   deleteQueue(queue) {
-    if (confirm("Etes-vous sûr de vouloir la supprimer ?")) {
-      this.queueService.delete(queue).subscribe(res => {
-        this.getQueues();
-      },
-        err => {
+    if (confirm('Etes-vous sûr de vouloir la supprimer ?')) {
+      this.queueService.delete(queue).subscribe(
+        (res) => {
+          this.getQueues();
+        },
+        (err) => {
           this.error = err;
-        });
+        }
+      );
     }
-
   }
 
   deleteRowData(row_obj) {
@@ -85,34 +82,33 @@ export class QueuesComponent implements OnInit {
   createQueue() {
     console.log(this.newQueueName);
     if (this.newQueueName.trim()) {
-      this.queueService.create({ name: this.newQueueName }).subscribe(res => {
-        this.newQueueName = '';
-        this.getQueues();
-      }, err => {
-        this.error = err;
-      });
+      this.queueService.create({ name: this.newQueueName }).subscribe(
+        (res) => {
+          this.newQueueName = '';
+          this.getQueues();
+        },
+        (err) => {
+          this.error = err;
+        }
+      );
     }
-
   }
   openDialog(action, obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '250px',
-      data: obj
+      data: obj,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result.event == 'Update') {
-        this.queueService.updateQueue(result.data.id, result.data.name).subscribe(res => {
-          this.getQueues();
-        },
-          err => {
-
-          })
+        this.queueService.updateQueue(result.data.id, result.data.name).subscribe(
+          (res) => {
+            this.getQueues();
+          },
+          (err) => {}
+        );
       }
     });
   }
-
 }
-
-

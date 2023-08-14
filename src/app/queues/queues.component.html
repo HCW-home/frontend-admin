@@ -1,4 +1,4 @@
-<h2>Files d'attente <mat-form-field  style="margin-left: 10px; font-size: 15px; width: 250px;">
+<h2>Files d'attente <mat-form-field style="margin-left: 10px; font-size: 15px; width: 250px;">
         <mat-label>Nouvelle file d'attente</mat-label>
         <input matInput placeholder="Nom de la file d'attente" [(ngModel)]="newQueueName">
     </mat-form-field>
@@ -20,7 +20,7 @@
     <table mat-table [dataSource]="dataSource">
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-            <th mat-header-row *matHeaderCellDef></th> 
+            <th mat-header-row *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element" class="action-link">
                 <button (click)="openDialog('Update',element)" mat-button>
                     <mat-icon style="color:#2871BD">edit</mat-icon>

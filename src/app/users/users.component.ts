@@ -21,29 +21,26 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   count = 0;
   pageIndex = 0;
-  pageSize = "10";
+  pageSize = '10';
   pageSizeOptions = ['10', '50', '100'];
-  @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-
-  constructor(private userService: UserService,
-    private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.getDoctors();
     /* this.countUsers();*/
     this.dataSource.paginator = this.paginator;
     //this.getUsersByPage(this.pageSize, this.pageIndex);
-
   }
 
   getDoctors() {
     this.loading = true;
     this.subscriptions.push(
-      this.userService.find({ role: "doctor" }).subscribe(
+      this.userService.find({ role: 'doctor' }).subscribe(
         (res) => {
-          this.users = res.results;
-          this.count = res.totalCount;
+          this.users = res;
+          // this.count = res.totalCount;
           this.dataSource.data = this.users;
           this.loading = false;
         },
@@ -66,7 +63,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }*/
 
   selectUser(user) {
-    this.router.navigate(["/user", user.id]);
+    this.router.navigate(['/user', user.id]);
   }
 
   applyFilter(event: Event) {
@@ -79,10 +76,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userService.find().subscribe(
         (res) => {
-          this.count = res.totalCount;
+          // this.count = res.totalCount;
           console.log('total length', this.count);
           this.loading = false;
-
         },
         (err) => {
           this.loading = false;
@@ -93,7 +89,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -105,18 +101,18 @@ export class UsersComponent implements OnInit, OnDestroy {
      this.pageSize = event.pageSize;
      this.pageIndex = event.pageIndex;
      this.getUsersByPage(this.pageSize, this.pageIndex);*/
-
   }
   deleteUser(user) {
-    if (confirm("Etes-vous sûr de vouloir supprimer cet utilisateur?")) {
-      this.userService.delete(user).subscribe(res => {
-        this.getDoctors();
-      },
-        err => {
+    if (confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')) {
+      this.userService.delete(user).subscribe(
+        (res) => {
+          this.getDoctors();
+        },
+        (err) => {
           this.error = err;
-        });
+        }
+      );
     }
-
   }
   /* useful for dynamic pagination getUsersByPage(limit, skip) {
 // this.loading = true;
@@ -139,4 +135,3 @@ this.subscriptions.push(
 );
 }*/
 }
-
