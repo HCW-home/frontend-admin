@@ -1,0 +1,11 @@
+builder:
+  - method: docker
+    options:
+      image: builder-centos8
+      env:
+        SPEC_PATH: redhat/hcw-athome-admin.spec
+  - method: docker
+    options:
+      image: builder-focal
+      env:
+        PLATFORM: web
