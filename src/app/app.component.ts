@@ -10,7 +10,6 @@ import { User } from './types/user';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn = false;
   navigated = true;
 
   currentUser: User;
