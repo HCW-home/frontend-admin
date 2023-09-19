@@ -1,3 +1,10 @@
+hcw-athome-admin (0.4.4.15) UNRELEASED; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6124, Admin Panel cleanup and Small fixes
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 19 Sep 2023 08:00:59 +0200
+
 hcw-athome-admin (0.4.4.14) focal; urgency=medium
 
   [ Olivier Bitsch ]
