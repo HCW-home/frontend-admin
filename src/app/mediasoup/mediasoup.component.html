@@ -1,0 +1,54 @@
+<h2>
+  Mediasoup
+</h2>
+<form [formGroup]="configForm">
+  <div formArrayName="configs">
+    <div *ngFor="let config of configs.controls; let i=index" [formGroupName]="i">
+
+      <mat-form-field class="url-wrapper">
+        <mat-label>URL</mat-label>
+        <input matInput formControlName="url"  [errorStateMatcher]="matcher">
+        <mat-error *ngIf="config.controls['url']?.hasError('required')">
+          URL is <strong>Required</strong>
+        </mat-error>
+        <mat-error *ngIf="config.controls['url']?.hasError('pattern')">
+          Invalid URL
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username"  [errorStateMatcher]="matcher">
+        <mat-error *ngIf="config.controls['username']?.hasError('required')">
+          Usermame is <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Secret</mat-label>
+        <input matInput formControlName="password"  [errorStateMatcher]="matcher">
+        <mat-error *ngIf="configForm.controls['password']?.hasError('required')">
+          Password is <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Number of sessions</mat-label>
+        <input type="number" matInput formControlName="maxNumberOfSessions"  [errorStateMatcher]="matcher">
+        <mat-error *ngIf="configForm.controls['maxNumberOfSessions']?.hasError('required')">
+          Number of sessions is  <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+
+      <button mat-button (click)="deleteConfig(i)">Delete</button>
+      <button mat-raised-button (click)="save(i)" class="ml-10">Save</button>
+
+    </div>
+  </div>
+  <div>
+    <button mat-raised-button (click)="addConfig()">Add New Config</button>
+  </div>
+</form>
+

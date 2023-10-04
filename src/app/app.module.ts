@@ -37,7 +37,9 @@ import { UserNewComponent } from './user-new/user-new.component';
 import { QueuesComponent } from './queues/queues.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MediasoupComponent } from './mediasoup/mediasoup.component';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [AppComponent,
@@ -50,35 +52,30 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     UserNewComponent,
     QueuesComponent,
     DialogBoxComponent,
+    MediasoupComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatListModule,
-    MatButtonModule,
-    MatBadgeModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatCheckboxModule,
-
-    // MatFormFieldModule,
-    // MatToolbarModule,
-    // ReactiveFormsModule,
-    // MatGridListModule,
-    // MatCardModule,
-    // MatSelectModule,
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatFormFieldModule,
+        MatListModule,
+        MatButtonModule,
+        MatBadgeModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatCheckboxModule,
+        MatSlideToggleModule,
+    ],
   providers: [
     AuthService,
     {

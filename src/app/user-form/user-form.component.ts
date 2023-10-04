@@ -20,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserFormComponent implements OnInit {
   @Input() user: User;
-  @Output() change: EventEmitter<User> = new EventEmitter<User>();;
+  @Output() change: EventEmitter<User> = new EventEmitter<User>();
 
   myForm;
   matcher = new MyErrorStateMatcher();

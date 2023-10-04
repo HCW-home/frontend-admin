@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private authService: AuthService) {
     iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
     iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));
+    iconRegistry.addSvgIcon('server', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/server.svg'));
     iconRegistry.addSvgIcon('chat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-open.svg'));
     iconRegistry.addSvgIcon('history', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-history.svg'));
     iconRegistry.addSvgIcon('next', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-next.svg'));

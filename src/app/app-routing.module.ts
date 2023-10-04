@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { UserNewComponent } from './user-new/user-new.component';
 import { QueuesComponent } from './queues/queues.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -6,9 +8,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { RouterGuard } from './_guards/router.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { UserFormComponent } from './user-form/user-form.component';
+import { MediasoupComponent } from "./mediasoup/mediasoup.component";
 
 
 const routes: Routes = [
@@ -56,6 +56,14 @@ const routes: Routes = [
       {
         path: 'queue',
         component: QueuesComponent,
+        data: {
+          title: 'Queue'
+        },
+        canActivate: [RouterGuard]
+      },
+      {
+        path: 'mediasoup',
+        component: MediasoupComponent,
         data: {
           title: 'Queue'
         },
