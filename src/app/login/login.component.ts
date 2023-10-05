@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
   samlLoginUrl = `${environment.api}/login-saml`;
+  openIdLoginUrl = `${environment.api}/login-openid`;
   localLoginToken;
   smsLoginToken;
   smsVerificationCode;
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   showPasswordLogin = false;
   showSamlLogin = false;
+  showOpenIdLogin = false;
 
   constructor(
     private authService: AuthService,
@@ -86,6 +88,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.loading = false;
           }));
     }
+    const token = this.route.snapshot.queryParams.token || this.route.snapshot.queryParams.tk;
 
     // Load the remote config to select the login methods
     this.authService.getConfig().subscribe(config => {
@@ -99,7 +102,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showSamlLogin = true;
       } else if (config.method === 'password') {
         this.showPasswordLogin = true;
-      } else {
+      } else if (config.method === "openid") {
+        this.showOpenIdLogin = true;
+        if (!token) {
+          (window as any).location.href = this.openIdLoginUrl;
+        }
+      }else {
         this.showPasswordLogin = true;
         this.showSamlLogin = true;
       }

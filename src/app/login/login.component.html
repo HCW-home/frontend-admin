@@ -9,6 +9,12 @@
         >
       </p>
 
+      <p class="saml-login" *ngIf="showOpenIdLogin">
+        <a [href]="openIdLoginUrl" class="redirect-btn" mat-button>
+          Institutional Connection
+        </a>
+      </p>
+
       <form
         *ngIf="!localLoginToken && showPasswordLogin"
         (submit)="loginLocal()"
