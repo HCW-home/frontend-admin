@@ -63,32 +63,40 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('login component ');
-
     // If the user is already logged in, redirect him
     if (this.authService.currentUser) {
       this.router.navigateByUrl('/dashboard');
     }
 
+    const token = this.route.snapshot.queryParams.token || this.route.snapshot.queryParams.tk;
+
     // If we have a token in the URL, the user has been redirected after the SAML login
-    if ('token' in this.route.snapshot.queryParams && this.route.snapshot.queryParams.token) {
+    if (token) {
       console.log('token ', this.route.snapshot.queryParams.token);
 
       console.log('return url ', this.route.snapshot.queryParams.returnUrl);
       this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
 
-      this.subscriptions.push(this.authService.login(this.route.snapshot.queryParams.token)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.router.navigate([this.returnUrl]);
-          },
-          error => {
-            this.error = error;
-            this.loading = false;
-          }));
+      this.subscriptions.push(
+        this.authService
+          .login(token)
+          .pipe(first())
+          .subscribe(
+            (data) => {
+              console.log(this.returnUrl, 'this.returnUrl')
+              this.router.navigate([this.returnUrl]);
+              setTimeout(() => {
+                this.loading = false;
+              }, 1000);
+            },
+            (error) => {
+              console.log('err')
+              this.error = error;
+              this.loading = false;
+            },
+          ),
+      );
     }
-    const token = this.route.snapshot.queryParams.token || this.route.snapshot.queryParams.tk;
 
     // Load the remote config to select the login methods
     this.authService.getConfig().subscribe(config => {
