@@ -1,3 +1,10 @@
+hcw-athome-admin (0.4.4.18) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * fix token query params
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 06 Oct 2023 13:35:56 +0200
+
 hcw-athome-admin (0.4.4.17) focal; urgency=medium
 
   [ Gor Grigoryan ]
