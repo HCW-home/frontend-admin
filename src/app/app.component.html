@@ -13,8 +13,8 @@
             class="menu-btn"
             mat-button
           >
-          <mat-icon svgIcon="dashboard"></mat-icon>
-            <span class="btn-text">Tableau de bord</span>
+            <mat-icon svgIcon="dashboard"></mat-icon>
+            <span class="btn-text">Dashboard</span>
           </button>
         </mat-list-item>
 
@@ -25,8 +25,19 @@
             class="menu-btn"
             mat-button
           >
-          <mat-icon >supervised_user_circle</mat-icon>
-            <span class="btn-text">Médecins</span>
+            <mat-icon>supervised_user_circle</mat-icon>
+            <span class="btn-text">Users</span>
+          </button>
+        </mat-list-item>
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/clinician"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon>supervised_user_circle</mat-icon>
+            <span class="btn-text">Requester</span>
           </button>
         </mat-list-item>
 
@@ -37,8 +48,8 @@
             class="menu-btn"
             mat-button
           >
-          <mat-icon svgIcon="queue"></mat-icon>
-            <span class="btn-text">Files d'attente</span>
+            <mat-icon svgIcon="queue"></mat-icon>
+            <span class="btn-text">Waiting queues</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -48,7 +59,7 @@
             class="menu-btn"
             mat-button
           >
-          <mat-icon svgIcon="server"></mat-icon>
+            <mat-icon svgIcon="server"></mat-icon>
             <span class="btn-text">Mediasoup</span>
           </button>
         </mat-list-item>

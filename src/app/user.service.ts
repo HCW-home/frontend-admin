@@ -17,7 +17,7 @@ export class UserService {
 
   find(criteria = {}): Observable<User[]> {
     console.log('find users ');
-    return this.http.get<User[]>(environment.api + `/user?where=${JSON.stringify(criteria)}`);
+    return this.http.get<User[]>(`${environment.api}/user?where=${encodeURIComponent(JSON.stringify(criteria))}`);
   }
 
   getUsersByPage(limit, skip): Observable<ResourcesResponse<User>> {
@@ -31,6 +31,11 @@ export class UserService {
   update(id, newFields) {
     return this.http.patch(environment.api + `/user/${id}`, newFields);
   }
+
+  updateUserStatus(userId: number, status: string): Observable<any> {
+    return this.http.put(environment.api + `/user/${userId}/status`, { status });
+  }
+
   delete(user: User) {
     return this.http.delete(environment.api + `/user/${user.id}`);
   }

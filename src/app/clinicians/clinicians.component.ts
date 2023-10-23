@@ -1,44 +1,46 @@
-import { Subscription } from 'rxjs';
-import { UserService } from './../user.service';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { User } from '../types/user';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import {Subscription} from 'rxjs';
+import {UserService} from './../user.service';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {User} from '../types/user';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {Router} from '@angular/router';
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'app-clinicians',
+  templateUrl: './clinicians.component.html',
+  styleUrls: ['./clinicians.component.scss'],
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class CliniciansComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   users: User[] = [];
   loading = false;
   error;
 
-  displayedColumns: string[] = ['name', 'email', 'role', 'action'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'organization', 'country', 'status'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
   pageIndex = 0;
   pageSize = '10';
   pageSizeOptions = ['10', '50', '100'];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.getDoctors();
+    this.getClinitians();
     /* this.countUsers();*/
     this.dataSource.paginator = this.paginator;
     //this.getUsersByPage(this.pageSize, this.pageIndex);
   }
 
-  getDoctors() {
+  getClinitians() {
     this.loading = true;
-      const roles = { role: { in: ['doctor', 'scheduler'] }}
     this.subscriptions.push(
-      this.userService.find(roles).subscribe(
+      this.userService.find({role: 'nurse'}).subscribe(
         (res) => {
           this.users = res;
           // this.count = res.totalCount;
@@ -103,11 +105,12 @@ export class UsersComponent implements OnInit, OnDestroy {
      this.pageIndex = event.pageIndex;
      this.getUsersByPage(this.pageSize, this.pageIndex);*/
   }
+
   deleteUser(user) {
     if (confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')) {
       this.userService.delete(user).subscribe(
         (res) => {
-          this.getDoctors();
+          this.getClinitians();
         },
         (err) => {
           this.error = err;
@@ -115,6 +118,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   /* useful for dynamic pagination getUsersByPage(limit, skip) {
 // this.loading = true;
 this.subscriptions.push(
@@ -135,4 +139,17 @@ this.subscriptions.push(
   )
 );
 }*/
+
+  onToggle(event: MatSlideToggleChange, user: any) {
+    const {checked} = event;
+    this.userService.updateUserStatus(user.id, checked ? 'approved' : 'not-approved')
+      .subscribe({
+        next: (res) => {
+          this.getClinitians();
+        }, error: (err) => {
+          console.log(err, 'err');
+        }
+      })
+    console.log(event, 'event');
+  }
 }

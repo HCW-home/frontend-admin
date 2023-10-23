@@ -40,12 +40,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MediasoupComponent } from './mediasoup/mediasoup.component';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import {CliniciansComponent} from "./clinicians/clinicians.component";
 
 @NgModule({
   declarations: [AppComponent,
     LoginComponent,
     DashboardComponent,
     UsersComponent,
+    CliniciansComponent,
     TopNavComponent,
     UserDetailComponent,
     UserFormComponent,

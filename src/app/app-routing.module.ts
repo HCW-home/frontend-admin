@@ -9,6 +9,7 @@ import { RouterGuard } from './_guards/router.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MediasoupComponent } from "./mediasoup/mediasoup.component";
+import {CliniciansComponent} from "./clinicians/clinicians.component";
 
 
 const routes: Routes = [
@@ -32,6 +33,14 @@ const routes: Routes = [
       {
         path: 'user',
         component: UsersComponent,
+        data: {
+          title: 'User'
+        },
+        canActivate: [RouterGuard]
+      },
+      {
+        path: 'clinician',
+        component: CliniciansComponent,
         data: {
           title: 'User'
         },
