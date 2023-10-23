@@ -1,3 +1,10 @@
+hcw-athome-admin (0.4.4.19) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add requester table
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 23 Oct 2023 14:36:29 +0200
+
 hcw-athome-admin (0.4.4.18) focal; urgency=medium
 
   [ Gor Grigoryan ]
