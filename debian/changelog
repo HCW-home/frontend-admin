@@ -1,3 +1,10 @@
+hcw-athome-admin (0.4.4.20) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * change openid login url
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 26 Oct 2023 17:10:48 +0200
+
 hcw-athome-admin (0.4.4.19) focal; urgency=medium
 
   [ Gor Grigoryan ]
