@@ -21,7 +21,10 @@ build: node_modules
 install: build
 
 docker:
-	docker build . -t hcw-backend                                    
+	docker build . -t docker.io/iabsis/hcw-admin .
+
+podman:
+	@ podman build -t docker.io/iabsis/hcw-admin .
 
 archive:
 	@ tar -czvf "dosetup-$(timeStamp).tar.gz" dist
