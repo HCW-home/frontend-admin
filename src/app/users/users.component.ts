@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   getDoctors() {
     this.loading = true;
-      const roles = { role: { in: ['doctor', 'scheduler'] }}
+      const roles = { role: { in: ['doctor', 'scheduler', 'admin'] }}
     this.subscriptions.push(
       this.userService.find(roles).subscribe(
         (res) => {
