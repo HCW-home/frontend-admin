@@ -1,22 +1,21 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import {Router} from '@angular/router';
+import {User} from '../types/user';
+import {version} from '../../../package.json';
 
-import { Router } from '@angular/router';
-import { User } from '../types/user';
-import { version } from '../../../package.json';
-
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
   public currentUserSubject: BehaviorSubject<any>;
   private loggedIn: Subject<User> = new Subject();
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient,
-    private router: Router) {
+              private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -28,12 +27,13 @@ export class AuthService {
   public loggedInSub() {
     return this.loggedIn;
   }
+
   login(token) {
     const headers = {};
     if (token) {
       headers['x-access-token'] = token;
     }
-    return this.http.get<any>(`${environment.api}/current-user`, { headers })
+    return this.http.get<any>(`${environment.api}/current-user`, {headers})
       .pipe(map(res => {
         if (res.user && res.user.token) {
           sessionStorage.setItem('currentUser', JSON.stringify(res.user));
@@ -45,7 +45,7 @@ export class AuthService {
 
   loginLocal(email, password) {
 
-    return this.http.post<any>(`${environment.api}/login-local`, { email, password, _version: version }).pipe(map(res => {
+    return this.http.post<any>(`${environment.api}/login-local`, {email, password, _version: version}).pipe(map(res => {
       if (res.user && res.user.token) {
         if (res.user.role && res.user.role != 'admin') {
           return res.user;
@@ -60,16 +60,16 @@ export class AuthService {
   }
 
   loginSms(smsVerificationCode: string, user: string) {
-    return this.http.post<any>(`${environment.api}/login-sms`, { smsVerificationCode, user });
+    return this.http.post<any>(`${environment.api}/login-sms`, {smsVerificationCode, user});
   }
 
   login2FA(localLoginToken, smsLoginToken, user) {
     let opts = {};
     if (!environment.production) {
-      opts = { withCredentials: true };
+      opts = {withCredentials: true};
     }
 
-    return this.http.post<any>(`${environment.api}/login-2fa`, { localLoginToken, smsLoginToken, user }, opts)
+    return this.http.post<any>(`${environment.api}/login-2fa`, {localLoginToken, smsLoginToken, user}, opts)
       .pipe(map(res => {
         if (res.user && res.user.token) {
           sessionStorage.setItem('currentUser', JSON.stringify(res.user));
@@ -80,13 +80,26 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('currentUser');
+    sessionStorage.clear();
+    localStorage.clear()
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+    this.http.get(`${environment.api}/logout`).subscribe(r => {
+      this.getConfig().subscribe((config) => {
+        if (config.method === 'openid') {
+          window.location.href = config.openIdLogoutUri;
+        } else {
+          this.router.navigate(["/login"]);
+        }
+      })
+    }, err => {
+      this.router.navigate(["/login"]);
+    })
   }
 
-  getToken() {
-    return this.currentUserSubject.value.token;
+  refreshTokens() {
+    const currentUser = this.currentUserValue;
+    const refreshToken = currentUser.refreshToken;
+    return this.http.post<any>(`${environment.api}/refresh-token`, {refreshToken});
   }
 
   getConfig() {
