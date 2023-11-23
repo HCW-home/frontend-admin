@@ -1,3 +1,15 @@
+hcw-athome-admin (0.4.4.22) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Improve security headers
+  * Fix nginx config
+
+  [ Gor Grigoryan ]
+  * session management
+  * add hard logout
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 23 Nov 2023 13:31:33 +0100
+
 hcw-athome-admin (0.4.4.21) focal; urgency=medium
 
   * Add podman in Makefile
