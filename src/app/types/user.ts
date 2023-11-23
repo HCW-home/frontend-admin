@@ -20,8 +20,10 @@ export interface User {
   authPhoneNumber?: string;
   phoneNumber?: string;
   token?: string;
+  refreshToken: string;
   gender?: string;
   department?: string;
   _function?: string;
   lastLoginType: LoginType;
+
 }
