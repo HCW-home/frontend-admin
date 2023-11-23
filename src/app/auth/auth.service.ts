@@ -79,18 +79,22 @@ export class AuthService {
       }));
   }
 
-  logout() {
+  logout(hard = false) {
     sessionStorage.clear();
     localStorage.clear()
     this.currentUserSubject.next(null);
     this.http.get(`${environment.api}/logout`).subscribe(r => {
-      this.getConfig().subscribe((config) => {
-        if (config.method === 'openid') {
-          window.location.href = config.openIdLogoutUri;
-        } else {
-          this.router.navigate(["/login"]);
-        }
-      })
+      if (hard) {
+        this.getConfig().subscribe((config) => {
+          if (config.method === 'openid') {
+            window.location.href = config.openIdLogoutUri;
+          } else {
+            this.router.navigate(["/login"]);
+          }
+        });
+      } else {
+        this.router.navigate(["/login"]);
+      }
     }, err => {
       this.router.navigate(["/login"]);
     })

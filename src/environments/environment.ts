@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://doctor_hcw-athome.dev.oniabsis.com/api/v1',
-  // api: "http://localhost:1337/api/v1",
+  // api: 'https://doctor_hcw-athome.dev.oniabsis.com/api/v1',
+  api: "http://localhost:1337/api/v1",
 
 };
 
