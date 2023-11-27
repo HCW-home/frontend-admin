@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { Role } from '../types/role';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,6 +20,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class UserFormComponent implements OnInit {
   @Input() user: User;
   @Output() change: EventEmitter<User> = new EventEmitter<User>();
+
+  roles = [
+    {name: 'Doctor', value: 'doctor'},
+    {name: 'Admin', value: 'admin'},
+    {name: 'Scheduler', value: 'scheduler'},
+  ]
 
   myForm;
   matcher = new MyErrorStateMatcher();
@@ -52,7 +57,7 @@ export class UserFormComponent implements OnInit {
   }
 
   createFormGroup() {
-    this.user.role = Role.doctor;
+    // this.user.role = Role.doctor;
     this.myForm = this.formBuilder.group({
       emailFormControl: new FormControl(this.user.email, [Validators.email]),
       phoneNumberFormControl: new FormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
@@ -64,6 +69,7 @@ export class UserFormComponent implements OnInit {
       viewAllQueuesFormControl: new FormControl(this.user.viewAllQueues),
       authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       genderFormControl: new FormControl(this.user.gender),
+      role: new FormControl(this.user.role),
 
       // genderFormControl: new FormControl(false),
 
