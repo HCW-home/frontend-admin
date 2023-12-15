@@ -1,4 +1,4 @@
-hcw-athome-admin (0.4.4.23) focal; urgency=medium
+hcw-athome-admin (5.0.0) stable; urgency=medium
 
   [ Gor Grigoryan ]
   * refs #6155, Add possibility to define role in new User
