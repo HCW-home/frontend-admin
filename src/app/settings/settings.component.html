@@ -1,0 +1,103 @@
+<div class="sms-providers">
+  <h2>
+    Settings
+  </h2>
+
+
+  <h2 class="sms-providers-sub-tittle">
+    SMS Settings
+  </h2>
+
+  <div class="sms-providers-description-wrapper">
+    <mat-card>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </mat-card>
+  </div>
+  <div cdkDropList class="sms-providers-list" (cdkDropListDropped)="drop($event)">
+    <div class="sms-providers-header">
+      <div>Order</div>
+      <div>Provider</div>
+      <div>Prefix</div>
+      <div></div>
+    </div>
+    <ng-container *ngFor="let setting of settings; let i = index">
+      <div class="sms-provider-box" *ngIf="!setting.isWhatsapp" cdkDrag>
+        <div>{{ i }}</div>
+        <div>{{ setting.provider }}</div>
+        <div>
+          <mat-form-field class="prefix-chip-list">
+            <mat-chip-list #chipList aria-label="Prefix selection">
+              <ng-container *ngFor="let prefix of setting.prefix.split(',')">
+
+                <mat-chip *ngIf="prefix" [selectable]="true"
+                          [removable]="true" (removed)="remove(prefix, setting)">
+                  {{ prefix }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </ng-container>
+              <input placeholder="New Prefix..."
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="add($event, setting)">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-chip-list>
+            <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>
+            <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>
+          </mat-chip-list>
+
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <h2  class="whatsapp-provider-title">
+    WhatsApp Settings
+  </h2>
+  <div class="whatsapp-provider-description-wrapper">
+    <mat-card>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </mat-card>
+  </div>
+
+  <ng-container *ngFor="let setting of settings; let i = index">
+    <div class="sms-provider-box cursor-default" *ngIf="setting.isWhatsapp">
+      <div>{{ '1' }}</div>
+      <div>{{ setting.provider }}</div>
+      <div>
+        <mat-form-field class="prefix-chip-list">
+          <mat-chip-list #chipList aria-label="Prefix selection">
+            <ng-container *ngFor="let prefix of setting.prefix.split(',')">
+              <mat-chip [selectable]="true" *ngIf="prefix"
+                        [removable]="true" (removed)="remove(prefix, setting)">
+                {{ prefix }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+            <input placeholder="New Prefix..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="true"
+                   (matChipInputTokenEnd)="add($event, setting)">
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-chip-list>
+          <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>
+          <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>
+        </mat-chip-list>
+
+      </div>
+    </div>
+  </ng-container>
+
+</div>

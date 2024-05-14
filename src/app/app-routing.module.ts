@@ -8,8 +8,9 @@ import { AuthGuard } from './_guards/auth.guard';
 import { RouterGuard } from './_guards/router.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { MediasoupComponent } from "./mediasoup/mediasoup.component";
-import {CliniciansComponent} from "./clinicians/clinicians.component";
+import { MediasoupComponent } from './mediasoup/mediasoup.component';
+import { CliniciansComponent } from './clinicians/clinicians.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 const routes: Routes = [
@@ -74,7 +75,15 @@ const routes: Routes = [
         path: 'mediasoup',
         component: MediasoupComponent,
         data: {
-          title: 'Queue'
+          title: 'Mediasoup'
+        },
+        canActivate: [RouterGuard]
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        data: {
+          title: 'Settings'
         },
         canActivate: [RouterGuard]
       },

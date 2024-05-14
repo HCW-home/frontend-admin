@@ -39,8 +39,12 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MediasoupComponent } from './mediasoup/mediasoup.component';
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import {CliniciansComponent} from "./clinicians/clinicians.component";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CliniciansComponent } from './clinicians/clinicians.component';
+import { SettingsComponent } from './settings/settings.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [AppComponent,
@@ -55,29 +59,33 @@ import {CliniciansComponent} from "./clinicians/clinicians.component";
     QueuesComponent,
     DialogBoxComponent,
     MediasoupComponent,
+    SettingsComponent,
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatListModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatCheckboxModule,
-        MatSlideToggleModule,
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    DragDropModule,
+    MatCardModule,
+    MatChipsModule
+  ],
   providers: [
     AuthService,
     {
