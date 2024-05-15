@@ -1,3 +1,13 @@
+hcw-athome-admin (5.0.1) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update readme
+
+  [ Gor Grigoryan ]
+  * add sms settings
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 15 May 2024 08:40:57 +0200
+
 hcw-athome-admin (5.0.0) stable; urgency=medium
 
   [ Gor Grigoryan ]
