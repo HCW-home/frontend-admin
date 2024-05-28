@@ -1,6 +1,6 @@
 Summary: Front end for @Home web application admin side
 Name: hcw-athome-admin
-Version: 5.0.2
+Version: 5.0.3
 Release: 1
 Group: Web Application
 License: HUG
