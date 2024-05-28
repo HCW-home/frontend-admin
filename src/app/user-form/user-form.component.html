@@ -90,11 +90,13 @@
                formControlName="functionFormControl" [errorStateMatcher]="matcher" name="_function"/>
       </mat-form-field>
     </div>
+</div>
+<div *ngIf="user.role=='doctor' || user.role==='admin'">
     <div class="field-container">
       <mat-checkbox formControlName="viewAllQueuesFormControl" [(ngModel)]="user.viewAllQueues"> Can see all waiting queues?
       </mat-checkbox>
     </div>
-  </div>
+</div>
   <div *ngIf="user.role=='doctor' || user.role=='admin'">
     <div class="field-container" style="margin-top: 10px;">
       <mat-form-field>
