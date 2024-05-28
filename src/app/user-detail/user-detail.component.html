@@ -1,14 +1,14 @@
-<h2>Editer utilisateur</h2>
+<h2>Edit user</h2>
 
 <div *ngIf="user">
     <app-user-form [user]="user" (change)="updateUser()"></app-user-form>
 </div>
 
-<h2>Edition des files d'attente</h2>
+<h2>Waiting queue</h2>
 <div class="table-container" role="table" aria-label="Destinations">
     <div class="flex-table" role="rowgroup">
         <div  class="flex-row">
-            <h3>Files d'attente autorisées par l'utilisateur</h3>
+            <h3>Waiting queue usable by the user</h3>
             <mat-nav-list>
                 <mat-list-item *ngFor="let allowedQueue of allowedQueues" (click)="selectQueueToRemove(allowedQueue)" >
                     <a matLine>{{ allowedQueue.name }}</a>
@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="flex-row">
-            <h3>Files d'attente disponibles</h3>
+            <h3>Available waiting queues</h3>
             <mat-nav-list >
                 <mat-list-item *ngFor="let queueNotAllowed of queuesNotAllowed" (click)="selectQueueToAdd(queueNotAllowed)" >
                     <a matLine>{{ queueNotAllowed.name }}</a>
