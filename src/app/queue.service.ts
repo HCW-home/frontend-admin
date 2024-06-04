@@ -14,8 +14,8 @@ export class QueueService {
     return this.http.get<Queue>(environment.api + `/queue/${id}`);
   }
 
-  find(): Observable<Queue[]> {
-    return this.http.get<Queue[]>(environment.api + `/queue`);
+  find(params = {}): Observable<Queue[]> {
+    return this.http.get<Queue[]>(environment.api + `/queue`,  {params});
   }
 
   create(queue: Queue): Observable<Queue> {

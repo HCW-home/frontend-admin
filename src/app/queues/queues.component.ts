@@ -1,6 +1,6 @@
 import { QueueService } from './../queue.service';
 import { Queue } from './../queue';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './queues.component.html',
   styleUrls: ['./queues.component.scss'],
 })
-export class QueuesComponent implements OnInit {
+export class QueuesComponent implements OnInit, AfterViewInit {
   // subscriptions: Subscription[] = [];
   queues: Queue[] = [];
   loading = false;
@@ -36,7 +36,10 @@ export class QueuesComponent implements OnInit {
   }
   getQueues() {
     this.loading = true;
-    this.queueService.find().subscribe(
+    const params = {
+      viewAllQueues: true
+    };
+    this.queueService.find(params).subscribe(
       (res) => {
         this.queues = res;
         this.dataSource.data = this.queues;

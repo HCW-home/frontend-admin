@@ -68,7 +68,10 @@ export class UserDetailComponent implements OnInit {
 
   getAllQueues() {
     this.loadingAllQueues = true;
-    this.queueService.find().subscribe(
+    const params = {
+      viewAllQueues: true
+    };
+    this.queueService.find(params).subscribe(
       (res) => {
         console.log('get all queues', res);
         this.allQueues = res;
