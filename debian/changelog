@@ -1,3 +1,10 @@
+hcw-athome-admin (5.0.4) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add params for getting queue
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 06 Jun 2024 08:33:08 +0200
+
 hcw-athome-admin (5.0.3) focal; urgency=medium
 
   * Fix all text to english only
