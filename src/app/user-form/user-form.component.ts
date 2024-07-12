@@ -22,7 +22,7 @@ export class UserFormComponent implements OnInit {
   @Output() change: EventEmitter<User> = new EventEmitter<User>();
 
   roles = [
-    {name: 'Doctor', value: 'doctor'},
+    {name: 'User', value: 'doctor'},
     {name: 'Admin', value: 'admin'},
     {name: 'Scheduler', value: 'scheduler'},
   ]
