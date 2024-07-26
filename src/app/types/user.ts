@@ -25,5 +25,6 @@ export interface User {
   department?: string;
   _function?: string;
   lastLoginType: LoginType;
+  password: string;
 
 }

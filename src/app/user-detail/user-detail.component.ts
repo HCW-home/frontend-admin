@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { User } from '../types/user';
 import { Location } from '@angular/common';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -15,6 +16,7 @@ export class UserDetailComponent implements OnInit {
   loading: boolean;
   loadingUserQueue: boolean;
   loadingAllQueues: boolean;
+  showPasswordDetail: boolean;
   isAddingQueues = false;
   isRemovingQueues = false;
   error;
@@ -23,11 +25,11 @@ export class UserDetailComponent implements OnInit {
   allowedQueues: any;
   queuesNotAllowed = [];
   constructor(
-    private router: Router,
+    private location: Location,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private userService: UserService,
     private queueService: QueueService,
-    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,12 @@ export class UserDetailComponent implements OnInit {
       }
     );
     this.getUserQueues();
+    this.authService.getConfig().subscribe(config => {
+
+       if (config.method === 'password' || config.method === 'both') {
+        this.showPasswordDetail = true;
+       }
+    });
   }
   addQueueToUser(queueId) {}
   removeQueueToUser(queueId) {}
@@ -138,6 +146,15 @@ export class UserDetailComponent implements OnInit {
   updateUser() {
     console.log('userDetail', this.user);
     this.userService.update(this.userId, this.user).subscribe(
+      (res) => {
+        console.log(res);
+        this.location.back();
+      },
+      (err) => console.log(err)
+    );
+  }
+  updatePassword(password: string) {
+    this.userService.update(this.userId, { password, email: this.user.email }).subscribe(
       (res) => {
         console.log(res);
         this.location.back();

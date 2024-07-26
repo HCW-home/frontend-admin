@@ -111,3 +111,15 @@ img {
 mat-label{
   color:#333;
 }
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.gap-16 {
+  gap: 16px;
+}

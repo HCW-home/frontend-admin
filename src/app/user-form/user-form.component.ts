@@ -22,25 +22,25 @@ export class UserFormComponent implements OnInit {
   @Output() change: EventEmitter<User> = new EventEmitter<User>();
 
   roles = [
-    {name: 'User', value: 'doctor'},
-    {name: 'Admin', value: 'admin'},
-    {name: 'Scheduler', value: 'scheduler'},
-  ]
+    { name: 'User', value: 'doctor' },
+    { name: 'Admin', value: 'admin' },
+    { name: 'Scheduler', value: 'scheduler' }
+  ];
 
   myForm;
   matcher = new MyErrorStateMatcher();
   loading = false;
   error = '';
-  constructor(private formBuilder: FormBuilder,
-    private location: Location,
-    private router: Router
 
+  constructor(private formBuilder: FormBuilder,
+              private location: Location,
+              private router: Router
   ) {
 
   }
 
   ngOnInit(): void {
-    console.log("[ngOnInit] user", this.user)
+    console.log('[ngOnInit] user', this.user);
     if (!this.user) {
       this.user = {} as User;
     }
@@ -49,7 +49,7 @@ export class UserFormComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("[ngOnInitView] user", this.user)
+    console.log('[ngOnInitView] user', this.user);
     if (!this.user) {
       this.user = {} as User;
     }
@@ -63,13 +63,13 @@ export class UserFormComponent implements OnInit {
       phoneNumberFormControl: new FormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       firstNameFormControl: new FormControl(this.user.firstName, [Validators.required]),
       lastNameFormControl: new FormControl(this.user.lastName, [Validators.required]),
-      //roleFormControl: new FormControl(this.user.role, [Validators.required]),
       functionFormControl: new FormControl(this.user._function),
       departmentFormControl: new FormControl(this.user.department),
       viewAllQueuesFormControl: new FormControl(this.user.viewAllQueues),
       authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       genderFormControl: new FormControl(this.user.gender),
       role: new FormControl(this.user.role),
+      password: new FormControl('')
 
       // genderFormControl: new FormControl(false),
 
@@ -83,6 +83,10 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.change.emit(this.user);
+    console.log(this.myForm.valid, 'this.myForm.valid');
+    if (this.myForm.valid) {
+      console.log(this.user, 'this.user');
+      this.change.emit(this.user);
+    }
   }
 }

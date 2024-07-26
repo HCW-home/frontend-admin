@@ -89,9 +89,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.loading = false;
               }, 1000);
             },
-            (error) => {
-              console.log('err')
-              this.error = error;
+            (err) => {
+              this.error =
+                err.details ||
+                err.error?.message ||
+                err.statusText ||
+                err.message ||
+                err;
               this.loading = false;
             },
           ),
@@ -110,7 +114,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showSamlLogin = true;
       } else if (config.method === 'password') {
         this.showPasswordLogin = true;
-      } else if (config.method === "openid") {
+      } else if (config.method === 'openid') {
         this.showOpenIdLogin = true;
         if (!token) {
           (window as any).location.href = this.openIdLoginUrl;
@@ -144,7 +148,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }, err => {
       console.log("err", err),
         this.loading = false;
-      this.error = err;
+      this.error =
+        err.details ||
+        err.error?.message ||
+        err.statusText ||
+        err.message ||
+        err;
     }));
   }
 

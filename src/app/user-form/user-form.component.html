@@ -1,4 +1,4 @@
-<form *ngIf="myForm" class="invite-form" [formGroup]="myForm" (submit)="onSubmit()">
+<form *ngIf="myForm" class="invite-form" [formGroup]="myForm">
 
   <div class="field-container">
     <!-- useful if manage multiple role mat-form-field>
@@ -77,6 +77,14 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <div class="field-container">
+  <mat-form-field>
+    <mat-label class="label">Password</mat-label>
+    <input matInput   [(ngModel)]="user.password" placeholder="Enter password"
+           formControlName="password" />
+
+  </mat-form-field>
+  </div>
   <div *ngIf="user.role=='doctor'">
     <div class="field-container">
       <mat-form-field>
@@ -113,7 +121,7 @@
     <button mat-button (click)="cancel()" type="button">
       Cancel
     </button>
-    <button class="btn__send" [disabled]="loading" type="submit" mat-button>
+    <button class="btn__send" [disabled]="loading" (click)="onSubmit()" type="submit" mat-button>
       Submit
     </button>
   </div>

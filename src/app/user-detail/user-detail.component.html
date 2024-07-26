@@ -1,38 +1,42 @@
-<h2>Edit user</h2>
+<div class="d-flex gap-16">
+  <div>
+    <h2>Edit user</h2>
 
-<div *ngIf="user">
-    <app-user-form [user]="user" (change)="updateUser()"></app-user-form>
+    <div *ngIf="user">
+      <app-user-form [user]="user" (change)="updateUser()"></app-user-form>
+    </div>
+
+  </div>
 </div>
-
 <h2>Waiting queue</h2>
 <div class="table-container" role="table" aria-label="Destinations">
-    <div class="flex-table" role="rowgroup">
-        <div  class="flex-row">
-            <h3>Waiting queue usable by the user</h3>
-            <mat-nav-list>
-                <mat-list-item *ngFor="let allowedQueue of allowedQueues" (click)="selectQueueToRemove(allowedQueue)" >
-                    <a matLine>{{ allowedQueue.name }}</a>
-                    <input class="remove" [checked]="allowedQueue.checked" value="{{ allowedQueue.id }}" type="checkbox">
-                </mat-list-item>
-            </mat-nav-list>
-        </div>
-        <div class="flex-row small">
-            <button mat-icon-button [disabled]="isRemovingQueues">
-                <mat-icon style="color: indianred;" (click)="removeQueue()"> remove </mat-icon>
-            </button>
-            <button mat-icon-button (click)="addQueue()" [disabled]="isAddingQueues" >
-                <mat-icon style="color:green;">add_box</mat-icon>
-            </button>
-        </div>
-        <div class="flex-row">
-            <h3>Available waiting queues</h3>
-            <mat-nav-list >
-                <mat-list-item *ngFor="let queueNotAllowed of queuesNotAllowed" (click)="selectQueueToAdd(queueNotAllowed)" >
-                    <a matLine>{{ queueNotAllowed.name }}</a>
-                    <input class="add" [checked]="queueNotAllowed.checked" value="{{ queueNotAllowed.id }}" type="checkbox">
-                    
-                </mat-list-item>
-            </mat-nav-list>
-        </div>
+  <div class="flex-table" role="rowgroup">
+    <div class="flex-row">
+      <h3>Waiting queue usable by the user</h3>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let allowedQueue of allowedQueues" (click)="selectQueueToRemove(allowedQueue)">
+          <a matLine>{{ allowedQueue.name }}</a>
+          <input class="remove" [checked]="allowedQueue.checked" value="{{ allowedQueue.id }}" type="checkbox">
+        </mat-list-item>
+      </mat-nav-list>
     </div>
+    <div class="flex-row small">
+      <button mat-icon-button [disabled]="isRemovingQueues">
+        <mat-icon style="color: indianred;" (click)="removeQueue()"> remove</mat-icon>
+      </button>
+      <button mat-icon-button (click)="addQueue()" [disabled]="isAddingQueues">
+        <mat-icon style="color:green;">add_box</mat-icon>
+      </button>
+    </div>
+    <div class="flex-row">
+      <h3>Available waiting queues</h3>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let queueNotAllowed of queuesNotAllowed" (click)="selectQueueToAdd(queueNotAllowed)">
+          <a matLine>{{ queueNotAllowed.name }}</a>
+          <input class="add" [checked]="queueNotAllowed.checked" value="{{ queueNotAllowed.id }}" type="checkbox">
+
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </div>
 </div>
