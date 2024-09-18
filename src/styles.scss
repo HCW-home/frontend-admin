@@ -116,6 +116,10 @@ mat-label{
   display: flex;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
 .flex-column {
   flex-direction: column;
 }

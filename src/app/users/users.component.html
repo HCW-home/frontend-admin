@@ -1,48 +1,71 @@
-<h2>
-  Users <button mat-raised-button color="primary" [routerLink]="['/new-user']">Add new user</button>
-</h2>
+<div class="d-flex justify-content-between">
+  <h2>
+    Users
+  </h2>
+  <button mat-raised-button color="primary" [routerLink]="['/new-user']">Add new user</button>
+</div>
+
 
 <mat-spinner *ngIf="loading"></mat-spinner>
 
+<div class="d-flex gap-16">
 <div class="field-container">
-  <!--mat-form-field>
-    <mat-label>Filtrer par role</mat-label>
-    < useful if multiple role select matNativeControl (change)="filterByRole($event.target.value)">
-      <option value="">None</option>
-      <option value="doctor">Doctor</option>
-      <option value="admin">Admin</option>
-      <option value="patient">Patient</option>
-    </select>
-  </mat-form-field-->
-  <mat-form-field style="margin-left: 10px;">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Nom, Prénom, email..." />
+  <mat-form-field>
+    <mat-label>Filter by role</mat-label>
+    <mat-select [formControl]="selectedRoles" multiple (selectionChange)="onRoleSelectionChange()">
+      <mat-option *ngFor="let role of rolesList" [value]="role">{{ role | titlecase }}</mat-option>
+    </mat-select>
   </mat-form-field>
+</div>
+  <div class="field-container">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Name, First name, email..." />
+    </mat-form-field>
+  </div>
 </div>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-    <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>No.</th>
       <td mat-cell *matCellDef="let element">{{ element.position }}</td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">{{ element.email || 'Unknown' }}</td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">{{ element.firstName + ' ' + element.lastName }}</td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
-      <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.role | titlecase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="organization">
+      <th mat-header-cell *matHeaderCellDef>Organization</th>
+      <td mat-cell *matCellDef="let element">{{ element.organization }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>Country</th>
+      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-slide-toggle (change)="onToggle($event, element)" [checked]="element.status === 'approved'"></mat-slide-toggle>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
@@ -61,5 +84,5 @@
   </table>
 
   <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
-    (page)="pageChange($event)" [length]="count"></mat-paginator>
+                 [length]="count"></mat-paginator>
 </div>

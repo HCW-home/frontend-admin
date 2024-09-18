@@ -40,7 +40,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MediasoupComponent } from './mediasoup/mediasoup.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CliniciansComponent } from './clinicians/clinicians.component';
 import { SettingsComponent } from './settings/settings.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -51,7 +50,6 @@ import { MatChipsModule } from '@angular/material/chips';
     LoginComponent,
     DashboardComponent,
     UsersComponent,
-    CliniciansComponent,
     TopNavComponent,
     UserDetailComponent,
     UserFormComponent,
