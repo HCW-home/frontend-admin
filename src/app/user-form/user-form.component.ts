@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../types/user';
-import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Roles } from '../constants/user';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,9 +23,10 @@ export class UserFormComponent implements OnInit {
   @Output() change: EventEmitter<User> = new EventEmitter<User>();
 
   roles = [
-    { name: 'User', value: 'doctor' },
-    { name: 'Admin', value: 'admin' },
-    { name: 'Scheduler', value: 'scheduler' }
+    { name: 'User', value: Roles.ROLE_DOCTOR },
+    { name: 'Admin', value: Roles.ROLE_ADMIN },
+    { name: 'Scheduler', value: Roles.ROLE_SCHEDULER },
+    { name: 'Requester', value: Roles.ROLE_NURSE }
   ];
 
   myForm;
