@@ -71,10 +71,10 @@ const routes: Routes = [
         canActivate: [RouterGuard]
       },
       {
-        path: 'settings',
+        path: 'sms',
         component: SettingsComponent,
         data: {
-          title: 'Settings'
+          title: 'SMS'
         },
         canActivate: [RouterGuard]
       },
