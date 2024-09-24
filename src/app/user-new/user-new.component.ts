@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-new',
@@ -10,21 +11,38 @@ import { Location } from '@angular/common';
 export class UserNewComponent implements OnInit {
 
   constructor(private userService: UserService,
-    private location: Location
-  ) { }
+              private location: Location,
+              private snackBar: MatSnackBar
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log("init new user")
+    console.log('init new user');
+  }
+
+  showError(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
+    });
   }
 
   createUser(user) {
-    console.log("userDetail", user);
     this.userService.create(user).subscribe(
       (res) => {
-        console.log(res);
         this.location.back();
       },
-      (err) => console.log(err));
+      (err) => {
+        const error =
+          err.details ||
+          err.error?.message ||
+          err.statusText ||
+          err.message ||
+          err;
+        this.showError(error || 'An error occurred while saving data!');
+      });
   }
 
 

@@ -3,7 +3,6 @@ import { User } from '../types/user';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Roles } from '../constants/user';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserFormComponent implements OnInit {
   @Input() user: User;
-  @Output() change: EventEmitter<User> = new EventEmitter<User>();
+  @Output() submmit: EventEmitter<User> = new EventEmitter<User>();
 
   roles = [
     { name: 'User', value: Roles.ROLE_DOCTOR },
@@ -36,7 +35,6 @@ export class UserFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private location: Location,
-              private router: Router
   ) {
 
   }
@@ -85,10 +83,8 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.myForm.valid, 'this.myForm.valid');
     if (this.myForm.valid) {
-      console.log(this.user, 'this.user');
-      this.change.emit(this.user);
+      this.submmit.emit(this.user);
     }
   }
 }

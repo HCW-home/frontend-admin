@@ -44,6 +44,7 @@ import { SettingsComponent } from './settings/settings.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent,
@@ -82,7 +83,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     DragDropModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthService,

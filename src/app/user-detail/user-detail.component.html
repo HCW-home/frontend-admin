@@ -3,7 +3,7 @@
     <h2>Edit user</h2>
 
     <div *ngIf="user">
-      <app-user-form [user]="user" (change)="updateUser()"></app-user-form>
+      <app-user-form [user]="user" (submmit)="updateUser()"></app-user-form>
     </div>
 
   </div>

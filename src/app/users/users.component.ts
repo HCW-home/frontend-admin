@@ -15,7 +15,12 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  rolesList: string[] = [Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE];
+  rolesList: { id: string, label: string }[] = [{ id: Roles.ROLE_DOCTOR, label: 'Doctor' }, {
+    id: Roles.ROLE_SCHEDULER,
+    label: 'Scheduler'
+  }, {
+    id: Roles.ROLE_ADMIN, label: 'Admin'
+  }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
   selectedRoles = new FormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
   subscriptions: Subscription[] = [];
   users: User[] = [];
