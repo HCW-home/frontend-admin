@@ -5,11 +5,12 @@ import { UserService } from '../user.service';
 import { User } from '../types/user';
 import { Location } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
+  styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
   user: User;
@@ -24,13 +25,16 @@ export class UserDetailComponent implements OnInit {
   allQueues: any[];
   allowedQueues: any;
   queuesNotAllowed = [];
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     private authService: AuthService,
     private userService: UserService,
-    private queueService: QueueService,
-  ) {}
+    private queueService: QueueService
+  ) {
+  }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -49,13 +53,18 @@ export class UserDetailComponent implements OnInit {
     this.getUserQueues();
     this.authService.getConfig().subscribe(config => {
 
-       if (config.method === 'password' || config.method === 'both') {
+      if (config.method === 'password' || config.method === 'both') {
         this.showPasswordDetail = true;
-       }
+      }
     });
   }
-  addQueueToUser(queueId) {}
-  removeQueueToUser(queueId) {}
+
+  addQueueToUser(queueId) {
+  }
+
+  removeQueueToUser(queueId) {
+  }
+
   getUserQueues() {
     this.loadingUserQueue = true;
 
@@ -94,7 +103,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   filterQueuesNotAllowed() {
-    let queuesIds = this.allowedQueues.map(function (e) {
+    let queuesIds = this.allowedQueues.map(function(e) {
       return e.id;
     });
     this.queuesNotAllowed = this.allQueues.filter((queue) => {
@@ -103,12 +112,15 @@ export class UserDetailComponent implements OnInit {
     });
     console.log('queuesNotAllowed', this.queuesNotAllowed);
   }
+
   selectQueueToRemove(queue) {
     queue.checked = !queue.checked;
   }
+
   selectQueueToAdd(queue) {
     queue.checked = !queue.checked;
   }
+
   addQueue() {
     let queuesToAdd = this.queuesNotAllowed.filter((q) => q.checked).map((q) => q.id);
     if (!queuesToAdd || queuesToAdd.length == 0 || this.isAddingQueues) return;
@@ -143,6 +155,16 @@ export class UserDetailComponent implements OnInit {
       }
     );
   }
+
+  showError(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
+    });
+  }
+
   updateUser() {
     console.log('userDetail', this.user);
     this.userService.update(this.userId, this.user).subscribe(
@@ -150,9 +172,19 @@ export class UserDetailComponent implements OnInit {
         console.log(res);
         this.location.back();
       },
-      (err) => console.log(err)
+      (err) => {
+        const error =
+          err.details ||
+          err.error?.message ||
+          err.statusText ||
+          err.message ||
+          err;
+        this.showError(error || 'An error occurred while saving data!');
+
+      }
     );
   }
+
   updatePassword(password: string) {
     this.userService.update(this.userId, { password, email: this.user.email }).subscribe(
       (res) => {
