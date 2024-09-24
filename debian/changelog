@@ -1,3 +1,14 @@
+hcw-athome-admin (5.0.6) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add password field
+  * refs #7472, Be able to edit and remove requesters in admin interface
+  * add Requester role to users form
+  * sms settings changes
+  * rename select options
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 08:26:40 +0200
+
 hcw-athome-admin (5.0.5) focal; urgency=medium
 
   * Replace Doctor by User
