@@ -1,3 +1,13 @@
+hcw-athome-admin (5.0.7) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * admin users list fixes
+
+  [ Olivier Bitsch ]
+  * Rename field label
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 11:07:01 +0200
+
 hcw-athome-admin (5.0.6) focal; urgency=medium
 
   [ Gor Grigoryan ]
