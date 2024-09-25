@@ -1,4 +1,4 @@
-hcw-athome-admin (5.0.8) focal; urgency=medium
+hcw-athome-admin (5.2.0) focal; urgency=medium
 
   [ Gor Grigoryan ]
   * handle update error
