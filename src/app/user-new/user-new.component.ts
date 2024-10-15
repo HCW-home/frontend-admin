@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +13,7 @@ export class UserNewComponent implements OnInit {
 
   constructor(private userService: UserService,
               private location: Location,
+              private router: Router,
               private snackBar: MatSnackBar
   ) {
   }
@@ -32,7 +34,11 @@ export class UserNewComponent implements OnInit {
   createUser(user) {
     this.userService.create(user).subscribe(
       (res) => {
-        this.location.back();
+        if (res.id) {
+          this.router.navigate(['user', res.id])
+        } else {
+          this.location.back();
+        }
       },
       (err) => {
         const error =
