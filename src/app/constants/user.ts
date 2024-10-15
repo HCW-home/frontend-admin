@@ -6,3 +6,10 @@ export enum Roles {
   'ROLE_ADMIN' = 'admin',
   'ROLE_SCHEDULER' = 'scheduler',
 }
+
+export enum RoleMapper {
+  'doctor'= 'Doctor',
+  'nurse'= 'Requester',
+  'admin'= 'Admin',
+  'scheduler'= 'Scheduler',
+}

@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Roles } from '../constants/user';
+import { RoleMapper, Roles } from '../constants/user';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
@@ -27,14 +27,16 @@ export class UsersComponent implements OnInit, OnDestroy {
   loading = false;
   error;
 
-  displayedColumns: string[] = ['name', 'email', 'role', 'phoneNumber', 'organization', 'country', 'status', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
+    'phoneNumber', 'organization', 'country', 'status', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
   pageSize = '10';
   pageSizeOptions = [10, 50, 100];
-
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  RoleMapper = RoleMapper;
 
   constructor(private userService: UserService, private router: Router) {
   }

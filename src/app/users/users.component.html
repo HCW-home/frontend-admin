@@ -43,7 +43,12 @@
 
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
-      <td mat-cell *matCellDef="let element">{{ element.role | titlecase }}</td>
+      <td mat-cell *matCellDef="let element">{{ RoleMapper[element.role] }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="doctorTermsVersion">
+      <th mat-header-cell *matHeaderCellDef>Terms Version</th>
+      <td mat-cell *matCellDef="let element">{{ +element.doctorTermsVersion || '-' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="phoneNumber">
