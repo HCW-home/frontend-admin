@@ -1,3 +1,9 @@
+hcw-athome-admin (0.5.2.3) UNRELEASED; urgency=medium
+
+  * navigate to edit when creating user
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 15 Oct 2024 15:05:29 +0000
+
 hcw-athome-admin (5.2.2) focal; urgency=medium
 
   [ Gor Grigoryan ]
@@ -115,7 +121,7 @@ hcw-athome-admin (0.4.4.20) focal; urgency=medium
 hcw-athome-admin (0.4.4.19) focal; urgency=medium
 
   [ Gor Grigoryan ]
-  * add requester table 
+  * add requester table
 
  -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 23 Oct 2023 14:36:29 +0200
 
