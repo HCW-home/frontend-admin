@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-queues',
@@ -13,13 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./queues.component.scss'],
 })
 export class QueuesComponent implements OnInit, AfterViewInit {
-  // subscriptions: Subscription[] = [];
   queues: Queue[] = [];
   loading = false;
   error;
-  displayedColumns: string[] = ['name', 'action'];
+  displayedColumns: string[] = ['name', 'disableFeedback', 'action'];
   dataSource = new MatTableDataSource<Queue>(this.queues);
-  count = 0;
   newQueueName = '';
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,6 +60,19 @@ export class QueuesComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onToggle(event: MatSlideToggleChange, queue: Queue) {
+    const { checked } = event;
+    const body = {
+      disableFeedback: checked
+    };
+    this.queueService.updateQueue(queue.id, body).subscribe(
+      (res) => {
+        this.getQueues();
+      },
+      (err) => {}
+    );
   }
 
   deleteQueue(queue) {
@@ -105,7 +117,10 @@ export class QueuesComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.event == 'Update') {
-        this.queueService.updateQueue(result.data.id, result.data.name).subscribe(
+        const body = {
+          name: result.data.name
+        };
+        this.queueService.updateQueue(result.data.id, body).subscribe(
           (res) => {
             this.getQueues();
           },

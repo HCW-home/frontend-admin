@@ -88,7 +88,6 @@ export class UsersComponent implements OnInit, OnDestroy {
           console.log(err, 'err');
         }
       });
-    console.log(event, 'event');
   }
 
 

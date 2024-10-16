@@ -22,9 +22,10 @@ export class QueueService {
     return this.http.post<Queue>(environment.api + '/queue', queue);
   }
 
-  updateQueue(id, name) {
-    return this.http.patch(environment.api + `/queue/${id}`, { name: name });
+  updateQueue(id, body) {
+    return this.http.patch(environment.api + `/queue/${id}`, body);
   }
+
   delete(queue: Queue) {
     return this.http.delete(environment.api + `/queue/${queue.id}`);
   }

@@ -20,7 +20,7 @@
     <table mat-table [dataSource]="dataSource">
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-            <th mat-header-row *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element" class="action-link">
                 <button (click)="openDialog('Update',element)" mat-button>
                     <mat-icon style="color:#2871BD">edit</mat-icon>
@@ -32,8 +32,15 @@
         </ng-container>
         <!-- Position Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-row *matHeaderCellDef>Queue name</th>
+            <th mat-header-cell *matHeaderCellDef>Queue name</th>
             <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="disableFeedback">
+            <th mat-header-cell *matHeaderCellDef>Disable patient feedback</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-slide-toggle (change)="onToggle($event, element)" [checked]="element.disableFeedback"></mat-slide-toggle>
+          </td>
         </ng-container>
 
 

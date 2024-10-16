@@ -1,5 +1,6 @@
 export class Queue {
-    id?: string;
-    name: string;
+  id?: string;
+  name: string;
+  disableFeedback?: boolean;
 }
 
