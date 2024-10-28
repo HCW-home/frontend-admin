@@ -4,7 +4,7 @@ hcw-athome-admin (5.2.3) focal; urgency=medium
   * navigate to edit when creating user
   * Disable survey by queue. Update the closing screen
 
- -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 17 Oct 2024 16:26:37 +0200
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 28 Oct 2024 09:11:44 +0100
 
 hcw-athome-admin (5.2.2) focal; urgency=medium
 
