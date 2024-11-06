@@ -5,7 +5,7 @@ import { User } from '../types/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { RoleMapper, Roles } from '../constants/user';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }, {
     id: Roles.ROLE_ADMIN, label: 'Admin'
   }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
-  selectedRoles = new FormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
+  selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
   subscriptions: Subscription[] = [];
   users: User[] = [];
   loading = false;

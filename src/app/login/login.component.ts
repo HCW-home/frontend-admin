@@ -1,6 +1,6 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -24,14 +24,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit, OnDestroy {
 
 
-  emailFormControl = new FormControl('', [
+  emailFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  passwordFormControl = new FormControl('', [
+  passwordFormControl = new UntypedFormControl('', [
     Validators.required,
   ]);
-  codeFormControl = new FormControl('', [
+  codeFormControl = new UntypedFormControl('', [
     Validators.required,
   ]);
   matcher = new MyErrorStateMatcher();

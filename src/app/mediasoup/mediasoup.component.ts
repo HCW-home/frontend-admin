@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormArray, Validators, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, UntypedFormArray, Validators, UntypedFormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {MediasoupserverService} from "../services/mediasoupserver.service";
 import {ErrorStateMatcher} from "@angular/material/core";
 
 export class FormErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }
@@ -16,10 +16,10 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class MediasoupComponent implements OnInit {
-  configForm: FormGroup;
+  configForm: UntypedFormGroup;
   matcher = new FormErrorStateMatcher();
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private mediasoupserverService: MediasoupserverService) {
   }
 
@@ -32,7 +32,7 @@ export class MediasoupComponent implements OnInit {
   }
 
   get configs() {
-    return this.configForm.get('configs') as FormArray;
+    return this.configForm.get('configs') as UntypedFormArray;
   }
 
   loadConfigs() {

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../types/user';
-import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Roles } from '../constants/user';
 import { Queue } from '../queue';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -20,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserFormComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private location: Location,
   ) {}
 
@@ -61,18 +61,18 @@ export class UserFormComponent implements OnInit {
   createFormGroup() {
     // this.user.role = Role.doctor;
     this.myForm = this.formBuilder.group({
-      emailFormControl: new FormControl(this.user.email, [Validators.email]),
-      phoneNumberFormControl: new FormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
-      firstNameFormControl: new FormControl(this.user.firstName, [Validators.required]),
-      lastNameFormControl: new FormControl(this.user.lastName, [Validators.required]),
-      functionFormControl: new FormControl(this.user._function),
-      departmentFormControl: new FormControl(this.user.department),
-      viewAllQueuesFormControl: new FormControl(this.user.viewAllQueues),
-      authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
-      genderFormControl: new FormControl(this.user.gender),
-      role: new FormControl(this.user.role),
-      password: new FormControl(''),
-      queue: new FormControl([])
+      emailFormControl: new UntypedFormControl(this.user.email, [Validators.email]),
+      phoneNumberFormControl: new UntypedFormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      firstNameFormControl: new UntypedFormControl(this.user.firstName, [Validators.required]),
+      lastNameFormControl: new UntypedFormControl(this.user.lastName, [Validators.required]),
+      functionFormControl: new UntypedFormControl(this.user._function),
+      departmentFormControl: new UntypedFormControl(this.user.department),
+      viewAllQueuesFormControl: new UntypedFormControl(this.user.viewAllQueues),
+      authPhoneNumberFormControl: new UntypedFormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      genderFormControl: new UntypedFormControl(this.user.gender),
+      role: new UntypedFormControl(this.user.role),
+      password: new UntypedFormControl(''),
+      queue: new UntypedFormControl([])
 
       // genderFormControl: new FormControl(false),
 
