@@ -5,7 +5,7 @@ import { UserService } from '../user.service';
 import { User } from '../types/user';
 import { Location } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-user-detail',

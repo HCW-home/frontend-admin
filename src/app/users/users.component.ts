@@ -2,12 +2,12 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { User } from '../types/user';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { Router } from '@angular/router';
 import { UntypedFormControl } from '@angular/forms';
 import { RoleMapper, Roles } from '../constants/user';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
