@@ -53,71 +53,70 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent,
-    LoginComponent,
-    DashboardComponent,
-    UsersComponent,
-    TopNavComponent,
-    UserDetailComponent,
-    UserFormComponent,
-    UserNewComponent,
-    QueuesComponent,
-    DialogBoxComponent,
-    MediasoupComponent,
-    SettingsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatListModule,
-    MatButtonModule,
-    MatBadgeModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    DragDropModule,
-    MatCardModule,
-    MatChipsModule,
-    MatSnackBarModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: WithCredentialsInterceptor,
-      multi: true
-    },
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: []
+    declarations: [AppComponent,
+        LoginComponent,
+        DashboardComponent,
+        UsersComponent,
+        TopNavComponent,
+        UserDetailComponent,
+        UserFormComponent,
+        UserNewComponent,
+        QueuesComponent,
+        DialogBoxComponent,
+        MediasoupComponent,
+        SettingsComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatFormFieldModule,
+        MatListModule,
+        MatButtonModule,
+        MatBadgeModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatCheckboxModule,
+        MatSlideToggleModule,
+        DragDropModule,
+        MatCardModule,
+        MatChipsModule,
+        MatSnackBarModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
+    ],
+    providers: [
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: WithCredentialsInterceptor,
+            multi: true
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
