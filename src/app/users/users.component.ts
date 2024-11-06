@@ -16,12 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  rolesList: { id: string, label: string }[] = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
-    id: Roles.ROLE_SCHEDULER,
-    label: 'Scheduler'
-  }, {
-    id: Roles.ROLE_ADMIN, label: 'Admin'
-  }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
+  rolesList: { id: string, label: string }[] = [];
   selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
   subscriptions: Subscription[] = [];
   users: User[] = [];
@@ -45,6 +40,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.rolesList = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
+      id: Roles.ROLE_SCHEDULER,
+      label: 'Scheduler'
+    }, {
+      id: Roles.ROLE_ADMIN, label: 'Admin'
+    }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
+
+
     this.getDoctors();
     this.dataSource.paginator = this.paginator;
   }

@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
+    "@ngx-translate/core": "15.0.0",
+    "@ngx-translate/http-loader": "8.0.0",
     "querystring": "^0.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",

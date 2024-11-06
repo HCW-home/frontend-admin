@@ -1,5 +1,9 @@
 {
   "roles": {
-    "doctor": "User"
+    "doctor": "User",
+    "requester": "Requester",
+    "nurse": "Requester",
+    "admin": "Admin",
+    "scheduler": "Scheduler"
   }
 }

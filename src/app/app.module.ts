@@ -5,7 +5,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
@@ -15,8 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
-
-
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,82 +39,94 @@ import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/
 import { MediasoupComponent } from './mediasoup/mediasoup.component';
 import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { SettingsComponent } from './settings/settings.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
 import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
 }
 
+
+export function initializeApp(translate: TranslateService) {
+  return () => translate.use('en').toPromise();
+}
+
 @NgModule({
-    declarations: [AppComponent,
-        LoginComponent,
-        DashboardComponent,
-        UsersComponent,
-        TopNavComponent,
-        UserDetailComponent,
-        UserFormComponent,
-        UserNewComponent,
-        QueuesComponent,
-        DialogBoxComponent,
-        MediasoupComponent,
-        SettingsComponent,
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatListModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatCheckboxModule,
-        MatSlideToggleModule,
-        DragDropModule,
-        MatCardModule,
-        MatChipsModule,
-        MatSnackBarModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })
-    ],
-    providers: [
-        AuthService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: JwtInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: WithCredentialsInterceptor,
-            multi: true
-        },
-    ],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    UsersComponent,
+    TopNavComponent,
+    UserDetailComponent,
+    UserFormComponent,
+    UserNewComponent,
+    QueuesComponent,
+    DialogBoxComponent,
+    MediasoupComponent,
+    SettingsComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    DragDropModule,
+    MatCardModule,
+    MatChipsModule,
+    MatSnackBarModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+  ],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [TranslateService],
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

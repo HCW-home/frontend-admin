@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private authService: AuthService) {
     this.translate.setDefaultLang('en');
+    this.translate.use('en');
 
     iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
     iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));

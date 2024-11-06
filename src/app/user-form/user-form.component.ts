@@ -5,6 +5,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Roles } from '../constants/user';
 import { Queue } from '../queue';
+import { TranslateService } from '@ngx-translate/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,16 +21,22 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserFormComponent implements OnInit {
 
-  constructor(private formBuilder: UntypedFormBuilder,
-              private location: Location,
-  ) {}
+  constructor(
+    private translate: TranslateService,
+    private formBuilder: UntypedFormBuilder,
+    private location: Location
+  ) {
+  }
 
   @Input() user: User;
   @Input() allQueues: Queue[];
-  @Output() submmit: EventEmitter<{ user: User, selectedQueue: Queue[] }> = new EventEmitter<{ user: User, selectedQueue: Queue[] }>();
+  @Output() submmit: EventEmitter<{ user: User, selectedQueue: Queue[] }> = new EventEmitter<{
+    user: User,
+    selectedQueue: Queue[]
+  }>();
 
   roles = [
-    { name: 'User', value: Roles.ROLE_DOCTOR },
+    { name: this.translate.instant('roles.doctor'), value: Roles.ROLE_DOCTOR },
     { name: 'Admin', value: Roles.ROLE_ADMIN },
     { name: 'Scheduler', value: Roles.ROLE_SCHEDULER },
     { name: 'Requester', value: Roles.ROLE_NURSE }
@@ -41,7 +48,7 @@ export class UserFormComponent implements OnInit {
   error = '';
 
 
-   Roles = Roles;
+  Roles = Roles;
 
   ngOnInit(): void {
     if (!this.user) {
@@ -87,7 +94,7 @@ export class UserFormComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      const selectedQueue = this.myForm.get('role').value === Roles.ROLE_DOCTOR ?  this.myForm.get('queue').value : [];
+      const selectedQueue = this.myForm.get('role').value === Roles.ROLE_DOCTOR ? this.myForm.get('queue').value : [];
       this.submmit.emit({ user: this.user, selectedQueue });
     }
   }
