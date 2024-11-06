@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { RoleMapper, Roles } from '../constants/user';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  rolesList: { id: string, label: string }[] = [{ id: Roles.ROLE_DOCTOR, label: 'Doctor' }, {
+  rolesList: { id: string, label: string }[] = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
     id: Roles.ROLE_SCHEDULER,
     label: 'Scheduler'
   }, {
@@ -38,7 +39,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   RoleMapper = RoleMapper;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(
+    private translate: TranslateService,
+    private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {

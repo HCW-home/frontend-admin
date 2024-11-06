@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 
 import {Router} from '@angular/router';
 import {User} from '../types/user';
-import {version} from '../../../package.json';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { User } from './types/user';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,11 @@ export class AppComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private authService: AuthService) {
+  constructor(
+    private translate: TranslateService,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private authService: AuthService) {
+    this.translate.setDefaultLang('en');
+
     iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
     iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));
     iconRegistry.addSvgIcon('server', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/server.svg'));
