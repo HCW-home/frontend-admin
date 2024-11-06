@@ -41,7 +41,7 @@ export class UserFormComponent implements OnInit {
   error = '';
 
 
-  protected readonly Roles = Roles;
+   Roles = Roles;
 
   ngOnInit(): void {
     if (!this.user) {
