@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Roles } from '../constants/user';
+import { Queue } from '../queue';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -18,8 +19,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
+
+  constructor(private formBuilder: FormBuilder,
+              private location: Location,
+  ) {}
+
   @Input() user: User;
-  @Output() submmit: EventEmitter<User> = new EventEmitter<User>();
+  @Input() allQueues: Queue[];
+  @Output() submmit: EventEmitter<{ user: User, selectedQueue: Queue[] }> = new EventEmitter<{ user: User, selectedQueue: Queue[] }>();
 
   roles = [
     { name: 'User', value: Roles.ROLE_DOCTOR },
@@ -33,19 +40,14 @@ export class UserFormComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private formBuilder: FormBuilder,
-              private location: Location,
-  ) {
 
-  }
+  protected readonly Roles = Roles;
 
   ngOnInit(): void {
-    console.log('[ngOnInit] user', this.user);
     if (!this.user) {
       this.user = {} as User;
     }
     this.createFormGroup();
-
   }
 
   ngAfterViewInit(): void {
@@ -69,7 +71,8 @@ export class UserFormComponent implements OnInit {
       authPhoneNumberFormControl: new FormControl(this.user.authPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
       genderFormControl: new FormControl(this.user.gender),
       role: new FormControl(this.user.role),
-      password: new FormControl('')
+      password: new FormControl(''),
+      queue: new FormControl([])
 
       // genderFormControl: new FormControl(false),
 
@@ -84,7 +87,8 @@ export class UserFormComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.submmit.emit(this.user);
+      const selectedQueue = this.myForm.get('role').value === Roles.ROLE_DOCTOR ?  this.myForm.get('queue').value : [];
+      this.submmit.emit({ user: this.user, selectedQueue });
     }
   }
 }

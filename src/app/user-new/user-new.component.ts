@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { QueueService } from '../queue.service';
+import { Queue } from '../queue';
 
 @Component({
   selector: 'app-user-new',
@@ -10,16 +12,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user-new.component.scss']
 })
 export class UserNewComponent implements OnInit {
+  allQueues: Queue[] = [];
 
   constructor(private userService: UserService,
               private location: Location,
               private router: Router,
+              private queueService: QueueService,
               private snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit(): void {
-    console.log('init new user');
+    this.getAllQueues();
   }
 
   showError(message: string) {
@@ -31,11 +35,30 @@ export class UserNewComponent implements OnInit {
     });
   }
 
-  createUser(user) {
-    this.userService.create(user).subscribe(
+  getAllQueues() {
+    const params = {
+      viewAllQueues: true
+    };
+    this.queueService.find(params).subscribe(
+      (res) => {
+        console.log('get all queues', res);
+        this.allQueues = res;
+      },
+      (err) => {
+        this.showError(err || 'An error occurred while saving data!');
+      }
+    );
+  }
+
+  createUser(values) {
+    this.userService.create(values.user).subscribe(
       (res) => {
         if (res.id) {
-          this.router.navigate(['user', res.id])
+          this.userService.addDoctorToQueue(res.id, values.selectedQueue).subscribe(
+            () => {
+              this.router.navigate(['user', res.id]);
+            }
+          );
         } else {
           this.location.back();
         }

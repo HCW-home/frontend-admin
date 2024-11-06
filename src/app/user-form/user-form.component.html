@@ -32,7 +32,7 @@
     <mat-form-field>
       <mat-label class="label">Firstname</mat-label>
       <input [(ngModel)]="user.firstName" matInput placeholder="Enter patient first name"
-             formControlName="firstNameFormControl" [errorStateMatcher]="matcher" required/>
+             formControlName="firstNameFormControl" [errorStateMatcher]="matcher" required />
 
       <mat-error *ngIf="myForm.controls.firstNameFormControl.hasError('required')">
         The firstname is <strong>required</strong>
@@ -42,7 +42,7 @@
     <mat-form-field>
       <mat-label class="label">Lastname</mat-label>
       <input [(ngModel)]="user.lastName" matInput placeholder="Enter patient last name"
-             formControlName="lastNameFormControl" [errorStateMatcher]="matcher" required/>
+             formControlName="lastNameFormControl" [errorStateMatcher]="matcher" required />
 
       <mat-error *ngIf="myForm.controls.lastNameFormControl.hasError('required')">
         The lastname is <strong>required</strong>
@@ -53,7 +53,7 @@
     <mat-form-field>
       <mat-label class="label">Email</mat-label>
       <input [(ngModel)]="user.email" matInput placeholder="Email" formControlName="emailFormControl"
-             [errorStateMatcher]="matcher"/>
+             [errorStateMatcher]="matcher" />
 
       <mat-error *ngIf="myForm.controls.emailFormControl.hasError('email')">
         Please provide correct email.
@@ -62,7 +62,7 @@
     <mat-form-field>
       <mat-label class="label">Mobile phone number</mat-label>
       <input [(ngModel)]="user.phoneNumber" matInput placeholder="+4179..."
-             formControlName="phoneNumberFormControl" [errorStateMatcher]="matcher" name="phoneNumber"/>
+             formControlName="phoneNumberFormControl" [errorStateMatcher]="matcher" name="phoneNumber" />
 
       <mat-error *ngIf="myForm.controls.phoneNumberFormControl.hasError('pattern')">
         Please provide phone number with format +41XX...
@@ -73,44 +73,53 @@
     <mat-form-field>
       <mat-label>Role</mat-label>
       <mat-select formControlName="role" [(ngModel)]="user.role">
-        <mat-option [value]="role.value" *ngFor="let role of roles">{{role.name}}</mat-option>
+        <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.name }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <ng-container *ngIf="!user.id && myForm.get('role').value === Roles.ROLE_DOCTOR">
+      <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="queue" multiple>
+          <mat-option [value]="queue.id" *ngFor="let queue of allQueues">{{ queue.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
   </div>
   <div class="field-container">
-  <mat-form-field>
-    <mat-label class="label">Password (not required if openid or saml configured)</mat-label>
-    <input matInput   [(ngModel)]="user.password" placeholder="Enter password"
-           formControlName="password" />
+    <mat-form-field>
+      <mat-label class="label">Password (not required if openid or saml configured)</mat-label>
+      <input matInput [(ngModel)]="user.password" placeholder="Enter password"
+             formControlName="password" />
 
-  </mat-form-field>
+    </mat-form-field>
   </div>
   <div *ngIf="user.role=='doctor'">
     <div class="field-container">
       <mat-form-field>
         <mat-label class="label">Department</mat-label>
         <input [(ngModel)]="user.department" matInput placeholder="Département"
-               formControlName="departmentFormControl" [errorStateMatcher]="matcher"/>
+               formControlName="departmentFormControl" [errorStateMatcher]="matcher" />
       </mat-form-field>
       <mat-form-field>
         <mat-label class="label">Job title</mat-label>
         <input [(ngModel)]="user._function" matInput placeholder="Fonction"
-               formControlName="functionFormControl" [errorStateMatcher]="matcher" name="_function"/>
+               formControlName="functionFormControl" [errorStateMatcher]="matcher" name="_function" />
       </mat-form-field>
     </div>
-</div>
-<div *ngIf="user.role=='doctor' || user.role==='admin'">
+  </div>
+  <div *ngIf="user.role=='doctor' || user.role==='admin'">
     <div class="field-container">
-      <mat-checkbox formControlName="viewAllQueuesFormControl" [(ngModel)]="user.viewAllQueues"> Can see all waiting queues?
+      <mat-checkbox formControlName="viewAllQueuesFormControl" [(ngModel)]="user.viewAllQueues"> Can see all waiting
+        queues?
       </mat-checkbox>
     </div>
-</div>
+  </div>
   <div *ngIf="user.role=='doctor' || user.role=='admin'">
     <div class="field-container" style="margin-top: 10px;">
       <mat-form-field>
         <mat-label class="label">2FA phone number</mat-label>
         <input [(ngModel)]="user.authPhoneNumber" matInput placeholder="+4179..."
-               formControlName="authPhoneNumberFormControl" [errorStateMatcher]="matcher"/>
+               formControlName="authPhoneNumberFormControl" [errorStateMatcher]="matcher" />
         <mat-error *ngIf="myForm.controls.authPhoneNumberFormControl.hasError('pattern')">
           Please provide phone number with format +41XX...
         </mat-error>

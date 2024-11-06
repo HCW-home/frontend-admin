@@ -27,6 +27,7 @@ export class UserDetailComponent implements OnInit {
   queuesNotAllowed = [];
 
   constructor(
+    private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -170,7 +171,7 @@ export class UserDetailComponent implements OnInit {
     this.userService.update(this.userId, this.user).subscribe(
       (res) => {
         console.log(res);
-        this.location.back();
+        this.router.navigate(['users']);
       },
       (err) => {
         const error =
