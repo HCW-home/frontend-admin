@@ -1,8 +1,10 @@
-hcw-athome-admin (0.5.2.3) UNRELEASED; urgency=medium
+hcw-athome-admin (5.2.3) focal; urgency=medium
 
+  [ Gor Grigoryan ]
   * navigate to edit when creating user
+  * Disable survey by queue. Update the closing screen
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 15 Oct 2024 15:05:29 +0000
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 28 Oct 2024 09:11:44 +0100
 
 hcw-athome-admin (5.2.2) focal; urgency=medium
 
