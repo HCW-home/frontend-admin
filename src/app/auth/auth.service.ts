@@ -45,7 +45,7 @@ export class AuthService {
 
   loginLocal(email, password) {
 
-    return this.http.post<any>(`${environment.api}/login-local`, {email, password, _version: version}).pipe(map(res => {
+    return this.http.post<any>(`${environment.api}/login-local`, {email, password, _version: '0.0.0'}).pipe(map(res => {
       if (res.user && res.user.token) {
         if (res.user.role && res.user.role != 'admin') {
           return res.user;
