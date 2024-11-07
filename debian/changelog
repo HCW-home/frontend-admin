@@ -1,3 +1,33 @@
+hcw-athome-admin (0.5.2.5) UNRELEASED; urgency=medium
+
+  [ Olivier Bitsch ]
+  * New release 5.2.3
+
+  [ Gor Grigoryan ]
+  * refs #7819, assign queues before user creation validation
+  * update cli to 10
+  * update material
+  * update to 11
+  * update material
+  * update angular to 12
+  * build fix
+  * update material
+  * add translate module
+  * update ngx-translate
+  * remove translate module
+  * update yarn locl
+  * update angular to 13
+  * update angular material to 13
+  * update angular to 14
+  * update angular material
+  * update angular to 15
+  * update angular to 15
+  * update angular to 16
+  * update material to 16
+  * add translation for roles
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 07 Nov 2024 09:07:36 +0000
+
 hcw-athome-admin (5.2.3) focal; urgency=medium
 
   [ Gor Grigoryan ]
