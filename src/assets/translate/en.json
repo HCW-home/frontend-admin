@@ -1,6 +1,6 @@
 {
   "roles": {
-    "doctor": "User",
+    "doctor": "Doctor",
     "requester": "Requester",
     "nurse": "Requester",
     "admin": "Admin",
