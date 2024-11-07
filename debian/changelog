@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.2.6) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.2.7) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * New release 5.2.3
@@ -26,8 +26,9 @@ hcw-athome-admin (0.5.2.6) UNRELEASED; urgency=medium
   * update material to 16
   * add translation for roles
   * build fix
+  * change to yarn install
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 07 Nov 2024 09:29:41 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 07 Nov 2024 09:42:53 +0000
 
 hcw-athome-admin (5.2.3) focal; urgency=medium
 
