@@ -12,8 +12,8 @@ show:
 	@ echo yarn_version: $(yarn_version)
 
 node_modules:
-#	@ npx yarn install
-	@ npm install
+	@ npx yarn install
+	@# npm install
 
 build: node_modules
 	@ npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
