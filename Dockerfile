@@ -1,4 +1,5 @@
 FROM node:16 AS builder
+ENV VERSION=0.5.3
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i
