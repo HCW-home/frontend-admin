@@ -1,8 +1,8 @@
-FROM node:16 AS builder
+FROM node:20 AS builder
 ENV VERSION=0.5.3
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm i
+RUN yarn
 COPY . .
 RUN npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
 
