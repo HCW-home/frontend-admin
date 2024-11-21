@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   error;
 
   displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
-    'phoneNumber', 'organization', 'country', 'status', 'action'];
+    'phoneNumber', 'organization', 'country', 'allowUseWhatsapp', 'status', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
@@ -87,6 +87,18 @@ export class UsersComponent implements OnInit, OnDestroy {
   onToggle(event: MatSlideToggleChange, user: any) {
     const { checked } = event;
     this.userService.updateUserStatus(user.id, checked ? 'approved' : 'not-approved')
+      .subscribe({
+        next: (res) => {
+          this.getDoctors();
+        }, error: (err) => {
+          console.log(err, 'err');
+        }
+      });
+  }
+
+  onToggleAllowWhatsapp(event: MatSlideToggleChange, user: any) {
+    const { checked } = event;
+    this.userService.update(user.id, { allowUseWhatsapp: checked })
       .subscribe({
         next: (res) => {
           this.getDoctors();
