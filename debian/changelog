@@ -1,3 +1,20 @@
+hcw-athome-admin (0.5.4) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update README
+  * Fix node version and use yarn
+  * Fix Dockerfile
+  * Update readme
+  * Update readme
+  * Update readme
+  * Update readme
+  * Update readme
+
+  [ Gor Grigoryan ]
+  * refs #7645, Add a way for the doctor to get his notification over whatsapp
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 22 Nov 2024 10:21:39 +0100
+
 hcw-athome-admin (0.5.3) focal; urgency=medium
 
   [ Olivier Bitsch ]
