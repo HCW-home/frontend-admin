@@ -10,7 +10,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Production build
 
-This project offer a Makefile, just build with `make podman-build` to build Docker container.
+This project offer a Makefile, just build with `make podman-build` to build Docker container. We offer also debian structure to build deb format.
 
 ## Further help
 
