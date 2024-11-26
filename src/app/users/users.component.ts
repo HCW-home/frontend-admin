@@ -127,4 +127,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  protected readonly Roles = Roles;
 }

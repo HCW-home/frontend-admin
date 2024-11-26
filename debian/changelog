@@ -1,3 +1,10 @@
+hcw-athome-admin (0.5.5) UNRELEASED; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update readme
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 26 Nov 2024 16:51:31 +0000
+
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
   [ Olivier Bitsch ]
