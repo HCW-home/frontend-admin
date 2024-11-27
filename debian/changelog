@@ -1,9 +1,12 @@
-hcw-athome-admin (0.5.5) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.6) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 26 Nov 2024 16:51:31 +0000
+  [ Gor Grigoryan ]
+  * remove allowUseWhatsapp
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 27 Nov 2024 08:05:58 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
