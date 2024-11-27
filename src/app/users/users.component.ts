@@ -16,6 +16,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+
+  constructor(
+    private translate: TranslateService,
+    private userService: UserService, private router: Router) {
+  }
   rolesList: { id: string, label: string }[] = [];
   selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
   subscriptions: Subscription[] = [];
@@ -24,7 +29,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   error;
 
   displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
-    'phoneNumber', 'organization', 'country', 'allowUseWhatsapp', 'status', 'action'];
+    'phoneNumber', 'organization', 'country', 'status', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
 
   count = 0;
@@ -34,10 +39,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   RoleMapper = RoleMapper;
 
-  constructor(
-    private translate: TranslateService,
-    private userService: UserService, private router: Router) {
-  }
+  protected readonly Roles = Roles;
 
   ngOnInit(): void {
     this.rolesList = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
@@ -96,19 +98,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
   }
 
-  onToggleAllowWhatsapp(event: MatSlideToggleChange, user: any) {
-    const { checked } = event;
-    this.userService.update(user.id, { allowUseWhatsapp: checked })
-      .subscribe({
-        next: (res) => {
-          this.getDoctors();
-        }, error: (err) => {
-          console.log(err, 'err');
-        }
-      });
-  }
-
-
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
@@ -127,6 +116,4 @@ export class UsersComponent implements OnInit, OnDestroy {
       );
     }
   }
-
-  protected readonly Roles = Roles;
 }

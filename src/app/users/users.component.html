@@ -73,13 +73,6 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="allowUseWhatsapp">
-      <th mat-header-cell *matHeaderCellDef>Allow Whatsapp</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-slide-toggle *ngIf="element.role === Roles.ROLE_DOCTOR" (change)="onToggleAllowWhatsapp($event, element)" [checked]="element.allowUseWhatsapp"></mat-slide-toggle>
-      </td>
-    </ng-container>
-
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef style="width:130px;">Action</th>
       <td mat-cell *matCellDef="let element">
