@@ -20,7 +20,7 @@
   <div class="field-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Name, First name, email..." />
+      <input matInput [(ngModel)]="query" (ngModelChange)="applyFilter($event)" placeholder="Name, First name, email..." />
     </mat-form-field>
   </div>
 </div>

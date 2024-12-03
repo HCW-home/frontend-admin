@@ -1,12 +1,13 @@
-import { Subscription } from 'rxjs';
-import { UserService } from '../user.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { UserService } from '../user.service';
 import { User } from '../types/user';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
-import { Router } from '@angular/router';
-import { UntypedFormControl } from '@angular/forms';
-import { RoleMapper, Roles } from '../constants/user';
+import {  Roles } from '../constants/user';
 import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,30 +17,28 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  rolesList: { id: string, label: string }[] = [];
+  selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
+  query = '';
+  subscriptions: Subscription[] = [];
+  users: User[] = [];
+  loading = false;
+  error;
+  displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
+    'phoneNumber', 'organization', 'country', 'status', 'action'];
+  dataSource = new MatTableDataSource<User>(this.users);
+  count = 0;
+  pageSize = '10';
+  pageSizeOptions = [10, 50, 100];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  searchInputChanged$: Subject<string> = new Subject<string>();
+
+  protected readonly Roles = Roles;
 
   constructor(
     private translate: TranslateService,
     private userService: UserService, private router: Router) {
   }
-  rolesList: { id: string, label: string }[] = [];
-  selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
-  subscriptions: Subscription[] = [];
-  users: User[] = [];
-  loading = false;
-  error;
-
-  displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
-    'phoneNumber', 'organization', 'country', 'status', 'action'];
-  dataSource = new MatTableDataSource<User>(this.users);
-
-  count = 0;
-  pageSize = '10';
-  pageSizeOptions = [10, 50, 100];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
-  RoleMapper = RoleMapper;
-
-  protected readonly Roles = Roles;
 
   ngOnInit(): void {
     this.rolesList = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
@@ -49,9 +48,13 @@ export class UsersComponent implements OnInit, OnDestroy {
       id: Roles.ROLE_ADMIN, label: 'Admin'
     }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
 
-
     this.getDoctors();
     this.dataSource.paginator = this.paginator;
+    this.searchInputChanged$
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe(() => {
+        this.getDoctors();
+      });
   }
 
   onRoleSelectionChange() {
@@ -60,10 +63,35 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   getDoctors() {
     this.loading = true;
-    const roles = { role: { in: this.selectedRoles.value } };
+
+    const roles = this.selectedRoles.value.length > 0
+      ? { role: { in: this.selectedRoles.value } }
+      : {};
+
+    const searchQuery = this.query?.trim();
+    let filters;
+
+    if (searchQuery) {
+      const searchTerms = searchQuery.split(' ').filter((term) => term);
+
+      const nameFilters = searchTerms.map((term) => ({
+        or: [
+          { firstName: { contains: term,  $options: 'i'  } },
+          { lastName: { contains: term,  $options: 'i'  } },
+          { email: { contains: term,  $options: 'i'  } }
+        ]
+      }));
+
+      filters = {
+        ...roles,
+        and: nameFilters
+      };
+    } else {
+      filters = roles;
+    }
 
     this.subscriptions.push(
-      this.userService.find(roles).subscribe(
+      this.userService.find(filters).subscribe(
         (res) => {
           this.users = res;
           this.dataSource.data = this.users;
@@ -81,9 +109,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user', user.id]);
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(event: string) {
+    this.searchInputChanged$.next(event);
   }
 
   onToggle(event: MatSlideToggleChange, user: any) {
@@ -98,12 +125,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
-      sub.unsubscribe();
-    });
-  }
-
   deleteUser(user) {
     if (confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')) {
       this.userService.delete(user).subscribe(
@@ -116,4 +137,11 @@ export class UsersComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
+
 }

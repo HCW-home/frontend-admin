@@ -16,7 +16,6 @@ export class UserService {
   }
 
   find(criteria = {}): Observable<User[]> {
-    console.log('find users ');
     return this.http.get<User[]>(`${environment.api}/user?where=${encodeURIComponent(JSON.stringify(criteria))}`);
   }
 
