@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MediasoupComponent } from './mediasoup/mediasoup.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WhatsappTemplatesComponent } from './whatsapp-templates/whatsapp-templates.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,14 @@ const routes: Routes = [
         component: SettingsComponent,
         data: {
           title: 'SMS'
+        },
+        canActivate: [RouterGuard]
+      },
+      {
+        path: 'whatsapp-templates',
+        component: WhatsappTemplatesComponent,
+        data: {
+          title: 'Whatsapp Templates'
         },
         canActivate: [RouterGuard]
       },

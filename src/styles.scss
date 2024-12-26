@@ -1,74 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+
+@import '@angular/material/theming';
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@include mat.all-component-themes($my-theme);
+
 
 html,
 body {
   height: 100%;
 }
-@import '@angular/material/theming';
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
-$md-hug: (
-  50: #e5eef7,
-  100: #bfd4eb,
-  200: #94b8de,
-  300: #699cd1,
-  400: #4886c7,
-  500: #2871bd,
-  600: #2469b7,
-  700: #1e5eae,
-  800: #1854a6,
-  900: #0f4298,
-  A100: #c9daff,
-  A200: #96b8ff,
-  A400: #6396ff,
-  A700: #4985ff,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
-  ),
-);
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat.define-palette($md-hug);
-$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$app-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat.define-light-theme($app-primary, $app-accent, $app-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-legacy-component-themes($app-theme);
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -79,14 +33,12 @@ body {
 }
 
 .mat-badge-after .mat-badge-content {
-  // background: #bd2828 !important;
   z-index: 20;
   right: -24px !important;
   top: -12px !important;
 }
-.mat-badge-content {
-  background: #bd2828 !important;
-}
+
+
 #mat-dialog-title-0 {
   display: none !important;
 }

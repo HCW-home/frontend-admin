@@ -1,69 +1,59 @@
 <ng-container *ngIf="currentUser">
 
   <mat-sidenav-container class="container">
-
-
     <mat-sidenav opened #sidenav mode="side" class="sidenav">
       <div class="at">@ <span>HOME</span></div>
       <mat-list class="menu-list">
-        <mat-list-item class="list-item">
-          <button
+          <a
+            mat-list-item
             routerLink="/dashboard"
             routerLinkActive="active"
-            class="menu-btn"
-            mat-button
-          >
+            class="menu-btn">
             <mat-icon svgIcon="dashboard"></mat-icon>
             <span class="btn-text">Dashboard</span>
-          </button>
-        </mat-list-item>
-
-        <mat-list-item class="list-item">
-          <button
+          </a>
+          <a
             routerLink="/users"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
+            mat-list-item
           >
             <mat-icon>supervised_user_circle</mat-icon>
             <span class="btn-text">Users</span>
-          </button>
-        </mat-list-item>
+          </a>
 
-        <mat-list-item class="list-item">
-          <button
+          <a
             routerLink="/queue"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
+            mat-list-item
           >
             <mat-icon svgIcon="queue"></mat-icon>
             <span class="btn-text">Waiting queues</span>
-          </button>
-        </mat-list-item>
-        <mat-list-item class="list-item">
-          <button
-            routerLink="/mediasoup"
-            routerLinkActive="active"
-            class="menu-btn"
-            mat-button
-          >
-            <mat-icon svgIcon="server"></mat-icon>
-            <span class="btn-text">Mediasoup</span>
-          </button>
-        </mat-list-item>
-        <mat-list-item class="list-item">
-          <button
+          </a>
+
+
+          <a
             routerLink="/sms"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
+            mat-list-item
           >
             <mat-icon >sms</mat-icon>
             <span class="btn-text">SMS</span>
-          </button>
-        </mat-list-item>
+          </a>
+
+          <a
+            routerLink="/whatsapp-templates"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-list-item
+          >
+            <mat-icon >forum</mat-icon>
+            <span class="btn-text">Whatsapp Templates </span>
+          </a>
       </mat-list>
+
     </mat-sidenav>
 
     <mat-sidenav-content>

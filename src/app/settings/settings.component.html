@@ -22,29 +22,28 @@
         <div>{{ setting.provider }}</div>
         <div>
           <mat-form-field class="prefix-chip-list">
-            <mat-chip-list #chipList aria-label="Prefix selection">
-              <ng-container *ngFor="let prefix of setting.prefix.split(',')">
+            <mat-chip-grid #chipList aria-label="Prefix selection">
+              <mat-chip-row *ngFor="let prefix of setting.prefix.split(',')">
 
-                <mat-chip *ngIf="prefix" [selectable]="true"
-                          [removable]="true" (removed)="remove(prefix, setting)">
                   {{ prefix }}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </ng-container>
+                <button matChipRemove aria-label="'remove ' + keyword" (click)="remove(prefix, setting)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
               <input placeholder="New Prefix..."
                      [matChipInputFor]="chipList"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
                      (matChipInputTokenEnd)="add($event, setting)">
-            </mat-chip-list>
+            </mat-chip-grid>
           </mat-form-field>
         </div>
 
         <div>
-          <mat-chip-list>
-            <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>
-            <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>
-          </mat-chip-list>
+<!--          <mat-chip-grid>-->
+<!--            <mat-chip color="accent"  *ngIf="setting.isDisabled">Disabled</mat-chip>-->
+<!--            <mat-chip color="primary"  *ngIf="!setting.isDisabled">Enabled</mat-chip>-->
+<!--          </mat-chip-grid>-->
 
         </div>
       </div>
@@ -67,28 +66,25 @@
       <div>{{ setting.provider }}</div>
       <div>
         <mat-form-field class="prefix-chip-list">
-          <mat-chip-list #chipList aria-label="Prefix selection">
-            <ng-container *ngFor="let prefix of setting.prefix.split(',')">
-              <mat-chip [selectable]="true" *ngIf="prefix"
-                        [removable]="true" (removed)="remove(prefix, setting)">
+          <mat-chip-grid #chipList aria-label="Prefix selection">
+            <mat-chip-row *ngFor="let prefix of setting.prefix.split(',')">
                 {{ prefix }}
-                <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip>
-            </ng-container>
+                <mat-icon matChipRemove (click)="remove(prefix, setting)">cancel</mat-icon>
+            </mat-chip-row>
             <input placeholder="New Prefix..."
                    [matChipInputFor]="chipList"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                    [matChipInputAddOnBlur]="true"
                    (matChipInputTokenEnd)="add($event, setting)">
-          </mat-chip-list>
+          </mat-chip-grid>
         </mat-form-field>
       </div>
 
       <div>
-        <mat-chip-list>
-          <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>
-          <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>
-        </mat-chip-list>
+<!--        <mat-chip-grid>-->
+<!--          <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>-->
+<!--          <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>-->
+<!--        </mat-chip-grid>-->
 
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { SettingsService } from '../services/settings.service';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 export interface Settings {
   id: string;
@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
   getSettings() {
     this.settingsService.getSmsProviders().subscribe({
       next: data => {
-        this.settings = data.sort((a, b) => a.order - b.order);;
+        this.settings = data.sort((a, b) => a.order - b.order);
       }, error: (err) => {
         console.log(err, 'err');
       }

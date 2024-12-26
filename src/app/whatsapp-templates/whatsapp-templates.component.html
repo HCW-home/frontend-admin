@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between">
+  <h2>
+    Whatsapp Templates
+  </h2>
+  <button mat-raised-button color="primary">
+    <mat-icon>add</mat-icon>
+    Add Whatsapp template
+  </button>
+</div>
+<mat-progress-spinner *ngIf="loading"></mat-progress-spinner>
+
+<div class="field-container">
+  <mat-form-field>
+    <mat-label>Select Language</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let language of languages" [value]="language.value">
+        {{language.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef >
+        Template id
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="disableFeedback">
+      <th mat-header-cell *matHeaderCellDef >
+        Status
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element" >
+
+        <button (click)="deleteTemplate(element)" mat-button>
+          <mat-icon color="warn" >delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+
+    <mat-paginator #scheduledOrdersPaginator [pageSize]="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"></mat-paginator>
+</div>
