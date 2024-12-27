@@ -2,7 +2,7 @@
   <h2>
     Whatsapp Templates
   </h2>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="primary" (click)="createTemplate()">
     <mat-icon>add</mat-icon>
     Add Whatsapp template
   </button>
@@ -19,32 +19,55 @@
     </mat-select>
   </mat-form-field>
 </div>
-<div class="mat-elevation-z8">
-
-  <table mat-table [dataSource]="dataSource">
+<div>
+  <table class="mat-elevation-z8" mat-table  [dataSource]="dataSource" >
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef >
-        Template id
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      <th mat-header-cell *matHeaderCellDef>Name / Template SID</th>
+      <td mat-cell *matCellDef="let template">
+        {{ template.name }}<br>
+        {{template.twilioTemplateId}}
+      </td>
     </ng-container>
 
-
-    <ng-container matColumnDef="disableFeedback">
-      <th mat-header-cell *matHeaderCellDef >
-        Status
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    <ng-container matColumnDef="language">
+      <th mat-header-cell *matHeaderCellDef>Language</th>
+      <td mat-cell *matCellDef="let template">{{ template.language }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let template">{{ template.category }}</td>
+    </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element" >
+    <ng-container matColumnDef="contentType">
+      <th mat-header-cell *matHeaderCellDef>Content Type</th>
+      <td mat-cell *matCellDef="let template">{{ template.contentType }}</td>
+    </ng-container>
 
-        <button (click)="deleteTemplate(element)" mat-button>
-          <mat-icon color="warn" >delete</mat-icon>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let template">{{ template.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let template">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="mr-16"
+          (click)="submitTemplate(template.id)"
+          [disabled]="template.status !== 'DRAFT'"
+        >
+          Submit for Approval
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteTemplate(template.id)"
+        >
+          Delete
         </button>
       </td>
     </ng-container>
@@ -52,8 +75,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-
-
-    <mat-paginator #scheduledOrdersPaginator [pageSize]="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"></mat-paginator>
+  <mat-paginator #scheduledOrdersPaginator [pageSize]="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"></mat-paginator>
 </div>

@@ -44,11 +44,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CreateWhatsappTemplateComponent } from './create-whatsapp-template/create-whatsapp-template.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
 }
-
 
 export function initializeApp(translate: TranslateService) {
   return () => translate.use('en').toPromise();
@@ -67,7 +67,8 @@ export function initializeApp(translate: TranslateService) {
     DialogBoxComponent,
     MediasoupComponent,
     SettingsComponent,
-    WhatsappTemplatesComponent
+    WhatsappTemplatesComponent,
+    CreateWhatsappTemplateComponent
   ],
   imports: [
     BrowserModule,

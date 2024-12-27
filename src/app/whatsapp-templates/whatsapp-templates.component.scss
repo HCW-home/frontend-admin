@@ -1,6 +1,9 @@
-
-
-
-.mat-column-action{
-    text-align: right;
+table {
+  width: 100%;
 }
+
+.mat-column-actions {
+  flex: 0 0 auto;
+  text-align: right;
+}
+

@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Create WhatsApp Template </h1>
+<div mat-dialog-content>
+  <form [formGroup]="templateForm" >
+    <div class="form-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Template Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Language</mat-label>
+        <input matInput formControlName="language" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Body</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="TRANSACTIONAL">TRANSACTIONAL</mat-option>
+          <mat-option value="MARKETING">MARKETING</mat-option>
+          <mat-option value="OTP">OTP</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Content Type</mat-label>
+        <mat-select formControlName="contentType">
+          <mat-option value="twilio/text">Text</mat-option>
+          <mat-option value="twilio/interactive">Interactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+<div mat-dialog-actions >
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button color="primary" (click)="createTemplate()">Create</button>
+</div>
