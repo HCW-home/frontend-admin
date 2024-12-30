@@ -1,5 +1,5 @@
 import { Component, Inject, Optional } from '@angular/core';
-import { Queue } from '../queue';
+import { Queue } from '../models/queue';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 

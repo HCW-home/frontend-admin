@@ -1,5 +1,5 @@
-import { QueueService } from './../queue.service';
-import { Queue } from './../queue';
+import { QueueService } from '../core/queue.service';
+import { Queue } from '../models/queue';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';

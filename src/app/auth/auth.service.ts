@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 
 import {Router} from '@angular/router';
-import {User} from '../types/user';
+import {User} from '../models/user';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

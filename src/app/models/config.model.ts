@@ -4,5 +4,5 @@ export interface Config {
   password: string;
   maxNumberOfSessions: number;
   active: boolean;
-  id?: string
+  id?: string;
 }

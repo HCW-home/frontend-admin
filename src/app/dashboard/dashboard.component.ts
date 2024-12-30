@@ -1,4 +1,4 @@
-import { StatService } from '../stat.service';
+import { StatService } from '../core/stat.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

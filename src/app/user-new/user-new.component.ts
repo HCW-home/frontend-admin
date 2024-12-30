@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../core/user.service';
 import { Location } from '@angular/common';
-import { QueueService } from '../queue.service';
-import { Queue } from '../queue';
+import { QueueService } from '../core/queue.service';
+import { Queue } from '../models/queue';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

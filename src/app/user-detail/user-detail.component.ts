@@ -1,8 +1,8 @@
-import { QueueService } from './../queue.service';
+import { QueueService } from '../core/queue.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../user.service';
-import { User } from '../types/user';
+import { UserService } from '../core/user.service';
+import { User } from '../models/user';
 import { Location } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,6 +1,6 @@
 export interface Language {
   value: string;
-  viewValue: string;
+  text: string;
 }
 
 export interface IBodyCreateWhatsAppTemplate {
@@ -19,15 +19,34 @@ export interface IBodyDeleteWhatsAppTemplate {
   id: string;
 }
 
+export interface IBodyRefreshStatus {
+  id: string;
+}
+
 export interface WhatsAppTemplate {
   id: string;
   params: JSON;
   name: string;
   body: string;
-  status: string;
+  status: TemplateStatus;
   category: string;
   language: string;
   createdAt: number;
   contentType: string;
   twilioTemplateId: string | null;
+  rejectionReason: string | null;
+}
+
+
+export enum  TemplateStatus {
+  'draft' = 'draft',
+  'received' = 'received',
+  'pending' = 'pending',
+  'approved' = 'approved',
+  'rejected' = 'rejected',
+}
+
+export interface ContentType {
+  type: string;
+  description: string;
 }

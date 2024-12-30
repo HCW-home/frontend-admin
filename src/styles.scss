@@ -78,6 +78,10 @@ mat-label{
   display: flex;
 }
 
+.justify-content-end {
+  justify-content: flex-end;
+}
+
 .justify-content-between {
   justify-content: space-between;
 }
@@ -92,4 +96,8 @@ mat-label{
 
 .mr-16 {
   margin-right: 16px;
+}
+
+.w-100 {
+ width: 100%;
 }

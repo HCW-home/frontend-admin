@@ -1,7 +1,7 @@
-import { ResourcesResponse } from './types/resourcesResponse';
-import { environment } from './../environments/environment';
+import { ResourcesResponse } from '../models/resourcesResponse';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { User } from './types/user';
+import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 

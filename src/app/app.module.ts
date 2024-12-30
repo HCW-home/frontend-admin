@@ -45,6 +45,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreateWhatsappTemplateComponent } from './create-whatsapp-template/create-whatsapp-template.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -101,7 +102,8 @@ export function initializeApp(translate: TranslateService) {
         deps: [HttpClient]
       }
     }),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [
     AuthService,

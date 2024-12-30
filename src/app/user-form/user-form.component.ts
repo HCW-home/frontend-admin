@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from '../types/user';
+import { User } from '../models/user';
 import { UntypedFormBuilder, UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { Roles } from '../constants/user';
-import { Queue } from '../queue';
+import { Queue } from '../models/queue';
 import { TranslateService } from '@ngx-translate/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
