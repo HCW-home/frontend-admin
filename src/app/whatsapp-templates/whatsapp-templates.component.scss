@@ -7,7 +7,36 @@ table {
   text-align: right;
 }
 
+/* app.component.css */
+.status-box {
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  font-weight: bold;
+  width: fit-content;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-.action-buttons {
+/* Define specific colors for each status */
+.status-draft {
+  background-color: #d3d3d3; /* Light Gray */
+}
 
+.status-received {
+  background-color: #87ceeb; /* Sky Blue */
+}
+
+.status-pending {
+  background-color: #ffcc66; /* Soft Orange */
+}
+
+.status-approved {
+  background-color: #98fb98; /* Pale Green */
+}
+
+.status-rejected {
+  background-color: #f08080; /* Light Coral */
 }
