@@ -19,6 +19,10 @@ export class UserService {
     return this.http.get<User[]>(`${environment.api}/user?where=${encodeURIComponent(JSON.stringify(criteria))}`);
   }
 
+  getPaginatedUsers(params ): Observable<{ data: User[], total: number }> {
+    return this.http.get<{ data: User[], total: number }>(`${environment.api}/users/paginated`, { params });
+  }
+
   getUsersByPage(limit, skip): Observable<ResourcesResponse<User>> {
     return this.http.get<ResourcesResponse<User>>(environment.api + `/user?limit=${limit}&` + `skip=${skip}`);
   }

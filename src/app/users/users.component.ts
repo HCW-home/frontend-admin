@@ -10,6 +10,7 @@ import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-pag
 import {  Roles } from '../constants/user';
 import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   rolesList: { id: string, label: string }[] = [];
   selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
   query = '';
@@ -27,10 +29,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
     'phoneNumber', 'organization', 'country', 'status', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
-  count = 0;
-  pageSize = '10';
+  totalUsers = 0;
+  pageSize = 10;
   pageSizeOptions = [10, 50, 100];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  currentPageIndex = 0;
   searchInputChanged$: Subject<string> = new Subject<string>();
 
   protected readonly Roles = Roles;
@@ -48,52 +50,33 @@ export class UsersComponent implements OnInit, OnDestroy {
       id: Roles.ROLE_ADMIN, label: 'Admin'
     }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
 
-    this.getDoctors();
-    this.dataSource.paginator = this.paginator;
+    this.getUsers();
     this.searchInputChanged$
       .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe(() => {
-        this.getDoctors();
+        this.getUsers();
       });
   }
 
   onRoleSelectionChange() {
-    this.getDoctors();
+    this.currentPageIndex = 0;
+    this.paginator.pageIndex = 0;
+    this.getUsers();
   }
 
-  getDoctors() {
+  getUsers() {
     this.loading = true;
-
-    const roles = this.selectedRoles.value.length > 0
-      ? { role: { in: this.selectedRoles.value } }
-      : {};
-
-    const searchQuery = this.query?.trim();
-    let filters;
-
-    if (searchQuery) {
-      const searchTerms = searchQuery.split(' ').filter((term) => term);
-
-      const nameFilters = searchTerms.map((term) => ({
-        or: [
-          { firstName: { contains: term,  $options: 'i'  } },
-          { lastName: { contains: term,  $options: 'i'  } },
-          { email: { contains: term,  $options: 'i'  } }
-        ]
-      }));
-
-      filters = {
-        ...roles,
-        and: nameFilters
-      };
-    } else {
-      filters = roles;
-    }
-
+    const params = {
+      pageIndex: this.currentPageIndex,
+      pageSize: this.pageSize,
+      query: this.query,
+      ['roles[]']: this.selectedRoles.value,
+    };
     this.subscriptions.push(
-      this.userService.find(filters).subscribe(
+      this.userService.getPaginatedUsers(params).subscribe(
         (res) => {
-          this.users = res;
+          this.users = res.data;
+          this.totalUsers = res.total;
           this.dataSource.data = this.users;
           this.loading = false;
         },
@@ -110,6 +93,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(event: string) {
+    this.currentPageIndex = 0;
+    this.paginator.pageIndex = 0;
     this.searchInputChanged$.next(event);
   }
 
@@ -118,7 +103,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userService.updateUserStatus(user.id, checked ? 'approved' : 'not-approved')
       .subscribe({
         next: (res) => {
-          this.getDoctors();
+          this.getUsers();
         }, error: (err) => {
           console.log(err, 'err');
         }
@@ -129,13 +114,20 @@ export class UsersComponent implements OnInit, OnDestroy {
     if (confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')) {
       this.userService.delete(user).subscribe(
         (res) => {
-          this.getDoctors();
+          this.getUsers();
         },
         (err) => {
           this.error = err;
         }
       );
     }
+  }
+
+
+  onPageChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPageIndex = event.pageIndex;
+    this.getUsers();
   }
 
   ngOnDestroy() {
