@@ -11,6 +11,12 @@ export interface IBodyCreateWhatsAppTemplate {
   contentType: string;
 }
 
+export interface IParamsGetTemplates {
+  language: string;
+  approvalStatus?: string;
+  [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+}
+
 export interface IBodySubmitWhatsAppTemplate {
   id: string;
 }
@@ -24,19 +30,24 @@ export interface IBodyRefreshStatus {
 }
 
 export interface WhatsAppTemplate {
-  id: string;
-  params: JSON;
-  name: string;
-  body: string;
-  status: TemplateStatus;
-  category: string;
-  language: string;
   createdAt: number;
-  contentType: string;
-  twilioTemplateId: string | null;
+  dateCreated: Date;
+  dateUpdated: Date;
+  friendlyName: string;
+  id: string;
+  language: string;
+  links: JSON;
+  sid: string;
+  types: JSON;
+  updatedAt: number;
+  url: string;
+  variables: JSON;
   rejectionReason: string | null;
+  approvalStatus: TemplateStatus;
 }
 
+
+// 'pending', 'approved', 'rejected', 'draft', 'unknown'
 
 export enum  TemplateStatus {
   'draft' = 'draft',
@@ -44,6 +55,7 @@ export enum  TemplateStatus {
   'pending' = 'pending',
   'approved' = 'approved',
   'rejected' = 'rejected',
+  'unknown' = 'unknown'
 }
 
 export interface ContentType {

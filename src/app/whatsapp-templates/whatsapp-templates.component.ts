@@ -1,9 +1,7 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Language, TemplateStatus, WhatsAppTemplate } from '../models/whatsapp-template';
-import { CreateWhatsappTemplateComponent } from '../create-whatsapp-template/create-whatsapp-template.component';
 import { WhatsappTemplatesService } from '../core/whatsapp-templates.service';
 import { LocaleService } from '../core/locale.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,22 +13,24 @@ import { ErrorHandlerService } from '../core/error-handler.service';
   styleUrls: ['./whatsapp-templates.component.scss'],
 })
 export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
-  @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
-
-  loading = false;
-  templates: WhatsAppTemplate[] = [];
-  displayedColumns: string[] = ['name', 'language', 'category', 'contentType', 'status', 'actions'];
-
-  dataSource = new MatTableDataSource<WhatsAppTemplate>([]);
-  languages: Language[] = [];
 
   constructor(
-    public dialog: MatDialog,
     private translate: TranslateService,
     private localeService: LocaleService,
     private errorHandler: ErrorHandlerService,
     private whatsappTemplatesService: WhatsappTemplatesService,
     ) {}
+  @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
+
+  loading = false;
+  templates: WhatsAppTemplate[] = [];
+  displayedColumns: string[] = ['name', 'language', 'status', 'actions'];
+
+  dataSource = new MatTableDataSource<WhatsAppTemplate>([]);
+  languages: Language[] = [];
+  selectedLanguage = 'en';
+
+  protected readonly TemplateStatus = TemplateStatus;
 
   ngOnInit(): void {
     this.fetchLanguages();
@@ -43,7 +43,10 @@ export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
 
   loadTemplates() {
     this.loading = true;
-    this.whatsappTemplatesService.loadTemplates({  }).subscribe(
+    const params = {
+      language: this.selectedLanguage,
+    }
+    this.whatsappTemplatesService.loadTemplates(params).subscribe(
       (res) => {
         this.templates = res;
         this.loading = false;
@@ -106,6 +109,11 @@ export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
 
   }
 
+  onLanguageChange(language: string) {
+    this.selectedLanguage = language;
+    this.loadTemplates();
+  }
+
   refreshStatus(id: string) {
     const body = {
       id
@@ -120,20 +128,4 @@ export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  createTemplate() {
-    const dialogRef = this.dialog.open(CreateWhatsappTemplateComponent, {
-      data: {
-        languages: this.languages,
-      },
-      width: '90vw'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadTemplates();
-      }
-    });
-  }
-
-  protected readonly TemplateStatus = TemplateStatus;
 }
