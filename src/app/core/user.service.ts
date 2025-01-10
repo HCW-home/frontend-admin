@@ -19,6 +19,10 @@ export class UserService {
     return this.http.get<User[]>(`${environment.api}/user?where=${encodeURIComponent(JSON.stringify(criteria))}`);
   }
 
+  getPaginatedUsers(params ): Observable<{ data: User[], total: number }> {
+    return this.http.get<{ data: User[], total: number }>(`${environment.api}/users/paginated`, { params });
+  }
+
   getUsersByPage(limit, skip): Observable<ResourcesResponse<User>> {
     return this.http.get<ResourcesResponse<User>>(environment.api + `/user?limit=${limit}&` + `skip=${skip}`);
   }
@@ -46,7 +50,7 @@ export class UserService {
   removeDoctorToQueue(id, queues: any[]) {
     return this.http.request('delete', environment.api + `/user/${id}/allowed-queues`, { body: { queue: queues } });
   }
-  //retrive queues by userId
+
   getUserQueuesById(userId) {
     return this.http.get(environment.api + `/user/${userId}/allowed-queues`);
   }

@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.7) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.9) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -6,8 +6,10 @@ hcw-athome-admin (0.5.7) UNRELEASED; urgency=medium
   [ Gor Grigoryan ]
   * remove allowUseWhatsapp
   * make users table search work with api
+  * fix local login
+  * refs #7956, User pagination issue in admin
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 04 Dec 2024 10:18:19 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 09 Jan 2025 13:50:32 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
