@@ -49,13 +49,13 @@
           color="primary"
           class="mr-16"
           (click)="submitTemplate(template.id)"
-          [disabled]="template.status !== TemplateStatus.draft"
+          [disabled]="template.approvalStatus !== TemplateStatus.draft"
         >
           Submit for Approval
         </button>
 
         <button
-          [disabled]="template.status === TemplateStatus.draft"
+          [disabled]="template.approvalStatus === TemplateStatus.draft"
           (click)="refreshStatus(template.id)" mat-button>
           <mat-icon >refresh</mat-icon>
         </button>
