@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <mat-form-field class="form-wrapper">
+          <textarea matInput rows="6" [(ngModel)]="data.body"></textarea>
+
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">Cancel</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="primary">Submit</button>
+</div>

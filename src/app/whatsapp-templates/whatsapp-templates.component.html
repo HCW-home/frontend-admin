@@ -44,6 +44,10 @@
     <ng-container matColumnDef="actions" >
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let template">
+
+        <button (click)="openEdit(template)" mat-button *ngIf="template.approvalStatus === TemplateStatus.draft">
+          <mat-icon style="color:#2871BD">edit</mat-icon>
+        </button>
         <button
           mat-stroked-button
           color="primary"

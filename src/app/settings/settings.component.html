@@ -40,10 +40,8 @@
         </div>
 
         <div>
-<!--          <mat-chip-grid>-->
-<!--            <mat-chip color="accent"  *ngIf="setting.isDisabled">Disabled</mat-chip>-->
-<!--            <mat-chip color="primary"  *ngIf="!setting.isDisabled">Enabled</mat-chip>-->
-<!--          </mat-chip-grid>-->
+            <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
+            <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
 
         </div>
       </div>
@@ -81,10 +79,8 @@
       </div>
 
       <div>
-<!--        <mat-chip-grid>-->
-<!--          <mat-chip color="accent" selected *ngIf="setting.isDisabled">Disabled</mat-chip>-->
-<!--          <mat-chip color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip>-->
-<!--        </mat-chip-grid>-->
+          <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
+          <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
 
       </div>
     </div>

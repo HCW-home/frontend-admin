@@ -44,6 +44,7 @@ export interface WhatsAppTemplate {
   variables: JSON;
   rejectionReason: string | null;
   approvalStatus: TemplateStatus;
+  body: string;
 }
 
 

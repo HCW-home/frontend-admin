@@ -15,7 +15,6 @@ export class DialogBoxComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    //@Optional() is used to prevent error if no data is passed
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Queue) {
     console.log(data);
     this.local_data = {...data};

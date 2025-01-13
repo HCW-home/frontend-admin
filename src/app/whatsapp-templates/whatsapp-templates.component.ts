@@ -6,6 +6,9 @@ import { WhatsappTemplatesService } from '../core/whatsapp-templates.service';
 import { LocaleService } from '../core/locale.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EditWhatsappTemplateComponent } from '../edit-whatsapp-template/edit-whatsapp-template.component';
 
 @Component({
   selector: 'app-queues',
@@ -15,6 +18,7 @@ import { ErrorHandlerService } from '../core/error-handler.service';
 export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
 
   constructor(
+    public dialog: MatDialog,
     private translate: TranslateService,
     private localeService: LocaleService,
     private errorHandler: ErrorHandlerService,
@@ -90,6 +94,14 @@ export class WhatsappTemplatesComponent implements OnInit, AfterViewInit {
         this.errorHandler.showError(err);
       }
     });
+  }
+
+  openEdit(template: WhatsAppTemplate) {
+
+    const dialogRef = this.dialog.open(EditWhatsappTemplateComponent, {
+      data: template,
+    });
+    console.log(template, 'template');
   }
 
 
