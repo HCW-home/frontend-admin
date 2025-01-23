@@ -21,6 +21,14 @@ export interface IBodySubmitWhatsAppTemplate {
   id: string;
 }
 
+export interface IBodyBulkSubmitWhatsAppTemplate {
+  ids: string[];
+}
+
+export interface IBodyUpdateWhatsAppTemplate {
+  body: string;
+}
+
 export interface IBodyDeleteWhatsAppTemplate {
   id: string;
 }
@@ -47,8 +55,6 @@ export interface WhatsAppTemplate {
   body: string;
 }
 
-
-// 'pending', 'approved', 'rejected', 'draft', 'unknown'
 
 export enum  TemplateStatus {
   'draft' = 'draft',

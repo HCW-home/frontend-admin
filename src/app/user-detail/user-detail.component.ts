@@ -72,8 +72,6 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUserQueuesById(this.userId).subscribe(
       (res) => {
         this.allowedQueues = res;
-        console.log('allowedQueues', this.allowedQueues);
-
         this.getAllQueues();
         this.loadingUserQueue = false;
       },
@@ -91,7 +89,6 @@ export class UserDetailComponent implements OnInit {
     };
     this.queueService.find(params).subscribe(
       (res) => {
-        console.log('get all queues', res);
         this.allQueues = res;
         this.loadingAllQueues = false;
         this.filterQueuesNotAllowed();
@@ -111,7 +108,6 @@ export class UserDetailComponent implements OnInit {
       //if id not found in the allowedQueues of the user it means that this queue isn't allowed.
       return queuesIds.indexOf(queue.id) < 0;
     });
-    console.log('queuesNotAllowed', this.queuesNotAllowed);
   }
 
   selectQueueToRemove(queue) {
@@ -123,18 +119,15 @@ export class UserDetailComponent implements OnInit {
   }
 
   addQueue() {
-    let queuesToAdd = this.queuesNotAllowed.filter((q) => q.checked).map((q) => q.id);
-    if (!queuesToAdd || queuesToAdd.length == 0 || this.isAddingQueues) return;
-    console.log(queuesToAdd);
+    const queuesToAdd = this.queuesNotAllowed.filter((q) => q.checked).map((q) => q.id);
+    if (!queuesToAdd || queuesToAdd.length === 0 || this.isAddingQueues) { return; }
     this.isAddingQueues = true;
     this.userService.addDoctorToQueue(this.user.id, queuesToAdd).subscribe(
       (res) => {
-        console.log(res);
         this.isAddingQueues = false;
         this.getUserQueues();
       },
       (err) => {
-        console.log(err);
         this.isAddingQueues = false;
       }
     );
@@ -146,7 +139,6 @@ export class UserDetailComponent implements OnInit {
     this.isRemovingQueues = true;
     this.userService.removeDoctorToQueue(this.user.id, queuesToRemove).subscribe(
       (res) => {
-        console.log(res);
         this.isRemovingQueues = false;
         this.getUserQueues();
       },
@@ -167,10 +159,8 @@ export class UserDetailComponent implements OnInit {
   }
 
   updateUser() {
-    console.log('userDetail', this.user);
     this.userService.update(this.userId, this.user).subscribe(
       (res) => {
-        console.log(res);
         this.router.navigate(['users']);
       },
       (err) => {
@@ -189,7 +179,6 @@ export class UserDetailComponent implements OnInit {
   updatePassword(password: string) {
     this.userService.update(this.userId, { password, email: this.user.email }).subscribe(
       (res) => {
-        console.log(res);
         this.location.back();
       },
       (err) => console.log(err)

@@ -7,7 +7,11 @@ table {
   text-align: right;
 }
 
-/* app.component.css */
+.field-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .status-box {
   color: white;
   padding: 10px 15px;
@@ -20,23 +24,23 @@ table {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Define specific colors for each status */
 .status-draft {
-  background-color: #d3d3d3; /* Light Gray */
+  background-color: #d3d3d3;
 }
 
 .status-received {
-  background-color: #87ceeb; /* Sky Blue */
+  background-color: #87ceeb;
 }
 
 .status-pending {
-  background-color: #ffcc66; /* Soft Orange */
+  background-color: #ffcc66;
 }
 
 .status-approved {
-  background-color: #98fb98; /* Pale Green */
+  color: green;
+  background-color: #E8F5E9;
 }
 
 .status-rejected {
-  background-color: #f08080; /* Light Coral */
+  background-color: #f08080;
 }

@@ -14,8 +14,8 @@ export class EditWhatsappTemplateComponent {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: WhatsAppTemplate) {
   }
 
-  doAction(){
-    this.dialogRef.close();
+  submit(){
+    this.dialogRef.close(this.data.body);
   }
 
   closeDialog(){

@@ -44,6 +44,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { EditWhatsappTemplateComponent } from './edit-whatsapp-template/edit-whatsapp-template.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,6 +69,7 @@ export function initializeApp(translate: TranslateService) {
     DashboardComponent,
     UserDetailComponent,
     WhatsappTemplatesComponent,
+    ConfirmationDialogComponent,
     EditWhatsappTemplateComponent,
   ],
   imports: [

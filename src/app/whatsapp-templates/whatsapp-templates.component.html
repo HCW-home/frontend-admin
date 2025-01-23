@@ -8,16 +8,27 @@
 <div class="field-container">
   <mat-form-field>
     <mat-label>Select Language</mat-label>
-    <mat-select  (ngModelChange)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
+    <mat-select (ngModelChange)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
       <mat-option *ngFor="let language of languages" [value]="language.value">
-        {{language.text}}
+        {{ language.text }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div>
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="submitAllTemplates()"
+    >
+      <div class="d-flex gap-16">
+        <mat-spinner diameter="20" *ngIf="loadingSubmit"></mat-spinner>
+        Submit All For Approval
+      </div>
+    </button>
+  </div>
 </div>
-<div>
-  <table class="mat-elevation-z8" mat-table  [dataSource]="dataSource" >
-
+<div class="mb-16">
+  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name / Template SID</th>
       <td mat-cell *matCellDef="let template">
@@ -41,30 +52,35 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions" >
+    <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let template">
 
-        <button (click)="openEdit(template)" mat-button *ngIf="template.approvalStatus === TemplateStatus.draft">
-          <mat-icon style="color:#2871BD">edit</mat-icon>
+        <button
+          class="mr-16"
+          (click)="openEdit(template)" mat-button *ngIf="template.approvalStatus === TemplateStatus.draft">
+          <mat-icon color="primary">edit</mat-icon>
         </button>
         <button
           mat-stroked-button
           color="primary"
           class="mr-16"
           (click)="submitTemplate(template.id)"
-          [disabled]="template.approvalStatus !== TemplateStatus.draft"
+          [disabled]="template.approvalStatus !== TemplateStatus.draft || loadingSubmit"
         >
-          Submit for Approval
+          <div class="d-flex gap-16">
+            <mat-spinner diameter="20" *ngIf="loadingSubmit"></mat-spinner>
+            Submit for Approval
+          </div>
         </button>
 
         <button
-          [disabled]="template.approvalStatus === TemplateStatus.draft"
+          [disabled]="template.approvalStatus === TemplateStatus.draft || template.approvalStatus === TemplateStatus.approved"
           (click)="refreshStatus(template.id)" mat-button>
-          <mat-icon >refresh</mat-icon>
+          <mat-icon>refresh</mat-icon>
         </button>
         <button (click)="deleteTemplate(template.id)" mat-button>
-          <mat-icon style="color: red;">delete</mat-icon>
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </td>
     </ng-container>
@@ -72,5 +88,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #scheduledOrdersPaginator [pageSize]="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"></mat-paginator>
 </div>

@@ -2,23 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import {
-  IBodyDeleteWhatsAppTemplate, IBodyRefreshStatus,
-  IBodySubmitWhatsAppTemplate, IParamsGetTemplates,
-  WhatsAppTemplate
+  WhatsAppTemplate,
+  IBodyRefreshStatus,
+  IParamsGetTemplates,
+  IBodySubmitWhatsAppTemplate,
+  IBodyUpdateWhatsAppTemplate,
+  IBodyDeleteWhatsAppTemplate,
+  IBodyBulkSubmitWhatsAppTemplate
 } from '../models/whatsapp-template';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class WhatsappTemplatesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   loadTemplates(params: IParamsGetTemplates) {
     return this.http.get<WhatsAppTemplate[]>(environment.api + `/templates`, { params });
   }
 
   submitTemplate(body: IBodySubmitWhatsAppTemplate) {
-    return this.http.post<WhatsAppTemplate>(environment.api + `/templates/submit`,  body);
+    return this.http.post<WhatsAppTemplate>(environment.api + `/templates/submit`, body);
+  }
+
+  bulkSubmitTemplate(body: IBodyBulkSubmitWhatsAppTemplate) {
+    return this.http.post<WhatsAppTemplate>(environment.api + `/templates/bulk-submit`, body);
+  }
+
+  updateTemplate(id: string, body: IBodyUpdateWhatsAppTemplate) {
+    return this.http.patch<WhatsAppTemplate>(environment.api + `/templates/${id}`, body);
   }
 
   deleteTemplate(body: IBodyDeleteWhatsAppTemplate) {

@@ -5,8 +5,12 @@
   </h2>
 
   <div class="sms-providers-description-wrapper">
-    <mat-card>If several SMS providers are active, you can drag and drop to change the order. If you want to allow any number, put * in Prefix and press enter.
-      If you want to restrict some phone country extension, remove the * and put the number like +33 and press enter.
+    <mat-card>
+      <mat-card-content>
+        If several SMS providers are active, you can drag and drop to change the order. If you want to allow any number,
+        put * in Prefix and press enter.
+        If you want to restrict some phone country extension, remove the * and put the number like +33 and press enter.
+      </mat-card-content>
     </mat-card>
   </div>
   <div cdkDropList class="sms-providers-list" (cdkDropListDropped)="drop($event)">
@@ -25,7 +29,7 @@
             <mat-chip-grid #chipList aria-label="Prefix selection">
               <mat-chip-row *ngFor="let prefix of setting.prefix.split(',')">
 
-                  {{ prefix }}
+                {{ prefix }}
                 <button matChipRemove aria-label="'remove ' + keyword" (click)="remove(prefix, setting)">
                   <mat-icon>cancel</mat-icon>
                 </button>
@@ -40,8 +44,8 @@
         </div>
 
         <div>
-            <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
-            <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
+          <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
+          <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
 
         </div>
       </div>
@@ -49,12 +53,15 @@
   </div>
 
 
-  <h2  class="whatsapp-provider-title">
+  <h2 class="whatsapp-provider-title">
     WhatsApp Settings
   </h2>
   <div class="whatsapp-provider-description-wrapper">
-    <mat-card>If you want to allow any number, put * in Prefix and press enter.
-    If you want to restrict some phone country extension, remove the * and put the number like +33 and press enter.
+    <mat-card>
+      <mat-card-content>
+        If you want to allow any number, put * in Prefix and press enter.
+        If you want to restrict some phone country extension, remove the * and put the number like +33 and press enter.
+      </mat-card-content>
     </mat-card>
   </div>
 
@@ -66,8 +73,8 @@
         <mat-form-field class="prefix-chip-list">
           <mat-chip-grid #chipList aria-label="Prefix selection">
             <mat-chip-row *ngFor="let prefix of setting.prefix.split(',')">
-                {{ prefix }}
-                <mat-icon matChipRemove (click)="remove(prefix, setting)">cancel</mat-icon>
+              {{ prefix }}
+              <mat-icon matChipRemove (click)="remove(prefix, setting)">cancel</mat-icon>
             </mat-chip-row>
             <input placeholder="New Prefix..."
                    [matChipInputFor]="chipList"
@@ -79,8 +86,8 @@
       </div>
 
       <div>
-          <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
-          <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
+        <mat-chip-option color="accent" *ngIf="setting.isDisabled">Disabled</mat-chip-option>
+        <mat-chip-option color="primary" selected *ngIf="!setting.isDisabled">Enabled</mat-chip-option>
 
       </div>
     </div>

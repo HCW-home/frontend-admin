@@ -58,7 +58,6 @@ export class UserFormComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('[ngOnInitView] user', this.user);
     if (!this.user) {
       this.user = {} as User;
     }

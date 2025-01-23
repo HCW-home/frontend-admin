@@ -95,7 +95,6 @@ export class QueuesComponent implements OnInit, AfterViewInit {
   }
 
   createQueue() {
-    console.log(this.newQueueName);
     if (this.newQueueName.trim()) {
       this.queueService.create({ name: this.newQueueName }).subscribe(
         (res) => {

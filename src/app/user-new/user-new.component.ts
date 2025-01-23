@@ -41,7 +41,6 @@ export class UserNewComponent implements OnInit {
     };
     this.queueService.find(params).subscribe(
       (res) => {
-        console.log('get all queues', res);
         this.allQueues = res;
       },
       (err) => {

@@ -1,4 +1,3 @@
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -8,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,13 +26,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   emailFormControl = new UntypedFormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.email
   ]);
   passwordFormControl = new UntypedFormControl('', [
-    Validators.required,
+    Validators.required
   ]);
   codeFormControl = new UntypedFormControl('', [
-    Validators.required,
+    Validators.required
   ]);
   matcher = new MyErrorStateMatcher();
 
@@ -72,9 +72,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     // If we have a token in the URL, the user has been redirected after the SAML login
     if (token) {
-      console.log('token ', this.route.snapshot.queryParams.token);
-
-      console.log('return url ', this.route.snapshot.queryParams.returnUrl);
       this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
 
       this.subscriptions.push(
@@ -83,7 +80,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           .pipe(first())
           .subscribe(
             (data) => {
-              console.log(this.returnUrl, 'this.returnUrl')
               this.router.navigate([this.returnUrl]);
               setTimeout(() => {
                 this.loading = false;
@@ -97,14 +93,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                 err.message ||
                 err;
               this.loading = false;
-            },
-          ),
+            }
+          )
       );
     }
 
     // Load the remote config to select the login methods
     this.authService.getConfig().subscribe(config => {
-      console.log(config);
       if (!('method' in config)) {
         this.showPasswordLogin = true;
         this.showSamlLogin = true;
@@ -119,7 +114,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (!token) {
           (window as any).location.href = this.openIdLoginUrl;
         }
-      }else {
+      } else {
         this.showPasswordLogin = true;
         this.showSamlLogin = true;
       }
@@ -130,7 +125,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginLocal() {
     this.loading = true;
     this.subscriptions.push(this.authService.loginLocal(this.email, this.password).subscribe(res => {
-      console.log(res);
       this.loading = false;
 
       if (res.role && res.role !== 'admin') {
@@ -143,7 +137,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigate(['dashboard']);
 
     }, err => {
-        this.loading = false;
+      this.loading = false;
       this.error =
         err.details ||
         err.error?.message ||
@@ -163,6 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.error = err;
     }));
   }
+
   login2FA() {
     this.subscriptions.push(this.authService.login2FA(this.localLoginToken, this.smsLoginToken, this.user).subscribe(res => {
       this.loading = false;
@@ -173,6 +168,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.error = err;
     }));
   }
+
   ngOnDestroy(): void {
 
     this.subscriptions.forEach((subscription: Subscription) => {
