@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.9) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.10) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -8,8 +8,18 @@ hcw-athome-admin (0.5.9) UNRELEASED; urgency=medium
   * make users table search work with api
   * fix local login
   * refs #7956, User pagination issue in admin
+  * add whatsapp templates page
+  * create and delete templates
+  * fetch approval status
+  * add status box
+  * add language filter
+  * handle approval status
+  * edit whatsapp template modal
+  * fix login page inputs
+  * refs #7769, Make Whatsapp template configurable in admin
+  * add armenian language
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 09 Jan 2025 13:50:32 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 24 Jan 2025 12:33:51 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
