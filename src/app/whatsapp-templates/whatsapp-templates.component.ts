@@ -20,6 +20,7 @@ export class WhatsappTemplatesComponent implements OnInit {
 
   loading = false;
   loadingSubmit = false;
+  loadingMap: { [key: string]: boolean } = {};
   templates: WhatsAppTemplate[] = [];
   displayedColumns: string[] = ['name', 'language', 'status', 'actions'];
   dataSource = new MatTableDataSource<WhatsAppTemplate>([]);
@@ -129,17 +130,18 @@ export class WhatsappTemplatesComponent implements OnInit {
 
 
   submitTemplate(id: string) {
-    this.loadingSubmit = true;
+    this.loadingMap[id] = true;
+
     const body = {
       id
     };
     this.whatsappTemplatesService.submitTemplate(body).subscribe({
       next: (res) => {
-        this.loadingSubmit = false;
+        this.loadingMap[id] = false;
         this.loadTemplates();
       }, error: (err) => {
         console.log(err, 'err');
-        this.loadingSubmit = false;
+        this.loadingMap[id] = false;
         const error = err?.error?.error?.details?.cause?.name || 'Failed to submit template';
         this.errorHandler.showError(error);
       }

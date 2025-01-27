@@ -66,10 +66,10 @@
           color="primary"
           class="mr-16"
           (click)="submitTemplate(template.id)"
-          [disabled]="template.approvalStatus !== TemplateStatus.draft || loadingSubmit"
+          [disabled]="template.approvalStatus !== TemplateStatus.draft || loadingSubmit || loadingMap[template.id]"
         >
           <div class="d-flex gap-16">
-            <mat-spinner diameter="20" *ngIf="loadingSubmit"></mat-spinner>
+            <mat-spinner diameter="20" *ngIf="loadingMap[template.id] || loadingSubmit"></mat-spinner>
             Submit for Approval
           </div>
         </button>
