@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.10) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.11) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -18,8 +18,9 @@ hcw-athome-admin (0.5.10) UNRELEASED; urgency=medium
   * fix login page inputs
   * refs #7769, Make Whatsapp template configurable in admin
   * add armenian language
+  * update loading state
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 24 Jan 2025 12:33:51 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Jan 2025 11:34:46 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
