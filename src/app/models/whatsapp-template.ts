@@ -38,11 +38,12 @@ export interface IBodyRefreshStatus {
 }
 
 export interface WhatsAppTemplate {
+  id: string;
+  key: string;
   createdAt: number;
   dateCreated: Date;
   dateUpdated: Date;
   friendlyName: string;
-  id: string;
   language: string;
   links: JSON;
   sid: string;
