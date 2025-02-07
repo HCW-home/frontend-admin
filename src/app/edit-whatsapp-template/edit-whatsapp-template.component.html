@@ -2,10 +2,24 @@
   {{ data.key }}
 </h1>
 <div mat-dialog-content>
-  <mat-form-field class="form-wrapper">
-          <textarea matInput rows="6" [(ngModel)]="data.body"></textarea>
-  </mat-form-field>
+  <div class="form-wrapper">
+    <mat-form-field class="w-100">
+      <textarea matInput rows="6" [(ngModel)]="data.body"></textarea>
+    </mat-form-field>
+    <div *ngIf="data.actions?.length">
+      <p>{{ 'The following link will be sent' }}</p>
+      {{data.actions | json}}
+    </div>
+    <div *ngIf="data.variables">
+      <p>{{ 'Here you can use the variables bellow in your text with a format {{1}}' }}</p>
+      <div >
+        {{data.variables | json}}
+      </div>
+  </div>
+
+  </div>
 </div>
+
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Cancel</button>
   <button mat-button (click)="submit()" mat-flat-button color="primary">Submit</button>

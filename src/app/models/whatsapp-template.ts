@@ -54,6 +54,7 @@ export interface WhatsAppTemplate {
   rejectionReason: string | null;
   approvalStatus: TemplateStatus;
   body: string;
+  actions: []
 }
 
 
