@@ -1,5 +1,5 @@
 FROM mirror.gcr.io/library/node:20 AS builder
-ENV VERSION=0.5.9
+ENV VERSION=0.5.14
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN yarn
