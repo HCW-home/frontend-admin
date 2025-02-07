@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.12) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.13) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -22,7 +22,13 @@ hcw-athome-admin (0.5.12) UNRELEASED; urgency=medium
   * text change in create user page
   * update translations
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 05 Feb 2025 16:18:24 +0000
+  [ Olivier Bitsch ]
+  * Temporarily switch to mirror.gcr.io
+
+  [ Gor Grigoryan ]
+  * add dialog title in edit template body
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 07 Feb 2025 08:44:56 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
