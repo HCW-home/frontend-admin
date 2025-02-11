@@ -3,7 +3,7 @@
 </h2>
 <form [formGroup]="configForm">
   <div formArrayName="configs">
-    <div *ngFor="let config of configs.controls; let i=index" [formGroupName]="i">
+    <div class="d-flex w-100 align-items-center" *ngFor="let config of configs.controls; let i=index" [formGroupName]="i">
 
       <mat-form-field class="url-wrapper">
         <mat-label>URL</mat-label>
@@ -40,15 +40,15 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+      <mat-slide-toggle formControlName="active" class=""></mat-slide-toggle>
 
-      <button mat-button (click)="deleteConfig(i)">Delete</button>
-      <button mat-raised-button (click)="save(i)" class="ml-10">Save</button>
+      <button mat-flat-button color="warn"  class="ml-10 align-self-start" (click)="deleteConfig(i)">Delete</button>
+      <button mat-flat-button color="primary" (click)="save(i)" class="align-self-start ml-10" >Save</button>
 
     </div>
   </div>
   <div>
-    <button mat-raised-button (click)="addConfig()">Add New Config</button>
+    <button mat-raised-button color="primary" (click)="addConfig()">Add New Config</button>
   </div>
 </form>
 
