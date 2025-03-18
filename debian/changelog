@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.15) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.16) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -30,8 +30,9 @@ hcw-athome-admin (0.5.15) UNRELEASED; urgency=medium
   * update edit whatsapp template modal
   * refs #8074, Remove google font and embedded font in app
   * add Mediasoup tab in sidenav
+  * read roles in select from translation file
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 11 Feb 2025 08:37:17 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 18 Mar 2025 06:44:42 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
