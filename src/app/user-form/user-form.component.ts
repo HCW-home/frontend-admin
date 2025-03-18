@@ -37,9 +37,9 @@ export class UserFormComponent implements OnInit {
 
   roles = [
     { name: this.translate.instant('roles.doctor'), value: Roles.ROLE_DOCTOR },
-    { name: 'Admin', value: Roles.ROLE_ADMIN },
-    { name: 'Scheduler', value: Roles.ROLE_SCHEDULER },
-    { name: 'Requester', value: Roles.ROLE_NURSE }
+    { name: this.translate.instant('roles.admin'), value: Roles.ROLE_ADMIN },
+    { name: this.translate.instant('roles.scheduler'), value: Roles.ROLE_SCHEDULER },
+    { name: this.translate.instant('roles.requester'), value: Roles.ROLE_NURSE }
   ];
 
   myForm;

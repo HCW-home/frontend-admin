@@ -5,7 +5,7 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { UserService } from '../core/user.service';
 import { User } from '../models/user';
-import {  Roles } from '../constants/user';
+import { Roles } from '../constants/user';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -43,12 +43,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.rolesList = [{ id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') }, {
-      id: Roles.ROLE_SCHEDULER,
-      label: 'Scheduler'
-    }, {
-      id: Roles.ROLE_ADMIN, label: 'Admin'
-    }, { id: Roles.ROLE_NURSE, label: 'Requester' }];
+    this.rolesList = [
+      { id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') },
+      {
+        id: Roles.ROLE_SCHEDULER,
+        label: this.translate.instant('roles.scheduler')
+      }, {
+        id: Roles.ROLE_ADMIN, label: this.translate.instant('roles.admin')
+      }, { id: Roles.ROLE_NURSE, label: this.translate.instant('roles.requester') }];
 
     this.getUsers();
     this.searchInputChanged$
@@ -70,7 +72,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       pageIndex: this.currentPageIndex,
       pageSize: this.pageSize,
       query: this.query,
-      ['roles[]']: this.selectedRoles.value,
+      ['roles[]']: this.selectedRoles.value
     };
     this.subscriptions.push(
       this.userService.getPaginatedUsers(params).subscribe(
