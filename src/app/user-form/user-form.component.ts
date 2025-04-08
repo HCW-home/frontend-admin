@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Roles } from '../constants/user';
 import { Queue } from '../models/queue';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from '../services/config.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,14 +21,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-
-  constructor(
-    private translate: TranslateService,
-    private formBuilder: UntypedFormBuilder,
-    private location: Location
-  ) {
-  }
-
   @Input() user: User;
   @Input() allQueues: Queue[];
   @Output() submmit: EventEmitter<{ user: User, selectedQueue: Queue[] }> = new EventEmitter<{
@@ -50,11 +43,33 @@ export class UserFormComponent implements OnInit {
 
   Roles = Roles;
 
+  constructor(
+    private location: Location,
+    private translate: TranslateService,
+    private configService: ConfigService,
+    private formBuilder: UntypedFormBuilder,
+  ) {
+  }
+
   ngOnInit(): void {
+    this.initializeRoles();
+
     if (!this.user) {
       this.user = {} as User;
     }
     this.createFormGroup();
+  }
+
+  initializeRoles() {
+    this.roles = [
+      { name: this.translate.instant('roles.doctor'), value: Roles.ROLE_DOCTOR },
+      { name: this.translate.instant('roles.admin'), value: Roles.ROLE_ADMIN },
+      { name: this.translate.instant('roles.scheduler'), value: Roles.ROLE_SCHEDULER },
+      { name: this.translate.instant('roles.requester'), value: Roles.ROLE_NURSE }
+    ];
+    if (this.configService.config.hideSchedulerRole) {
+      this.roles = this.roles.filter(role => role.value !== Roles.ROLE_SCHEDULER);
+    }
   }
 
   ngAfterViewInit(): void {

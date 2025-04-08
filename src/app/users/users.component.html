@@ -13,7 +13,7 @@
   <mat-form-field>
     <mat-label>Filter by role</mat-label>
     <mat-select [formControl]="selectedRoles" multiple (selectionChange)="onRoleSelectionChange()">
-      <mat-option *ngFor="let role of rolesList" [value]="role.id">{{ role.label  }}</mat-option>
+      <mat-option *ngFor="let role of roles" [value]="role.id">{{ role.label  }}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

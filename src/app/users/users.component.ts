@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-users',
@@ -19,8 +20,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  rolesList: { id: string, label: string }[] = [];
-  selectedRoles = new UntypedFormControl([Roles.ROLE_DOCTOR, Roles.ROLE_SCHEDULER, Roles.ROLE_ADMIN, Roles.ROLE_NURSE]);
+  roles: { id: string, label: string }[] = [];
+  selectedRoles;
   query = '';
   subscriptions: Subscription[] = [];
   users: User[] = [];
@@ -38,20 +39,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   protected readonly Roles = Roles;
 
   constructor(
+    private router: Router,
+    private userService: UserService,
     private translate: TranslateService,
-    private userService: UserService, private router: Router) {
+    private configService: ConfigService
+  ) {
   }
 
   ngOnInit(): void {
-    this.rolesList = [
-      { id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') },
-      {
-        id: Roles.ROLE_SCHEDULER,
-        label: this.translate.instant('roles.scheduler')
-      }, {
-        id: Roles.ROLE_ADMIN, label: this.translate.instant('roles.admin')
-      }, { id: Roles.ROLE_NURSE, label: this.translate.instant('roles.requester') }];
-
+    this.initializeRoles();
     this.getUsers();
     this.searchInputChanged$
       .pipe(debounceTime(400), distinctUntilChanged())
@@ -59,6 +55,33 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.getUsers();
       });
   }
+
+  initializeRoles(): void {
+    this.roles = [
+      { id: Roles.ROLE_DOCTOR, label: this.translate.instant('roles.doctor') },
+      { id: Roles.ROLE_SCHEDULER, label: this.translate.instant('roles.scheduler') },
+      { id: Roles.ROLE_ADMIN, label: this.translate.instant('roles.admin') },
+      { id: Roles.ROLE_NURSE, label: this.translate.instant('roles.requester') }
+    ];
+
+    if (this.configService.config.hideSchedulerRole) {
+      this.roles = this.roles.filter(role => role.id !== Roles.ROLE_SCHEDULER);
+    }
+
+    const defaultRoles = [
+      Roles.ROLE_DOCTOR,
+      Roles.ROLE_SCHEDULER,
+      Roles.ROLE_ADMIN,
+      Roles.ROLE_NURSE
+    ];
+
+    const filteredDefaultRoles = this.configService.config.hideSchedulerRole
+      ? defaultRoles.filter(role => role !== Roles.ROLE_SCHEDULER)
+      : defaultRoles;
+
+    this.selectedRoles = new UntypedFormControl(filteredDefaultRoles);
+  }
+
 
   onRoleSelectionChange() {
     this.currentPageIndex = 0;

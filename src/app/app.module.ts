@@ -46,6 +46,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { EditWhatsappTemplateComponent } from './edit-whatsapp-template/edit-whatsapp-template.component';
+import { ConfigService } from './services/config.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -128,7 +129,13 @@ export function initializeApp(translate: TranslateService) {
       useFactory: initializeApp,
       deps: [TranslateService],
       multi: true
-    }
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (cs: ConfigService) => () => cs.getConfig(),
+      deps: [ConfigService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
