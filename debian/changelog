@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.16) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.17) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -31,8 +31,10 @@ hcw-athome-admin (0.5.16) UNRELEASED; urgency=medium
   * refs #8074, Remove google font and embedded font in app
   * add Mediasoup tab in sidenav
   * read roles in select from translation file
+  * refs #8245, Hide scheduler role in Admin based on config
+  * fix click action of remove queue
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 18 Mar 2025 06:44:42 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 01 May 2025 17:19:22 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
