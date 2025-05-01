@@ -21,8 +21,8 @@
       </mat-nav-list>
     </div>
     <div class="flex-row small">
-      <button mat-icon-button [disabled]="isRemovingQueues">
-        <mat-icon style="color: indianred;" (click)="removeQueue()"> remove</mat-icon>
+      <button mat-icon-button [disabled]="isRemovingQueues" (click)="removeQueue()">
+        <mat-icon style="color: indianred"> remove</mat-icon>
       </button>
       <button mat-icon-button (click)="addQueue()" [disabled]="isAddingQueues">
         <mat-icon style="color:green;">add_box</mat-icon>
