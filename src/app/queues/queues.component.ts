@@ -11,19 +11,20 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-queues',
   templateUrl: './queues.component.html',
-  styleUrls: ['./queues.component.scss'],
+  styleUrls: ['./queues.component.scss']
 })
 export class QueuesComponent implements OnInit, AfterViewInit {
   queues: Queue[] = [];
   loading = false;
   error;
-  displayedColumns: string[] = ['name', 'disableFeedback', 'action'];
+  displayedColumns: string[] = ['name', 'disableFeedback', 'disableProvidingTimeEstimate', 'action'];
   dataSource = new MatTableDataSource<Queue>(this.queues);
   newQueueName = '';
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private queueService: QueueService, public dialog: MatDialog) {}
+  constructor(private queueService: QueueService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.getQueues();
@@ -33,6 +34,7 @@ export class QueuesComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
+
   getQueues() {
     this.loading = true;
     const params = {
@@ -51,27 +53,27 @@ export class QueuesComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  selectQueue(queue) {
-    console.log(queue);
-  }
+
   pageChange(event: Event) {
     console.log('page changed ');
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onToggle(event: MatSlideToggleChange, queue: Queue) {
+  onToggle(event: MatSlideToggleChange, queue: Queue, field: string) {
     const { checked } = event;
     const body = {
-      disableFeedback: checked
+      [field]: checked
     };
     this.queueService.updateQueue(queue.id, body).subscribe(
       (res) => {
         this.getQueues();
       },
-      (err) => {}
+      (err) => {
+      }
     );
   }
 
@@ -88,12 +90,6 @@ export class QueuesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  deleteRowData(row_obj) {
-    this.queues = this.queues.filter((value, key) => {
-      return value.id != row_obj.id;
-    });
-  }
-
   createQueue() {
     if (this.newQueueName.trim()) {
       this.queueService.create({ name: this.newQueueName }).subscribe(
@@ -107,15 +103,15 @@ export class QueuesComponent implements OnInit, AfterViewInit {
       );
     }
   }
+
   openDialog(action, obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '250px',
-      data: obj,
+      data: obj
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result.event === 'Update') {
+      if (result && result.event === 'Update') {
         const body = {
           name: result.data.name
         };
@@ -123,7 +119,8 @@ export class QueuesComponent implements OnInit, AfterViewInit {
           (res) => {
             this.getQueues();
           },
-          (err) => {}
+          (err) => {
+          }
         );
       }
     });

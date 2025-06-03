@@ -39,13 +39,20 @@
         <ng-container matColumnDef="disableFeedback">
             <th mat-header-cell *matHeaderCellDef>Disable patient feedback</th>
           <td mat-cell *matCellDef="let element">
-            <mat-slide-toggle (change)="onToggle($event, element)" [checked]="element.disableFeedback"></mat-slide-toggle>
+            <mat-slide-toggle (change)="onToggle($event, element, 'disableFeedback')" [checked]="element.disableFeedback"></mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="disableProvidingTimeEstimate">
+            <th mat-header-cell *matHeaderCellDef>Disable providing time estimation</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-slide-toggle (change)="onToggle($event, element, 'disableProvidingTimeEstimate')" [checked]="element.disableProvidingTimeEstimate"></mat-slide-toggle>
           </td>
         </ng-container>
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectQueue(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
     <mat-paginator #scheduledOrdersPaginator pageSize="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons (page)="pageChange($event)"
