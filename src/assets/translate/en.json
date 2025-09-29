@@ -193,5 +193,17 @@
     "za":  "Zhuang",
     "zh": "Chinese",
     "zu":  "Zulu"
+  },
+  "queues": {
+    "title": "Waiting queues",
+    "newQueueName": "New waiting queue name",
+    "newQueuePlaceholder": "Queue name",
+    "filter": "Filter",
+    "filterPlaceholder": "Search by name",
+    "action": "Action",
+    "queueName": "Queue name",
+    "disableFeedback": "Disable patient feedback",
+    "disableProvidingTimeEstimate": "Disable providing time estimation",
+    "shareWhenOpened": "Share even when opened"
   }
 }

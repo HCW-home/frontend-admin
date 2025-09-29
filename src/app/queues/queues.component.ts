@@ -17,7 +17,7 @@ export class QueuesComponent implements OnInit, AfterViewInit {
   queues: Queue[] = [];
   loading = false;
   error;
-  displayedColumns: string[] = ['name', 'disableFeedback', 'disableProvidingTimeEstimate', 'action'];
+  displayedColumns: string[] = ['name', 'disableFeedback', 'disableProvidingTimeEstimate', 'shareWhenOpened', 'action'];
   dataSource = new MatTableDataSource<Queue>(this.queues);
   newQueueName = '';
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
@@ -52,10 +52,6 @@ export class QueuesComponent implements OnInit, AfterViewInit {
         this.error = err;
       }
     );
-  }
-
-  pageChange(event: Event) {
-    console.log('page changed ');
   }
 
   applyFilter(event: Event) {
