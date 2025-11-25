@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.17) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.18) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -33,8 +33,17 @@ hcw-athome-admin (0.5.17) UNRELEASED; urgency=medium
   * read roles in select from translation file
   * refs #8245, Hide scheduler role in Admin based on config
   * fix click action of remove queue
+  * refs #8322, have configuration to disable providing time estimate link per queue
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 01 May 2025 17:19:22 +0000
+  [ Olivier Bitsch ]
+  * Use static bookworm image
+
+  [ Gor Grigoryan ]
+  * fix hight vulnerabilities
+  * update nvmrc
+  * refs #8715, add translations for queue list page admin
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 01 Oct 2025 08:05:11 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
