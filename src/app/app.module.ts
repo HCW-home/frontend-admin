@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import { ConfigService } from './services/config.service';
+
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
 import { JwtInterceptor } from './auth/jwt.interceptor';
@@ -33,6 +35,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -46,7 +49,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { EditWhatsappTemplateComponent } from './edit-whatsapp-template/edit-whatsapp-template.component';
-import { ConfigService } from './services/config.service';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -83,6 +86,7 @@ export function initializeApp(translate: TranslateService) {
     MatBadgeModule,
     DragDropModule,
     MatTableModule,
+    MatRadioModule,
     MatChipsModule,
     MatButtonModule,
     MatSelectModule,

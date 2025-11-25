@@ -26,5 +26,7 @@ export interface User {
   _function?: string;
   lastLoginType: LoginType;
   password: string;
-
+  enableNotif?: boolean;
+  notifPhoneNumber?: string;
+  messageService?: '1' | '2';
 }

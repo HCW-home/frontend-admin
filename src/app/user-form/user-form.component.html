@@ -78,7 +78,7 @@
     </mat-form-field>
     <ng-container *ngIf="!user.id && myForm.get('role').value === Roles.ROLE_DOCTOR">
       <mat-form-field>
-        <mat-label>Role</mat-label>
+        <mat-label>Queue</mat-label>
         <mat-select formControlName="queue" multiple>
           <mat-option [value]="queue.id" *ngFor="let queue of allQueues">{{ queue.name }}</mat-option>
         </mat-select>
@@ -124,6 +124,31 @@
           Please provide phone number with format +41XX...
         </mat-error>
       </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="user.role=='doctor' || user.role=='admin'" class="notification-settings">
+    <h3 class="notification-settings-title">{{ 'userForm.notificationSettings' | translate }}</h3>
+    <div class="field-container">
+      <mat-slide-toggle formControlName="enableNotifFormControl" [(ngModel)]="user.enableNotif">
+        {{ 'userForm.enableSmsNotification' | translate }}
+      </mat-slide-toggle>
+    </div>
+    <div class="field-container field-container--spaced">
+      <mat-form-field>
+        <mat-label class="label">{{ 'userForm.notifPhoneNumber' | translate }}</mat-label>
+        <input [(ngModel)]="user.notifPhoneNumber" matInput placeholder="+4179..."
+               formControlName="notifPhoneNumberFormControl" [errorStateMatcher]="matcher"
+               (ngModelChange)="onNotifPhoneNumberChange()" />
+        <mat-error *ngIf="myForm.controls.notifPhoneNumberFormControl.hasError('pattern')">
+          {{ 'userForm.invalidPhoneFormat' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="field-container" *ngIf="showMessageServiceRadio">
+      <mat-radio-group formControlName="messageServiceFormControl" [(ngModel)]="user.messageService" class="message-service-radio">
+        <mat-radio-button value="1">{{ 'userForm.whatsapp' | translate }}</mat-radio-button>
+        <mat-radio-button value="2">{{ 'userForm.sms' | translate }}</mat-radio-button>
+      </mat-radio-group>
     </div>
   </div>
   <div mat-dialog-actions>

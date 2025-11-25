@@ -205,5 +205,13 @@
     "disableFeedback": "Disable patient feedback",
     "disableProvidingTimeEstimate": "Disable providing time estimation",
     "shareWhenOpened": "Share even when opened"
+  },
+  "userForm": {
+    "notificationSettings": "Notification Settings",
+    "enableSmsNotification": "Enable SMS/WhatsApp notifications",
+    "notifPhoneNumber": "Notification phone number",
+    "invalidPhoneFormat": "Please provide phone number with format +41XX...",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS"
   }
 }

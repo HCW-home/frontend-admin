@@ -7,6 +7,7 @@ import { Roles } from '../constants/user';
 import { Queue } from '../models/queue';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../services/config.service';
+import { InviteService } from '../core/invite.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -39,7 +40,8 @@ export class UserFormComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   loading = false;
   error = '';
-
+  showMessageServiceRadio = false;
+  phoneNumberRegex = new RegExp(/^\+[0-9 ]+$/);
 
   Roles = Roles;
 
@@ -48,6 +50,7 @@ export class UserFormComponent implements OnInit {
     private translate: TranslateService,
     private configService: ConfigService,
     private formBuilder: UntypedFormBuilder,
+    private inviteService: InviteService,
   ) {
   }
 
@@ -80,7 +83,6 @@ export class UserFormComponent implements OnInit {
   }
 
   createFormGroup() {
-    // this.user.role = Role.doctor;
     this.myForm = this.formBuilder.group({
       emailFormControl: new UntypedFormControl(this.user.email, [Validators.email]),
       phoneNumberFormControl: new UntypedFormControl(this.user.phoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
@@ -93,13 +95,56 @@ export class UserFormComponent implements OnInit {
       genderFormControl: new UntypedFormControl(this.user.gender),
       role: new UntypedFormControl(this.user.role),
       password: new UntypedFormControl(''),
-      queue: new UntypedFormControl([])
-
-      // genderFormControl: new FormControl(false),
-
-      // our custom validator
+      queue: new UntypedFormControl([]),
+      enableNotifFormControl: new UntypedFormControl(this.user.enableNotif || false),
+      notifPhoneNumberFormControl: new UntypedFormControl(this.user.notifPhoneNumber, [Validators.pattern(new RegExp(/^\+[0-9 ]+$/))]),
+      messageServiceFormControl: new UntypedFormControl(this.user.messageService || '2'),
     }, {});
     (window as any).myForm = this.myForm;
+
+    if (this.user.notifPhoneNumber) {
+      this.checkPrefix(this.user.notifPhoneNumber);
+    }
+  }
+
+  onNotifPhoneNumberChange() {
+    const phoneNumber = this.user.notifPhoneNumber;
+    if (phoneNumber && this.phoneNumberRegex.test(phoneNumber)) {
+      this.checkPrefix(phoneNumber);
+    } else {
+      this.showMessageServiceRadio = false;
+    }
+  }
+
+  checkPrefix(phoneNumber: string) {
+    this.inviteService.checkPrefix(phoneNumber, 'en', 'notification for offline action text for doctor')
+      .subscribe({
+        next: res => {
+          switch (res.status) {
+            case 0:
+              this.showMessageServiceRadio = false;
+              break;
+            case 1:
+              this.showMessageServiceRadio = true;
+              break;
+            case 2:
+              this.showMessageServiceRadio = false;
+              if (this.user.messageService !== '1') {
+                this.user.messageService = '1';
+              }
+              break;
+            case 3:
+              this.showMessageServiceRadio = false;
+              if (this.user.messageService !== '2') {
+                this.user.messageService = '2';
+              }
+              break;
+          }
+        },
+        error: () => {
+          this.showMessageServiceRadio = false;
+        },
+      });
   }
 
   cancel() {
