@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.19) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.20) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -43,8 +43,9 @@ hcw-athome-admin (0.5.19) UNRELEASED; urgency=medium
   * update nvmrc
   * refs #8715, add translations for queue list page admin
   * add Notification Settings in user add/edit
+  * add queue in users list
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 25 Nov 2025 11:24:11 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 04 Feb 2026 10:58:46 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
