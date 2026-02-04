@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { UserService } from '../core/user.service';
+import { QueueService } from '../core/queue.service';
 import { User } from '../models/user';
+import { Queue } from '../models/queue';
 import { Roles } from '../constants/user';
 import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,12 +24,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   roles: { id: string, label: string }[] = [];
   selectedRoles;
+  queues: Queue[] = [];
+  selectedQueues = new UntypedFormControl([]);
   query = '';
   subscriptions: Subscription[] = [];
   users: User[] = [];
   loading = false;
   error;
-  displayedColumns: string[] = ['name', 'email', 'role', 'doctorTermsVersion',
+  displayedColumns: string[] = ['name', 'email', 'role', 'queues', 'doctorTermsVersion',
     'phoneNumber', 'organization', 'country', 'status', 'action'];
   dataSource = new MatTableDataSource<User>(this.users);
   totalUsers = 0;
@@ -41,6 +45,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
+    private queueService: QueueService,
     private translate: TranslateService,
     private configService: ConfigService
   ) {
@@ -48,12 +53,30 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeRoles();
+    this.loadQueues();
     this.getUsers();
     this.searchInputChanged$
       .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe(() => {
         this.getUsers();
       });
+  }
+
+  loadQueues(): void {
+    this.queueService.find({ viewAllQueues: true }).subscribe(
+      (queues) => {
+        this.queues = queues;
+      },
+      (err) => {
+        console.error('Error loading queues', err);
+      }
+    );
+  }
+
+  onQueueSelectionChange(): void {
+    this.currentPageIndex = 0;
+    this.paginator.pageIndex = 0;
+    this.getUsers();
   }
 
   initializeRoles(): void {
@@ -91,12 +114,15 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   getUsers() {
     this.loading = true;
-    const params = {
+    const params: any = {
       pageIndex: this.currentPageIndex,
       pageSize: this.pageSize,
       query: this.query,
       ['roles[]']: this.selectedRoles.value
     };
+    if (this.selectedQueues.value && this.selectedQueues.value.length > 0) {
+      params['queues[]'] = this.selectedQueues.value;
+    }
     this.subscriptions.push(
       this.userService.getPaginatedUsers(params).subscribe(
         (res) => {
@@ -152,6 +178,20 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.pageSize = event.pageSize;
     this.currentPageIndex = event.pageIndex;
     this.getUsers();
+  }
+
+  getQueueNames(queues: Queue[]): string {
+    if (!queues || queues.length === 0) return '';
+    return queues.map(q => q.name).join(', ');
+  }
+
+  getQueueNamesShort(queues: Queue[]): string {
+    if (!queues || queues.length === 0) return '-';
+    const names = queues.slice(0, 2).map(q => q.name).join(', ');
+    if (queues.length > 2) {
+      return `${names} (+${queues.length - 2})`;
+    }
+    return names;
   }
 
   ngOnDestroy() {

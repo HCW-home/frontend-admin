@@ -17,6 +17,14 @@
     </mat-select>
   </mat-form-field>
 </div>
+<div class="field-container">
+  <mat-form-field>
+    <mat-label>Filter by queue</mat-label>
+    <mat-select [formControl]="selectedQueues" multiple (selectionChange)="onQueueSelectionChange()">
+      <mat-option *ngFor="let queue of queues" [value]="queue.id">{{ queue.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
   <div class="field-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
@@ -44,6 +52,16 @@
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
       <td mat-cell *matCellDef="let element">{{ 'roles.' + element.role  | translate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="queues">
+      <th mat-header-cell *matHeaderCellDef>Queues</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.allowedQueues?.length" [matTooltip]="getQueueNames(element.allowedQueues)">
+          {{ getQueueNamesShort(element.allowedQueues) }}
+        </span>
+        <span *ngIf="!element.allowedQueues?.length">-</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="doctorTermsVersion">
