@@ -16,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     const currentUser = this.authService.currentUserValue;
     if (currentUser && currentUser.token) {
-      headersConfig["x-access-token"] = currentUser.token;
+      headersConfig["Authorization"] = `Bearer ${currentUser.token}`;
     }
 
     request = request.clone({
@@ -39,7 +39,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   private addAuthenticationToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const headersConfig = {
-      "x-access-token": token
+      "Authorization": `Bearer ${token}`
     };
     return request.clone({ setHeaders: headersConfig });
   }
