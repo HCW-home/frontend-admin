@@ -1,4 +1,4 @@
-hcw-athome-admin (0.5.20) UNRELEASED; urgency=medium
+hcw-athome-admin (0.5.21) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update readme
@@ -44,8 +44,9 @@ hcw-athome-admin (0.5.20) UNRELEASED; urgency=medium
   * refs #8715, add translations for queue list page admin
   * add Notification Settings in user add/edit
   * add queue in users list
+  * Replace x-access-token header with standard Authorization: Bearer
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 04 Feb 2026 10:58:46 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 19 Feb 2026 16:30:47 +0000
 
 hcw-athome-admin (0.5.4) focal; urgency=medium
 
